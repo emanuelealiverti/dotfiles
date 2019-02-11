@@ -1,0 +1,5 @@
+#!/bin/sh
+tmux \
+    new-session vim $1 \; \
+    split-window -v '/home/meme/bin/julia-1.0.0/bin/julia' \; \
+    select-pane -t %0 \;

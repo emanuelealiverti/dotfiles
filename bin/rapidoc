@@ -1,0 +1,13 @@
+#!/bin/bash
+# If no arguments are provided, created the file in /tmp
+DATE=`date +%Y%m%d`
+if [[ -z $1 ]]; then
+	fol='/tmp/'$DATE
+	rm -rf $fol
+	mkdir $fol
+	cd $fol
+fi
+
+cp /home/meme/MEGA/Research/TEMPLATES/Texdoc/* . 
+sed -i '1i%WARNING: THIS FILE IS IN '$(pwd) doc.tex
+vim doc.tex

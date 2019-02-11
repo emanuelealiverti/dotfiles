@@ -1,0 +1,16 @@
+#!/bin/bash
+if [[ $# -eq 0 ]]; then
+tmux \
+    new-session "sudo apt-get update && sudo apt-get upgrade; read"
+ 
+fi
+
+if [[ "$1" == "clean" ]]; then
+tmux \
+    new-session "sudo apt-get autoclean && sudo apt-get autoremove; read"
+fi
+
+if [[ "$1" == "dist" ]]; then
+tmux \
+    new-session "sudo apt-get update && sudo apt-get dist-upgrade; read"
+fi

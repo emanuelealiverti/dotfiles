@@ -1,0 +1,15 @@
+#compdef ipad_connect
+
+_ipad_connect() {
+  local state
+
+  _arguments \
+    '1: :->aws_profile'\
+    '*: :->eb_name'
+
+  case $state in
+    (aws_profile) _arguments '1:profiles:(connect disc)' ;;
+  esac
+}
+
+_ipad_connect "$@"

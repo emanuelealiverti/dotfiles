@@ -1,0 +1,208 @@
+#! /bin/bash
+
+#     aer-services does the setup to remotely run services on eleanor aka aer
+#
+#     Copyright (C) 2016, Human Rights Data Analysis Group (HRDAG)
+#     https://hrdag.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+host=aer
+
+# in jupyter-service & /usr/share/netfilter-persistent/plugins.d/16-ip4jupyter
+declare -i jupyter_port_base=20000
+readonly   jupyter_port_base
+
+readonly       rstudio_port=8787	# remote port (on $host)
+readonly local_rstudio_port=$rstudio_port
+
+readonly our_name=$(basename $0)
+
+warn () { echo -e "\n$our_name: $*\n" >&2; }
+error() { warn "$*"; exit 1; }
+
+Usage="
+Usage: $our_name action
+   Current actions are:
+      start : start RStudio & Juypter tunnels; start remote, private Juypter
+      stop  : stop  RStudio & Juypter tunnels; stop  remote, private Juypter
+      status: show  RStudio & Juypter tunnels; show  remote, private Juypter
+      restart: stop then start
+   Common options:
+	-s server: specify server (default is '$host')
+
+	-d: Debug shell script (don't run commands, just show them)
+	-t: Trace shell script (show commands as they execute)"
+
+Run= Trace= debug_opt= trace_opt=
+while getopts "s: dth" arg
+    do  case $arg in
+	   ( s ) host=$OPTARG ;;
+
+	   ( d ) Run=echo       debug_opt=-d ;; # put $Run before 'active' cmds
+	   ( t ) Trace="set -x" trace_opt=-t ;;
+	   ( h ) echo  "$Usage"; exit 0 ;;
+	   ( * ) error "$Usage" ;;
+	esac
+done
+let OPTIND=$OPTIND-1
+shift $OPTIND
+unset arg
+
+[[ $# == 1 ]] || error "$Usage"
+
+readonly action=$1 host
+
+# ----------------------------------------------------------------------------
+# constants we'll need
+# ----------------------------------------------------------------------------
+
+readonly tunnel_opts="-o ControlMaster=no -o ControlPath=none -f -N -L"
+
+# insert before 'readonly' for testing: my_uid=1000; 
+declare -i my_uid
+           my_uid=$(ssh $host id --user) ; readonly my_uid
+(( 0$my_uid > 0 )) ||
+   error "can't login to aer account; might need Hostname and/or User in ~/.ssh/config ; and must see a public key when run: ssh-add -l"
+
+declare -i jupyter_port=jupyter_port_base+my_uid ; readonly jupyter_port
+readonly local_jupyter_port=$jupyter_port
+readonly jupyter_forward=$local_jupyter_port:localhost:$jupyter_port
+
+readonly rstudio_forward=$local_rstudio_port:localhost:$rstudio_port
+
+readonly forwards="$rstudio_forward $jupyter_forward"
+
+set_tunnel_cmd__service__port() {
+	local forward=$1
+
+	tunnel_cmd="ssh $tunnel_opts $forward $host"
+
+	port=${forward%%:*}
+	case $port in
+	   ( $local_jupyter_port ) service=Juypter ;;
+	   ( $local_rstudio_port ) service=RStudio ;;
+	   ( * ) error "$forward is an unrecognized forward" ;;
+	esac
+}
+
+# ----------------------------------------------------------------------------
+# functions
+# ----------------------------------------------------------------------------
+
+ssh_error() {
+
+	error "ssh $* failed; do you have a '$host' stanza in ~/.ssh/config ?"
+}
+
+run_jupyter_service() {
+
+	if [[ $(hostname) == scottw-U ]]
+	   then local dir=/home/scott/git/resource-utils/bin/
+	   else local dir=
+	fi
+	$Run ssh $host ${dir}jupyter-service "$@"
+}
+
+show_URL() {
+	local forward=$1
+
+	set_tunnel_cmd__service__port $forward
+	if [[ $service == Juypter ]]
+	   then local token=$(jupyter_token)
+	   else local token=
+	fi
+	echo "access $service on $host via: http://localhost:$port/$token"
+}
+
+tunnel_status() {
+	local forward=$1 tunnel_cmd
+
+	set_tunnel_cmd__service__port $forward
+	ps ax | grep "[ ]${tunnel_cmd% *}" # strip off [username@]host
+}
+#
+status() {
+
+	for forward in $forwards
+	    do	tunnel_status $forward
+	done
+
+	echo
+	for forward in $forwards
+	    do	if tunnel_status $forward &> /dev/null
+		   then show_URL $forward
+		   else echo "No tunnel to $service port on $host"
+		fi
+	done
+
+	echo
+	run_jupyter_service status ||
+	   error "Jupyter Notebook not running on $host"
+}
+
+start() {
+
+	for forward in $forwards
+	    do	set_tunnel_cmd__service__port $forward
+		tunnel_status $forward &> /dev/null &&
+		   { warn "$service tunnel already running"; continue; }
+		$Run $tunnel_cmd || ssh_error tunnel
+		show_URL $forward
+	done
+
+	run_jupyter_service status &> /dev/null &&
+	  { warn "Jupyter Notebook already running"; return; }
+	run_jupyter_service start 2>&1 > /tmp/Jupyter.log &
+	[[ $? == 0 ]] || ssh_error jupyter start
+	echo -e "\nNow running: tail -f /tmp/Jupyter.log"
+	echo -e "You can hit CTRL-C when you're tired of watching it ...\n"
+	$Run exec tail -f /tmp/Jupyter.log
+}
+
+stop() {
+
+	local PIDs=
+	for forward in $forwards
+	    do	local pid=$(tunnel_status $forward | awk '{print $1}')
+		[[ $pid ]] && PIDs="$PIDs $pid"
+	done
+	local pid=$(ps ax | grep ' [s]sh .* jupyter-service ' |
+			awk '{print $1}')
+	[[   $pid ]] && PIDs="$PIDs $pid"
+	if [[ $PIDs ]]
+	   then $Run kill $PIDs
+	   else warn "couldn't find any tunnels"
+	fi
+
+	run_jupyter_service stop
+}
+
+jupyter_token() {
+	run_jupyter_service token
+}
+
+# ----------------------------------------------------------------------------
+# main
+# ----------------------------------------------------------------------------
+
+$Trace
+
+case $action in
+  ( star* ) start  ;;
+  ( sto*  ) stop   ;;
+  ( stat* ) status ;;
+  ( restart ) stop; start ;;
+  (*token ) jupyter_token ;;
+esac
