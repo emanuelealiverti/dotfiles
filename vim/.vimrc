@@ -25,17 +25,17 @@ Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'JuliaEditorSupport/julia-vim'
 Plugin 'chrisbra/csv.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'mg979/vim-visual-multi.git'
 Plugin 'https://github.com/ssp3nc3r/stan-syntax-vim.git'
 Plugin 'godlygeek/tabular'
 Plugin 'itchyny/calendar.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'wesQ3/vim-windowswap.git'
 Plugin 'jalvesaq/vimcmdline.git'
-Plugin 'dahu/vim-fanfingtastic.git' 
+"Plugin 'dahu/vim-fanfingtastic.git' 
 Plugin 'tpope/vim-repeat'
-
-
+Plugin 'iamcco/markdown-preview.nvim.git'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'dylanaraps/fff.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -80,15 +80,14 @@ set hidden
 map ; :
 noremap ;; ;
 
-"save with Ctrl s
-noremap <silent> <C-S>         : update<CR>
-vnoremap <silent> <C-S>  <C-C> : update<CR>
-inoremap <silent> <C-S>  <C-O> : update<CR>
-
-" and ==
+"Save wih ++
 noremap == :update<CR>
+"
+" Save with sudo
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 noremap K r<CR>
+command Bd bp\|bd \#
 
 "move to end of line above when press left
 set whichwrap+=<,>,h,l,[,]
@@ -104,11 +103,20 @@ augroup END
 "and check it uses zsh
 "set shell=zsh\ -i
 
+"++++++++++++++++++
+" HARD MODE (soft)
+"++++++++++++++++++
+nnoremap <PageUp> <NOP> 
+nnoremap <PageDown> <NOP>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 """""""""""""""""""""""""""""""""""""
 " BUFFERS
 """"""""""""""""""""""""""""""""""""
-nnoremap ` :ls<cr>:b<space>
+nnoremap <silent> ` :ToggleBufExplorer<CR> 
 
 "Move between windows with ctrl arrow
 nmap <silent> <C-Up> :wincmd k <CR>
@@ -127,7 +135,6 @@ imap <silent>  <C-Right> <Esc> :wincmd l<CR>
 
 "esc terminal with esc
 tnoremap <Esc> <C-\><C-n>
-
 
 
 """""""""""""""""""""""""""""""""""""
@@ -160,9 +167,7 @@ let g:calendar_first_day = 'monday'
 """""""""""""""""""""""""""""""""""""
 " NERD tree 
 """""""""""""""""""""""""""""""""""""
-
 map <C-n> :NERDTreeToggle<CR>
-map <f1> :NERDTreeToggle<CR>
 
 """""""""""""""""""""""""""""""""""""
 " VIMTEX 
@@ -226,15 +231,11 @@ let cmdline_app['sh']     = 'zsh'
 """""""""""""""""""""""""""""""""""""
 " SLIME OPTIONS (SEND CODE WITH TMUX)
 """""""""""""""""""""""""""""""""""""
-
 "Force slime to use tmux instead of screen
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": 'default', "target_pane": "%1"}
 let g:slime_dont_ask_default = 1
 let g:slime_no_mappings = 1
-"nmap ,, <Plug>SlimeParagraphSend
-"nmap , <Plug>SlimeParagraphSend
-"
 "With julia ftype
 "autocmd BufEnter *jl nmap ,, <Plug> SlimeParagraphSend
 
@@ -260,6 +261,10 @@ let g:lightline.tabline = {
 			\   'left': [ ['tabs'] ],
 			\   'right': [ [''] ]
 			\ }
+"""""""""""""""""""""""""""""""""""""
+" Call custom functions 
+"""""""""""""""""""""""""""""""""""""
+map <Leader>+ :call Surround()<CR>
 
 
 """""""""""""""""""""""""""""""""""""
@@ -316,20 +321,25 @@ function SwitchColor()
 endfunction
 
 function TexStartup()
-	silent! call ToggleWrap()
-	silent! call ToggleWrap()
+	"silent! call ToggleWrap()
+	"silent! call ToggleWrap()
 	silent! call SetSpellOptions()
 endfunction
 
-"""""""""""""""""""""""""""""""""""""
-" Remote R
-"""""""""""""""""""""""""""""""""""""
-if system('df') =~ 'remoteR'
-	let $NVIM_IP_ADDRESS = system("hostname -I")
-	let R_app = '/home/meme/bin/sshR'
-	"let R_cmd = '/home/meme/bin/sshR'
-	let R_compldir = '/home/meme/.remoteR/NvimR_cache'
-	let R_tmpdir = '/home/meme/.remoteR/NvimR_cache/tmp'
-	let R_remote_tmpdir = '/home/aliverti/.cache/NvimR_cache/tmp'
-	let R_nvimcom_home = '/home/meme/.remoteR/R_library/nvimcom'
-endif
+"+++++++++++++++++++++++
+" Surround line with ++
+"+++++++++++++++++++++++
+
+function Surround()
+	"Use NERDcomment to find out filetype char
+	normal! 0i
+	call NERDComment("n","toggle")
+	normal! vy
+	normal! a 
+	let linel=strwidth(getline('.'))  
+	normal! o
+	normal! p
+	execute "normal!$" . linel . "a" . "+"
+	normal! YkP
+endfunction
+

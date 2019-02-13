@@ -5,11 +5,14 @@
 # ███████╗███████║██║  ██║██║  ██║╚██████╗
 # ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
 
+export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 export PATH=/usr/local/cuda-8.0/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 export PATH="/home/meme/anaconda3/bin:$PATH"
 export TERM=st-256color
 export ZSH_CUSTOM=/home/meme/bin/ZSH_custom/
+export BYOBU_PYTHON='/usr/bin/python2.7'
 #custom variable for smart paths
 
 fpath+=(/home/memebin/ZSH_custom/completions/)
@@ -19,12 +22,14 @@ source "/home/meme/bin/ZSH_custom/functions.zsh"
 #
 
 # Define zim location
-export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-
 # Start zim
-[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 
 setopt CHASE_LINKS
+#setopt hist_ignore_dups
+#Zim highlighting
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+
 
 #################################
 ## Completion for kill processes
