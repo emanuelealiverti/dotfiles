@@ -1,3 +1,4 @@
+"""""""""""""""""""""""""""""""""""""
 "  ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
 "  ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
 "  ██║   ██║██║██╔████╔██║██████╔╝██║     
@@ -48,7 +49,8 @@ filetype plugin indent on    " required
 " colors
 set termguicolors
 
-colorscheme seoul256
+colorscheme onedark 
+"colorscheme seoul256
 set background=dark
 
 "colorscheme solarized8
@@ -73,16 +75,15 @@ set shortmess=a
 "when buffer changes, ask to save
 set hidden 
 "
-"""""""""""""""""""""""""""""""""""""
+"++++++++++
 " C0MMANDS
-""""""""""""""""""""""""""""""""""""
+"++++++++++
 " ; is :
 map ; :
 noremap ;; ;
 
-"Save wih ++
+"Save wih ==  
 noremap == :update<CR>
-"
 " Save with sudo
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
@@ -106,23 +107,26 @@ augroup END
 "++++++++++++++++++
 " HARD MODE (soft)
 "++++++++++++++++++
-nnoremap <PageUp> <NOP> 
-nnoremap <PageDown> <NOP>
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+nnoremap <PageUp> :echoe "Use C-Y"<CR> 
+nnoremap <PageDown>  :echoe "Use C-E"<CR>
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
+nnoremap j gj
+nnoremap k gk
+inoremap jk <esc>
 
-"""""""""""""""""""""""""""""""""""""
+"++++++++
 " BUFFERS
-""""""""""""""""""""""""""""""""""""
+"++++++++
 nnoremap <silent> ` :ToggleBufExplorer<CR> 
 
 "Move between windows with ctrl arrow
-nmap <silent> <C-Up> :wincmd k <CR>
-nmap <silent> <C-Down> :wincmd j<CR>
-nmap <silent> <C-Left> :wincmd h<CR>
-nmap <silent> <C-Right> :wincmd l<CR>
+nmap <silent> <C-k> :wincmd k <CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
 
 " circular windows navigation
 nnoremap <Tab>   <c-W>w
@@ -137,9 +141,10 @@ imap <silent>  <C-Right> <Esc> :wincmd l<CR>
 tnoremap <Esc> <C-\><C-n>
 
 
-"""""""""""""""""""""""""""""""""""""
+"+++++++++++++++
 " Tab allignment
-"""""""""""""""""""""""""""""""""""""
+"+++++++++++++++
+
 nmap <Leader>a= :Tabularize /^[^=]*\zs= <CR>
 vmap <Leader>a= :Tabularize /^[^=]*\zs= <CR>
 
@@ -149,9 +154,9 @@ vmap <Leader>a& :Tab/&<CR>
 nmap <Leader>a> :Tab/%>%<CR>
 vmap <Leader>a> :Tab/%>%<CR>
 
-"""""""""""""""""""""""""""""""""""""
+"+++++++++++++++++++++
 " NERD Comment plugin 
-"""""""""""""""""""""""""""""""""""""
+"+++++++++++++++++++++
 
 vmap <C-_> <Leader>ci
 nmap <C-_> <Leader>ci
@@ -165,10 +170,10 @@ let g:calendar_google_calendar = 1
 let g:calendar_first_day = 'monday'
 
 """""""""""""""""""""""""""""""""""""
-" NERD tree 
+" NERD tree and FFF 
 """""""""""""""""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR>
-
+let g:fff#split_direction = "nosplitright"
 """""""""""""""""""""""""""""""""""""
 " VIMTEX 
 """""""""""""""""""""""""""""""""""""
@@ -215,9 +220,10 @@ let R_assign=0
 nmap <leader>a <leader>kb
 autocmd FileType r,rnw,rd,rmd inoremap >> %>%
 
-"""""""""""""""""""""""""""""""""""""
+""++++++++++++++++++++++++++++++++++++++++++++++++++
 " CMD line - similar to NVIM but for julia (less) 
-"""""""""""""""""""""""""""""""""""""
+""++++++++++++++++++++++++++++++++++++++++++++++++++
+
 let cmdline_map_start          = '<LocalLeader>s'
 let cmdline_map_send           = '<Space>'
 let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
@@ -239,12 +245,11 @@ let g:slime_no_mappings = 1
 "With julia ftype
 "autocmd BufEnter *jl nmap ,, <Plug> SlimeParagraphSend
 
-"""""""""""""""""""""""""""""""""""""
-" LIGHTLINE SETUP (BECOMES LOOOOONG) 
-"""""""""""""""""""""""""""""""""""""
-"\ 'colorscheme': 'solarised',
+""++++++++++++++++
+" LIGHTLINE SETUP
+""++++++++++++++++
 let g:lightline = {
-			\ 'colorscheme': 'seoul256',
+			\ 'colorscheme': 'onedark',
 			\ 'active': {
 			\   'right': [ [ 'lineinfo' ],
 			\              [ 'percent' ],
@@ -265,11 +270,12 @@ let g:lightline.tabline = {
 " Call custom functions 
 """""""""""""""""""""""""""""""""""""
 map <Leader>+ :call Surround()<CR>
+map <Leader>= :call Surround(1)<CR>
 
 
-"""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " USEFUL FUNCTIONS, not referred to specific packages
-"""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 noremap <silent> <Leader>W :call ToggleWrap()<CR>
 function ToggleWrap()
@@ -326,20 +332,25 @@ function TexStartup()
 	silent! call SetSpellOptions()
 endfunction
 
-"+++++++++++++++++++++++
-" Surround line with ++
-"+++++++++++++++++++++++
+""""""""""""""""""""""""""""""""""""""""
+" Surround lines with custom characters 
+""""""""""""""""""""""""""""""""""""""""
 
-function Surround()
+function Surround(...)
 	"Use NERDcomment to find out filetype char
+	let a:arg1 = get(a:, 0, 0)
 	normal! 0i
 	call NERDComment("n","toggle")
-	normal! vy
+	normal! ^vy
 	normal! a 
-	let linel=strwidth(getline('.'))  
+	let linel=strwidth(getline('.'))-1 
 	normal! o
-	normal! p
-	execute "normal!$" . linel . "a" . "+"
+	normal! Dp
+	if a:arg1
+		execute "normal!$" . linel . "p" 
+	else
+		execute "normal!$" . linel . "a" . "+"
+	endif
 	normal! YkP
+	normal! =3j
 endfunction
-
