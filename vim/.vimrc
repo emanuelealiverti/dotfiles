@@ -32,6 +32,7 @@ Plugin 'itchyny/calendar.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'wesQ3/vim-windowswap.git'
 Plugin 'jalvesaq/vimcmdline.git'
+Plugin 'jpalardy/vim-slime.git'
 "Plugin 'dahu/vim-fanfingtastic.git' 
 Plugin 'tpope/vim-repeat'
 Plugin 'iamcco/markdown-preview.nvim.git'
@@ -193,8 +194,6 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
 let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
-"let g:SuperTabMappingBackward = "<c-tab>"
-"let g:SuperTabMappingTabLiteral = "<s-tab>"
 let g:SuperTabLongestEnhanced = 1
 let g:SuperTabCrMapping = 0
 autocmd FileType * if &omnifunc != '' | call SuperTabChain(&omnifunc, "<c-p>") | endif
@@ -224,7 +223,7 @@ autocmd FileType r,rnw,rd,rmd inoremap >> %>%
 " CMD line - similar to NVIM but for julia (less) 
 ""++++++++++++++++++++++++++++++++++++++++++++++++++
 
-let cmdline_map_start          = '<LocalLeader>s'
+let cmdline_map_start          = '<LocalLeader>rf'
 let cmdline_map_send           = '<Space>'
 let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
 let cmdline_map_source_fun     = '<LocalLeader>f'
@@ -232,13 +231,14 @@ let cmdline_map_send_paragraph = ','
 let cmdline_map_send_block     = '<LocalLeader>b'
 let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
-let cmdline_app['sh']     = 'zsh'
-
+let cmdline_app['sh']     ='telegram-cli -NW -l 0'
+let cmdline_app['matlab']     = 'telegram-cli -NW -l 0'
+au FileType matlab execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
 """""""""""""""""""""""""""""""""""""
 " SLIME OPTIONS (SEND CODE WITH TMUX)
 """""""""""""""""""""""""""""""""""""
 "Force slime to use tmux instead of screen
-let g:slime_target = "tmux"
+let g:slime_target = "neovim"
 let g:slime_default_config = {"socket_name": 'default', "target_pane": "%1"}
 let g:slime_dont_ask_default = 1
 let g:slime_no_mappings = 1

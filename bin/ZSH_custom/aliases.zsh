@@ -1,22 +1,23 @@
-################
-## Custom paths 
-###############
+##++++++++++++++
+# Custom paths 
+##++++++++++++++
 
 export cw=/home/meme/MEGA/Research/PAPERS/MIX_LL
 export tr=/home/meme/MEGA/Research/000_CurrentWork/TOREAD
 export max=/home/meme/MEGA/Research/MEME_MAX
 export skew=/home/meme/MEGA/Research/PAPERS/SUN_FERTILIY
-#
-#========
+
+##+++++++++++++++++++++++++
 # Navigate to custom paths
-#========
+##+++++++++++++++++++++++++
+
 alias cdw='cd $cw' 
 alias cdt='cd $tr' 
 
 
-###########
-## ALIASES
-##########
+##++++++++
+# ALIASES
+##++++++++
 alias -g ...='../..'
 alias -g ....='../../..'
 
@@ -34,7 +35,8 @@ alias gitPush='git push origin master'
 alias pbcopy='xclip -selection c'
 alias pbpaste='xclip -out -selection c'
 alias pwdc='pwd | xclip -selection c' 
-
+#alias tg='tmux new-session -A -s Telegram telegram-cli -NW -l 0'
+alias tg="tmux new-session -A -s Telegram vim /tmp/a.m +'exe VimCmdLineStartApp() | res 10'"
 alias lmkrm='latexmk -c' 
 alias vcal='vim -c :Calendar' 
 alias k='k -h --group-directories-first --no-vcs'
@@ -49,13 +51,14 @@ alias tn='tmux new -s'
 
 alias x='unarchive'
 alias xz='archive'
+
 #++++
 #Based on personal scripts
 #++++
 alias op='/home/meme/bin/op.sh'
 alias dim='/home/meme/bin/dim.sh'
 #alias ncm="tmux new -s SPOTIFY '/home/meme/bin/ncmpcpp.sh' && tmux a"
-alias ncm="tmux new -s SPOTIFY '/home/meme/bin/ncmpcpp.sh'"
+alias ncm="tmux new -A -s SPOTIFY '/home/meme/bin/ncmpcpp.sh'"
 alias f="/home/meme/bin/fff"
 
 #++++
