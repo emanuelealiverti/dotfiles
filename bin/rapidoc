@@ -11,3 +11,10 @@ fi
 cp /home/meme/MEGA/Research/TEMPLATES/Texdoc/* . 
 sed -i '1i%WARNING: THIS FILE IS IN '$(pwd) doc.tex
 vim doc.tex
+
+#Knirt verion
+#cp /home/meme/MEGA/Research/TEMPLATES/Knitr/* . 
+#sed -i '1i%WARNING: THIS FILE IS IN '$(pwd) doc.Rnw
+#vim doc.Rnw
+
+

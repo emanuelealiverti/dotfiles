@@ -209,6 +209,8 @@ let R_show_args = 0
 let R_show_arg_help = 0
 let R_open_example = 0
 "let R_in_buffer = 0
+nmap <space> <Plug>RDSendLine
+vmap <space> <Plug>RDSendLine
 nmap , <Plug>RDSendLine
 vmap , <Plug>RDSendLine
 "nmap <C-CR> <Plug>RDSendLine
@@ -231,9 +233,8 @@ let cmdline_map_send_paragraph = ','
 let cmdline_map_send_block     = '<LocalLeader>b'
 let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
-let cmdline_app['sh']     ='telegram-cli -NW -l 0'
-let cmdline_app['matlab']     = 'telegram-cli -NW -l 0'
-au FileType matlab execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
+let cmdline_app['prolog']     = 'telegram-cli -NW -l 0'
+au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
 """""""""""""""""""""""""""""""""""""
 " SLIME OPTIONS (SEND CODE WITH TMUX)
 """""""""""""""""""""""""""""""""""""
