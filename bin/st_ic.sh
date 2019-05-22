@@ -31,8 +31,10 @@ xdotool windowfocus $win
 #xdotool windowfocus $win
 #wmctrl -ia $xid
 #sleep .1
-python2 /home/meme/bin/windowtool.py --decorations 0 ACTIVE
-xseticon -id "$win" /home/meme/bin/ICONS/kiss.png 
+
+#+++++++++++++++++++++++++++++++++
+# Uncomment this to remove borders
+#+++++++++++++++++++++++++++++++++
+#python2 /home/meme/bin/windowtool.py --decorations 0 ACTIVE
+xseticon -id "$win" /home/meme/bin/ICONS/faceW.png
 #xseticon -id "$win" /home/meme/bin/ICONS/faceW.png 
-#xdotool getactivewindow windowsize 50% 110% 
-#xdotool getactivewindow windowmove 0 0

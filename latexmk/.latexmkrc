@@ -1,5 +1,5 @@
-$pdf_mode = 4;
-$postscript_mode = $dvi_mode = 0;
+#$pdf_mode = 4;
+#$postscript_mode = $dvi_mode = 0;
 push @generated_exts, "cb";
 push @generated_exts, "cb2";
 push @generated_exts, "spl";

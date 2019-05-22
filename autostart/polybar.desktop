@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=polybar -c /home/meme/MEGA/000_Documents_personal/polybar/config meme
+Hidden=false
+X-MATE-Autostart-enabled=true
+Name[en_US]=polybar
+Name=polybar
+Comment[en_US]=
+Comment=

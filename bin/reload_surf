@@ -1,0 +1,14 @@
+#!/bin/sh
+
+win=$(xdotool search --pid $(cat /tmp/surf_pid))
+
+if [ -z "$win"]
+then
+	surf "$1" & echo $! > /tmp/surf_pid
+	sleep 1
+	win=$(xdotool search --pid $(cat /tmp/surf_pid) | tail -1)
+	xseticon -id "$win" /usr/share/app-install/icons/pan.png
+else
+	xdotool windowactivate $win
+	xdotool key ctrl+r
+fi

@@ -1,4 +1,3 @@
-"""""""""""""""""""""""""""""""""""""
 "  ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
 "  ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
 "  ██║   ██║██║██╔████╔██║██████╔╝██║     
@@ -26,18 +25,19 @@ Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'JuliaEditorSupport/julia-vim'
 Plugin 'chrisbra/csv.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'https://github.com/ssp3nc3r/stan-syntax-vim.git'
+Plugin 'ssp3nc3r/stan-syntax-vim.git'
 Plugin 'godlygeek/tabular'
 Plugin 'itchyny/calendar.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'wesQ3/vim-windowswap.git'
 Plugin 'jalvesaq/vimcmdline.git'
 Plugin 'jpalardy/vim-slime.git'
-"Plugin 'dahu/vim-fanfingtastic.git' 
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
 Plugin 'iamcco/markdown-preview.nvim.git'
 Plugin 'jlanzarotta/bufexplorer'
-Plugin 'dylanaraps/fff.vim'
+Plugin 'mbbill/undotree'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -48,12 +48,12 @@ filetype plugin indent on    " required
 " STYLE 
 """"""""""""""""""""""""""""""""""""
 " colors
-set termguicolors
+"set termguicolors
 
-colorscheme onedark 
+colorscheme gruvbox
 "colorscheme seoul256
 set background=dark
-
+let g:gruvbox_contrast_dark='soft'
 "colorscheme solarized8
 "set background=light
 
@@ -66,10 +66,10 @@ set relativenumber
 set numberwidth=5
 
 "highlight cursons only in insert
-set cursorline 
-autocmd InsertEnter * set nocursorline 
-autocmd InsertLeave * set cursorline 
-
+"set cursorline 
+"autocmd InsertEnter * set nocursorline 
+"autocmd InsertLeave * set cursorline 
+"
 " ENTER to continue
 set shortmess=a
 "set cmdheight=2
@@ -86,7 +86,6 @@ noremap ;; ;
 "Save wih ==  
 noremap == :update<CR>
 " Save with sudo
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 noremap K r<CR>
 command Bd bp\|bd \#
@@ -174,7 +173,13 @@ let g:calendar_first_day = 'monday'
 " NERD tree and FFF 
 """""""""""""""""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR>
-let g:fff#split_direction = "nosplitright"
+
+""""""""""""""""""
+" Markdown preview
+""""""""""""""""""
+
+"let g:mkdp_browser = 'surf'
+
 """""""""""""""""""""""""""""""""""""
 " VIMTEX 
 """""""""""""""""""""""""""""""""""""
@@ -183,7 +188,6 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_quickfix_latexlog = {'default' : 0}
 " Enable spell checking when opening .tex files
-
 autocmd Filetype tex call TexStartup() 
 
 """""""""""""""""""""""""""""""""""""
@@ -211,8 +215,8 @@ let R_open_example = 0
 "let R_in_buffer = 0
 nmap <space> <Plug>RDSendLine
 vmap <space> <Plug>RDSendLine
-nmap , <Plug>RDSendLine
-vmap , <Plug>RDSendLine
+"nmap , <Plug>RMakePDFK
+"vmap , <Plug>RDSendLine
 "nmap <C-CR> <Plug>RDSendLine
 "vmap <C-CR> <Plug>RDSendLine
 "inoremap <C-CR> <Esc>:call SendLineToR("down")<CR>i
@@ -220,6 +224,7 @@ vmap , <Plug>RDSendLine
 let R_assign=0
 nmap <leader>a <leader>kb
 autocmd FileType r,rnw,rd,rmd inoremap >> %>%
+"autocmd FileType rmd call RmdStart()
 
 ""++++++++++++++++++++++++++++++++++++++++++++++++++
 " CMD line - similar to NVIM but for julia (less) 
@@ -235,6 +240,7 @@ let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
 let cmdline_app['prolog']     = 'telegram-cli -NW -l 0'
 au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
+"
 """""""""""""""""""""""""""""""""""""
 " SLIME OPTIONS (SEND CODE WITH TMUX)
 """""""""""""""""""""""""""""""""""""
@@ -246,14 +252,13 @@ let g:slime_no_mappings = 1
 "With julia ftype
 "autocmd BufEnter *jl nmap ,, <Plug> SlimeParagraphSend
 
-""++++++++++++++++
+"++++++++++++++++
 " LIGHTLINE SETUP
-""++++++++++++++++
+"++++++++++++++++
 let g:lightline = {
-			\ 'colorscheme': 'onedark',
+			\ 'colorscheme': 'gruvbox',
 			\ 'active': {
 			\   'right': [ [ 'lineinfo' ],
-			\              [ 'percent' ],
 			\              [ 'filetype'] ],
 			\ }
 			\ }
@@ -311,8 +316,10 @@ function ToggleWrap()
 endfunction
 
 function SetSpellOptions()
-	"setlocal spell spelllang=en,it
-	setlocal spell spelllang=en
+	setlocal spell spelllang=en,it
+	"setlocal spell spelllang=en
+	"setlocal spell spelllang=it
+	inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 	hi clear SpellBad                                                
 	hi SpellBad cterm=underline,bold gui=underline,bold
 	hi clear SpellRare                                               
@@ -333,12 +340,23 @@ function TexStartup()
 	silent! call SetSpellOptions()
 endfunction
 
+function RmdStart()
+	nnoremap == :update \| call RMakeRmd("default")<CR>
+	setlocal spell spelllang=it
+	setlocal syntax=markdown
+	"silent! call RtabB()
+endfunction
+
+function RtabB()
+	tabnew empty.R
+	normal \rf
+endfunction
 """"""""""""""""""""""""""""""""""""""""
 " Surround lines with custom characters 
 """"""""""""""""""""""""""""""""""""""""
 
 function Surround(...)
-	"Use NERDcomment to find out filetype char
+"Use NERDcomment to find out filetype char
 	let a:arg1 = get(a:, 0, 0)
 	normal! 0i
 	call NERDComment("n","toggle")
@@ -354,4 +372,9 @@ function Surround(...)
 	endif
 	normal! YkP
 	normal! =3j
+	" Add this to close the box "
+	"normal! ^yl$pja 
+	"normal! p
+	"normal! j$p
+	"
 endfunction

@@ -83,24 +83,23 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 static const char *colorname[] = {
-  "#282c34", /* base00 */
-  "#e06c75", /* base08 */
-  "#98c379", /* base0B */
-  "#e5c07b", /* base0A */
-  "#61afef", /* base0D */
-  "#c678dd", /* base0E */
-  "#56b6c2", /* base0C */
-  "#abb2bf", /* base05 */
-  "#545862", /* base03 */
-  "#d19a66", /* base09 */
-  "#353b45", /* base01 */
-  "#3e4451", /* base02 */
-  "#565c64", /* base04 */
-  "#b6bdca", /* base06 */
-  "#be5046", /* base0F */
-  "#c8ccd4", /* base07 */
+	"#303030", /* base00 */
+	"#cc241d",
+	"#98971a",
+	"#d79921",
+	"#458588",
+	"#b16286",
+	"#689d6a",
+	"#a89984",
+	"#928374",
+	"#fb4934",
+	"#b8bb26",
+	"#fabd2f",
+	"#83a598",
+	"#d3869b",
+	"#8ec07c",
+	"#ebdbb2",
 };
-
 unsigned int defaultfg = 7;
 unsigned int defaultbg = 0;
 static unsigned int defaultcs = 13;
@@ -448,6 +447,6 @@ static uint selmasks[] = {
  * of single wide characters.
  */
 static char ascii_printable[] =
-	" !\"#$%&'()*+,-./0123456789:;<=>?"
-	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
-	"`abcdefghijklmnopqrstuvwxyz{|}~";
+" !\"#$%&'()*+,-./0123456789:;<=>?"
+"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+"`abcdefghijklmnopqrstuvwxyz{|}~";

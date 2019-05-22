@@ -3,9 +3,10 @@
 ##++++++++++++++
 
 export cw=/home/meme/MEGA/Research/PAPERS/MIX_LL
-export tr=/home/meme/MEGA/Research/000_CurrentWork/TOREAD
+export tr=/home/meme/MEGA/Research/TOREAD
 export max=/home/meme/MEGA/Research/MEME_MAX
 export skew=/home/meme/MEGA/Research/PAPERS/SUN_FERTILIY
+
 
 ##+++++++++++++++++++++++++
 # Navigate to custom paths
@@ -13,6 +14,9 @@ export skew=/home/meme/MEGA/Research/PAPERS/SUN_FERTILIY
 
 alias cdw='cd $cw' 
 alias cdt='cd $tr' 
+alias cdte='cd /home/meme/MEGA/Teaching/' 
+alias cdg='cd /home/meme/MEGA/Teaching/GOOGLE_cloud/' 
+alias cdcon='cd /home/meme/Dropbox/StatsConsulting/'
 
 
 ##++++++++
@@ -29,6 +33,7 @@ alias _='sudo'
 # Based on "defualt" commands, in general remap a commad to have some options as predef
 alias lsd='ls -h --group-directories-first'
 alias rm='rm -i'
+alias cp='cp -i'
 alias trash-empty='sudo rm -rf ~/.local/share/Trash/*'
 alias wifiRes='sudo service network-manager restart'
 alias gitPush='git push origin master'
@@ -60,7 +65,7 @@ alias dim='/home/meme/bin/dim.sh'
 #alias ncm="tmux new -s SPOTIFY '/home/meme/bin/ncmpcpp.sh' && tmux a"
 alias ncm="tmux new -A -s SPOTIFY '/home/meme/bin/ncmpcpp.sh'"
 alias f="/home/meme/bin/fff"
-
+alias pdf_tools="Rscript --vanilla /home/meme/bin/pdf_pageR.R"
 #++++
 #Based on custom prog, mostly symlinks
 #++++
@@ -70,3 +75,4 @@ alias ccat='pygmentize'
 alias vlcACE='/snap/bin/acestreamplayer'
 alias del='gio trash'
 alias ptop='glances'
+alias qute='~/GIT/qutebrowser/.venv/bin/python3 -m qutebrowser'
