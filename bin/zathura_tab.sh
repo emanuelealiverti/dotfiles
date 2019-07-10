@@ -9,7 +9,7 @@ if [ -r "$xidfile" ] && xid=$(cat "$xidfile") && xprop -id "$xid" WM_CLASS 2> /d
 then
 	wmctrl -i -R "$xid"
 else
-	read xid < <(tabbed -cdn "$wmclass" -p -1 2> /dev/null)
+	read xid < <(tabbed -dn "$wmclass" -p -1 2> /dev/null)
 	#wmctrl -i -r "$xid" -b add,maximized_vert,maximized_horz
 	wmctrl -i -r "$xid" -b add,maximized_vert
 	echo "$xid" > "$xidfile"
@@ -27,9 +27,10 @@ done
 
 if [ "$d" = true ]; 
 then
+	echo "open"
 	#	zathura '--synctex-editor-command=/usr/bin/subl %{input}:%{line}' -e "$xid" "$@" &> /dev/null &
 	zathura -e "$xid" "$@" &> /dev/null &
 	WINDOW_NAME="$(xdotool search --classname "zathura-tabbed" | tail -1)"
 	xseticon -id "$WINDOW_NAME" /home/meme/bin/ICONS/document-24-bl.png 
-	python2 /home/meme/bin/windowtool.py --decorations 0 "$xid"
+	#python2 /home/meme/bin/windowtool.py --decorations 0 "$xid"
 fi

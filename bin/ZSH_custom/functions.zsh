@@ -27,18 +27,26 @@ thirdline() { awk '{if (NR%3==0){print "\033[31m" $0 "\033[0m"} else{print}}'; }
 
 pdf_ren(){'/home/meme/bin/pdf_rename.sh' $@ 2>/dev/null}
 
-#++++++++++
-# 
-#+++++++++++
+#+++++++++++++++++++++++++++++++++++++++++++++
+# Very useful functions to make local packages
+# Took me ages to get complieattr` 
+#+++++++++++++++++++++++++++++++++++++++++++++
+
 R_localbuild() {
+
 	if [ ! -d ./lib ]; then
 		mkdir lib
 	fi
+
+	oldd=$(pwd)
 	cd $1
-	R -e "Rcpp::compileAttributes()"
-	cd ..
+	R -e "Rcpp::compileAttributes(verbose=T)"
+	#cd ..
+	cd $oldd
 	R CMD build $1
+	R CMD REMOVE -l lib "$1"
 	R CMD INSTALL -l lib "$1"
+	#cd $oldd
 
 }
 
@@ -48,22 +56,6 @@ bianca_webcam() {
 }
 
 
-ssh_aws() {
-
-	if [[ -z "${AWS_IP}" && -z "$*" ]]; then
-		echo "aws ip addr missing!"
-		return 0
-	fi
-
-	if [[ -z "${AWS_IP}" ]]; then
-		AWS_IP="$1"
-		ssh ec2-user@ec2-$AWS_IP.eu-west-1.compute.amazonaws.com -vvv
-		AWS_HOST="ec2-user@ec2-$AWS_IP.eu-west-1.compute.amazonaws.com" 
-	else
-		ssh ec2-user@ec2-$AWS_IP.eu-west-1.compute.amazonaws.com -vvv
-	fi
-
-}
 notify_at() { echo 'notify-send "'$1'"' | at $2}
 
 #++++++++++++++
@@ -77,23 +69,38 @@ vim_scp () {
 
 }
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# ZSH stats: https://wikimatze.de/show-the-most-common-used-terminal-commands/
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-zsh-stats() {
-  fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n25
+#+++++++
+# Update
+#+++++++
+my_upd() {
+       case "$1" in
+            -u) tmux new-session "sudo apt-get update && sudo apt-get upgrade; read" ;;
+            -d|dist) tmux new-session "sudo apt-get update && sudo apt-get dist-upgrade; read" ;;
+            -c|clean) tmux new-session "sudo apt-get autoclean && sudo apt-get autoremove; read" ;;
+            *) echo "specify option -u,-d or -c" 
+        esac
 }
 
-#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Change mac address
-# source: https://twitter.com/mgechev/status/1130441471105093632?s=09
-#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+++++++++++++++++++++++++++++
+# Remove metadata etc from pdf
+#+++++++++++++++++++++++++++++
 
-changeMac() {
-  local mac=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
-  sudo ifconfig en0 ether $mac
-  sudo ifconfig en0 down
-  sudo ifconfig en0 up
-  echo "Your new physical address is $mac"
+clean_pdf() {
+ pdftk $1 dump_data | \
+  sed -e 's/\(InfoValue:\)\s.*/\1\ /g' | \
+  pdftk $1 update_info - output clean-$1
+
+ exiftool -all:all= clean-$1
+ exiftool -all:all clean-$1
+ exiftool -extractEmbedded -all:all clean-$1
+ qpdf --linearize clean-$1 clean2-$1
+
+ pdftk clean2-$1 dump_data
+ exiftool clean2-$1
+ pdfinfo -meta clean2-$1
 }
 
+f() {
+    fff "$@"
+    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
+}

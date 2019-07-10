@@ -13,7 +13,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
@@ -54,12 +53,17 @@ colorscheme gruvbox
 "colorscheme seoul256
 set background=dark
 let g:gruvbox_contrast_dark='soft'
+"set background=light
+let g:gruvbox_contrast_light='hard'
 "colorscheme solarized8
 "set background=light
 
 "colorscheme deus
 "set background=dark
 
+set t_ZH=3m
+set t_ZR=23m
+"
 "show line number
 set nu
 set relativenumber

@@ -303,24 +303,23 @@ Copy the file to $HOME/.config/openbox/ instead. -->
     <keybind key="W-A-Return">
       <action name="ToggleMaximizeVert"/>
     </keybind>
-    <keybind key="W-v">
-      <action name="MoveResizeTo">
-        <y>50</y>
-      </action>
-    </keybind>
-    <keybind key="W-h">
-      <action name="MoveResizeTo">
-        <x>50</x>
-      </action>
-    </keybind>
-    <keybind key="W-j">
-      <action name="MoveResizeTo">
-        <x>-50</x>
-      </action>
+
+    <keybind key="W-Down">
+      <action name="ToggleMaximize"/>
     </keybind>
     <keybind key="W-Up">
       <action name="ToggleMaximize"/>
     </keybind>
+
+    <keybind key="W-l">
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>0</y>
+        <height>100%</height>
+        <width>50%</width>
+      </action>
+    </keybind>
+
     <keybind key="W-Right">
       <action name="MoveResizeTo">
         <x>-0</x>
@@ -329,9 +328,13 @@ Copy the file to $HOME/.config/openbox/ instead. -->
         <width>50%</width>
       </action>
     </keybind>
-    <keybind key="W-Down">
+
+    <keybind key="W-h">
       <action name="MoveResizeTo">
-        <y>-0</y>
+        <x>0</x>
+        <y>0</y>
+        <height>100%</height>
+        <width>50%</width>
       </action>
     </keybind>
     <keybind key="W-Left">
@@ -342,6 +345,7 @@ Copy the file to $HOME/.config/openbox/ instead. -->
         <width>50%</width>
       </action>
     </keybind>
+
     <keybind key="W-C-Left">
       <action name="MoveResizeTo">
         <monitor>2</monitor>
@@ -355,7 +359,18 @@ Copy the file to $HOME/.config/openbox/ instead. -->
     <!-- Keybindings for window switching -->
     <keybind key="A-Tab">
       <action name="NextWindow">
-        <dialog>list</dialog>
+        <!--<dialog>list</dialog>-->
+        <dialog>icons</dialog>
+        <finalactions>
+          <action name="Focus"/>
+          <action name="Raise"/>
+          <action name="Unshade"/>
+        </finalactions>
+      </action>
+    </keybind>
+    <keybind key="W-Tab">
+      <action name="NextWindow">
+	      <allDesktops>yes</allDesktops>
         <finalactions>
           <action name="Focus"/>
           <action name="Raise"/>
@@ -364,6 +379,7 @@ Copy the file to $HOME/.config/openbox/ instead. -->
       </action>
     </keybind>
     <keybind key="A-S-Tab">
+        <dialog>client-list-menu</dialog>
       <action name="PreviousWindow">
         <finalactions>
           <action name="Focus"/>
@@ -412,7 +428,7 @@ Copy the file to $HOME/.config/openbox/ instead. -->
     </keybind>
     <keybind key="W-w">
       <action name="Execute">
-        <command>surf https://www.google.com</command>
+        <command>chromium-browser</command>
       </action>
     </keybind>
     <keybind key="C-q">
@@ -433,7 +449,7 @@ Copy the file to $HOME/.config/openbox/ instead. -->
     </keybind>
     <keybind key="W-space">
       <action name="Execute">
-        <command>rofi -show drun -columns 1 -width 30 -lines 5 2</command>
+        <command>rofi -show drun</command>
       </action>
     </keybind>
     <keybind key="C-space">

@@ -21,7 +21,7 @@ if [ ! -z "$QUERY" ]; then
 DOC=$($QUERY_TOOL "$QUERY" | grep 'file://' \
 	| sed -e 's|^ *file://||' | sed -e "s|$HOME/||" \
 	| perl -e 'use URI::Escape; print uri_unescape(<STDIN>);' \
-	| rofi -dmenu -p 'Results:' -i -l 20)
+	| rofi -dmenu -p 'Results:' -i -width 50 -l 20)
 fi
 
 if [ "x$DOC" != x ]; then

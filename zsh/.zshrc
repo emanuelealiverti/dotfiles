@@ -10,7 +10,7 @@ export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 export PATH=/usr/local/cuda-8.0/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 export PATH="/home/meme/anaconda3/bin:$PATH"
-export TERM=st-256color
+export TERM=screen-256color
 export ZSH_CUSTOM=/home/meme/bin/ZSH_custom/
 export BYOBU_PYTHON='/usr/bin/python2.7'
 #custom variable for smart paths

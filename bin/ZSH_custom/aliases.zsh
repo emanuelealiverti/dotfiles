@@ -15,8 +15,7 @@ export skew=/home/meme/MEGA/Research/PAPERS/SUN_FERTILIY
 alias cdw='cd $cw' 
 alias cdt='cd $tr' 
 alias cdte='cd /home/meme/MEGA/Teaching/' 
-alias cdg='cd /home/meme/MEGA/Teaching/GOOGLE_cloud/' 
-alias cdcon='cd /home/meme/Dropbox/StatsConsulting/'
+alias cdsl='cd /home/meme/MEGA/Research/CONFERENCES/TALK/SIS_SLIDES/'
 
 
 ##++++++++
@@ -64,7 +63,6 @@ alias op='/home/meme/bin/op.sh'
 alias dim='/home/meme/bin/dim.sh'
 #alias ncm="tmux new -s SPOTIFY '/home/meme/bin/ncmpcpp.sh' && tmux a"
 alias ncm="tmux new -A -s SPOTIFY '/home/meme/bin/ncmpcpp.sh'"
-alias f="/home/meme/bin/fff"
 alias pdf_tools="Rscript --vanilla /home/meme/bin/pdf_pageR.R"
 #++++
 #Based on custom prog, mostly symlinks

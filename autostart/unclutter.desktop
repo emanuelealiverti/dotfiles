@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=unclutter -idle 1.0
+Hidden=false
+X-MATE-Autostart-enabled=true
+Name[en_US]=Unclutter
+Name=Unclutter
+Comment[en_US]=
+Comment=

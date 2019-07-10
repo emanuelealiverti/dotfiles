@@ -1,0 +1,27 @@
+set selection-clipboard clipboard
+set recolor "true"
+#Paper back
+set recolor-lightcolor "#FBF5E6"
+set recolor-darkcolor "#454545"
+#set recolor-lightcolor "#454545"
+#set recolor-darkcolor "#FBF5E6"
+
+#Black
+#set recolor-lightcolor "#444444"
+#set recolor-darkcolor "#BABDB6"
+
+set highlight-transparency .2
+#set highlight-color "#ff5050"
+#set highlight-active-color "#ff8000"
+set highlight-color "#0076A1"
+set highlight-active-color "#ff8000"
+set default-bg "#444444"
+set statusbar-bg "#444444"
+set window-title-basename "true"
+set window-icon /home/meme/bin/ICONS/document-24.png 
+set statusbar-basename "false"
+set selection-notification "false"
+map [normal] i recolor
+map [fullscreen] i recolor
+map [presentation] i recolor
+map [normal] b toggle_statusbar
