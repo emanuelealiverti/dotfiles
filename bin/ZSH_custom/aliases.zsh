@@ -5,8 +5,10 @@
 export cw=/home/meme/MEGA/Research/PAPERS/MIX_LL
 export tr=/home/meme/MEGA/Research/TOREAD
 export max=/home/meme/MEGA/Research/MEME_MAX
-export skew=/home/meme/MEGA/Research/PAPERS/SUN_FERTILIY
-
+export thesis=/home/meme/MEGA/Unipd/PhD/THESIS/REVISION/
+export skew=/home/meme/MEGA/Research/CONFERENCES/TALK/BASP/
+export bart='/home/meme/Dropbox/BernardiDuranteAliverti_SUN/AddRegressTrees/'
+export dm='/home/meme/MEGA/Teaching/DM/'
 
 ##+++++++++++++++++++++++++
 # Navigate to custom paths
@@ -14,8 +16,10 @@ export skew=/home/meme/MEGA/Research/PAPERS/SUN_FERTILIY
 
 alias cdw='cd $cw' 
 alias cdt='cd $tr' 
-alias cdte='cd /home/meme/MEGA/Teaching/' 
-alias cdsl='cd /home/meme/MEGA/Research/CONFERENCES/TALK/SIS_SLIDES/'
+alias cdth='cd $thesis'
+alias cdp='cd /home/meme/MEGA/Research/PAPERS/' 
+#alias cdth='cd $thesis; tmux new-session -A -s thesis vim Aliverti_thesis.tex' 
+alias cdj='cd /home/meme/Dropbox/ALJD_fairness/JRSSA'
 
 
 ##++++++++
@@ -45,6 +49,7 @@ alias lmkrm='latexmk -c'
 alias vcal='vim -c :Calendar' 
 alias k='k -h --group-directories-first --no-vcs'
 alias l='k' 
+alias f='. ranger' 
 
 #+++++++
 # TMUX
@@ -71,6 +76,6 @@ alias pwtop='_ powertop'
 alias lls='ranger'
 alias ccat='pygmentize'
 alias vlcACE='/snap/bin/acestreamplayer'
-alias del='gio trash'
+alias del='gvfs-trash'
 alias ptop='glances'
 alias qute='~/GIT/qutebrowser/.venv/bin/python3 -m qutebrowser'

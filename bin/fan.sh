@@ -9,8 +9,8 @@ temp=$(sensors | grep 'Pack' | cut -c17-20)
 
 
 if [[ $fan == '   0' ]]; then 
-	echo 'Temp' $temp
+	echo '' $temp
 else
-	echo 'Temp' $temp 'FanSpeed' $fan $pr
+	echo '' $temp '' $fan $pr
 fi
 

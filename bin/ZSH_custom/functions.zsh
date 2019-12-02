@@ -1,12 +1,12 @@
 #++++++++++++++++++
 ## Custom Functions 
 #++++++++++++++++++
+#eval "$(fasd --init zsh-hook)"
 
 
 #+++++++++++
 # NAVIGATION
 #++++++++++
-
 cdl() {cd "$@" && ls -lhA}
 
 cdd() {
@@ -25,31 +25,46 @@ take() { mkdir -p $1; cd $1;}
 
 thirdline() { awk '{if (NR%3==0){print "\033[31m" $0 "\033[0m"} else{print}}'; }
 
-pdf_ren(){'/home/meme/bin/pdf_rename.sh' $@ 2>/dev/null}
-
 #+++++++++++++++++++++++++++++++++++++++++++++
 # Very useful functions to make local packages
 # Took me ages to get complieattr` 
 #+++++++++++++++++++++++++++++++++++++++++++++
+print_bord() {
+	printf %"$COLUMNS"s |tr " " "-"
+	echo $@
+	printf %"$COLUMNS"s |tr " " "-"
+}
 
 R_localbuild() {
 
 	if [ ! -d ./lib ]; then
+		print_bord "CREATING LIB DIRECTORY"
 		mkdir lib
+	else
+		print_bord "LIB DIRECTORY ALREADY EXISTS"
 	fi
 
 	oldd=$(pwd)
 	cd $1
-	R -e "Rcpp::compileAttributes(verbose=T)"
+	print_bord "Compiling attributes"
+	R -q -e "Rcpp::compileAttributes(verbose=T)"
 	#cd ..
 	cd $oldd
-	R CMD build $1
+	print_bord "BUILDING"
+
+	R CMD build --no-build-vignettes --no-manual $1
+
+	print_bord "BUILD SUCCESSFUL. REMOVING OLD PACKAGE AND INSTALLING"
 	R CMD REMOVE -l lib "$1"
-	R CMD INSTALL -l lib "$1"
+	R CMD INSTALL --no-docs --no-html -l lib "$1"
 	#cd $oldd
 
 }
 
+#++++++++++++++++++
+# Clean tex compile
+#++++++++++++++++++
+clean_tex(){ latexmk -pdf $1; latexmk -c }
 
 bianca_webcam() {
 	ssh bianca ffmpeg -an -f video4linux2 -s 640x480 -i /dev/video0 -r 10 -b:v 500k -f matroska - | mplayer - -idle -demuxer matroska 
@@ -98,9 +113,4 @@ clean_pdf() {
  pdftk clean2-$1 dump_data
  exiftool clean2-$1
  pdfinfo -meta clean2-$1
-}
-
-f() {
-    fff "$@"
-    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
 }

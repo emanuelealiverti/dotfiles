@@ -40,23 +40,23 @@
 # Examples of commands:
 
 "xbindkeys_show" 
-  control+shift + q
+control+shift + q
 
 #"mpc next"
-  #XF86AudioNext
+#XF86AudioNext
 "mpc next"
- shift+XF86AudioPlay
+shift+XF86AudioPlay
 "mpc next"
- control+XF86AudioPlay
+control+XF86AudioPlay
 
 #"mpc prev"
-  #XF86AudioPrev
+#XF86AudioPrev
 
 "mpc toggle"
-  XF86AudioPlay
+XF86AudioPlay
 
 #"mpc toogle"
- #Alt+Mod2 + XF86AudioPlay
+#Alt+Mod2 + XF86AudioPlay
 # set directly keycode (here control + f with my keyboard)
 #"xterm"
 #  c:41 + m:0x4

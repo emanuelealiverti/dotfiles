@@ -227,8 +227,8 @@ k () {
     typeset -a FILEAGES_TO_COLOR
     FILEAGES_TO_COLOR=(
              0 196  # < in the future, #spooky
-            60 255  # < less than a min old
-          3600 252  # < less than an hour old
+            60 250  # < less than a min old
+          3600 250  # < less than an hour old
          86400 250  # < less than 1 day old
         604800 244  # < less than 1 week old
        2419200 244  # < less than 28 days (4 weeks) old

@@ -20,6 +20,7 @@ push @generated_exts, "aux";
 push @generated_exts, "dvi";
 push @generated_exts, "synctex.gz";
 push @generated_exts, "synctex.gz(busy)";
+push @generated_exts, "synctex(busy)";
 push @generated_exts, "run.xml";
 push @generated_exts, "%R-blx.bib";
 push @generated_exts, "%R-concordance.tex";

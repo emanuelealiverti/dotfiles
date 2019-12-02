@@ -62,7 +62,7 @@ static unsigned int cursorthickness = 2;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "screen-256color";
+char *termname = "st-256color";
 
 /*
  * spaces per tab
@@ -82,7 +82,7 @@ char *termname = "screen-256color";
 unsigned int tabspaces = 8;
 
 static const char *colorname[] = {
-	"#282828", /* base00 */
+	"#303030", /* base00 */
 	"#cc241d",
 	"#98971a",
 	"#d79921",
