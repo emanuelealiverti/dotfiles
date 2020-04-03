@@ -10,10 +10,12 @@
 cdl() {cd "$@" && ls -lhA}
 
 cdd() {
+	cd $(dirs -lp | fzf)
+}
+cdd_old() {
 	ID=$1
 	cd /home/meme$(d | sed -n ''$(($ID+1>0?$ID+1:0))'p'| cut -d~ -f2-)
 }
-
 alias 0='cd $(cdd 0)'
 alias 1='cd $(cdd 1)'
 alias 2='cd $(cdd 2)'
@@ -41,7 +43,8 @@ R_localbuild() {
 		print_bord "CREATING LIB DIRECTORY"
 		mkdir lib
 	else
-		print_bord "LIB DIRECTORY ALREADY EXISTS"
+		print_bord "LIB DIRECTORY ALREADY EXISTS - cleaning"
+		rm -rf ./lib/$1
 	fi
 
 	oldd=$(pwd)
@@ -101,16 +104,30 @@ my_upd() {
 #+++++++++++++++++++++++++++++
 
 clean_pdf() {
- pdftk $1 dump_data | \
-  sed -e 's/\(InfoValue:\)\s.*/\1\ /g' | \
-  pdftk $1 update_info - output clean-$1
+	python2 $(which mat)
+}
 
- exiftool -all:all= clean-$1
- exiftool -all:all clean-$1
- exiftool -extractEmbedded -all:all clean-$1
- qpdf --linearize clean-$1 clean2-$1
+#+++++
+# WIFI
+#+++++
+wl(){
+	local ssid
+	local conn
 
- pdftk clean2-$1 dump_data
- exiftool clean2-$1
- pdfinfo -meta clean2-$1
+	nmcli device wifi rescan > /dev/null
+	ssid=$(nmcli device wifi list | tail -n +2 | grep -v '^  *\B--\B' | fzf -m | sed 's/^ *\*//' | awk '{print $1}')
+
+	if [ "x$ssid" != "x" ]; then
+		# check if the SSID has already a connection setup
+		conn=$(nmcli con | grep "$ssid" | awk '{print $1}' | uniq)
+		if [ "x$conn" = "x$ssid" ]; then
+			echo "Please wait while switching to known network $ssid…"
+			# if yes, bring up that connection
+			nmcli con up id "$conn"
+		else
+			echo "Please wait while connecting to new network $ssid…"
+			# if not connect to it and ask for the password
+			nmcli device wifi connect "$ssid"
+		fi
+	fi
 }

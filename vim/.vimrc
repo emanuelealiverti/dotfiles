@@ -5,12 +5,12 @@
 "██╗╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
 "╚═╝ ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 
-
 call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
 Plug 'jalvesaq/Nvim-R'
+Plug 'jalvesaq/R-Vim-runtime'
 Plug 'lervag/vimtex'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
@@ -19,7 +19,6 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'chrisbra/csv.vim'
 Plug 'ssp3nc3r/stan-syntax-vim'
 Plug 'godlygeek/tabular'
-Plug 'itchyny/calendar.vim'
 Plug 'tpope/vim-obsession'
 Plug 'jalvesaq/vimcmdline'
 Plug 'tpope/vim-repeat'
@@ -27,12 +26,9 @@ Plug 'tpope/vim-surround'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'dyng/ctrlsf.vim'
-"Plug 'ncm2/ncm2'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'AndrewRadev/linediff.vim'
 
-"Plug 'roxma/nvim-yarp'
-
-"Plug 'ncm2/ncm2-bufword'
-"Plug 'ncm2/ncm2-path'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -46,17 +42,12 @@ set termguicolors
 "set t_Co=256
 
 colorscheme gruvbox
-"colorscheme seoul256
 set background=dark
-let g:gruvbox_contrast='soft'
+let g:gruvbox_contrast_dark="soft"
+"let g:gruvbox_contrast_dark='hard'
+"set background=light
+"let g:gruvbox_contrast_light='light'
 let g:gruvbox_italic=1
-"set background=jlight
-"let g:gruvbox_contrast_light='soft'
-"colorscheme solarized8
-"set background=jjlight
-
-"colorscheme deus
-"set background=dark
 
 set t_ZH=3m
 set t_ZR=23m
@@ -90,6 +81,8 @@ nnoremap <leader>cd :cd %:p:h<CR>
 
 " close buffer, preserved layout
 command BD bp\|bd \#
+nnoremap <silent> <Leader>] :bn <CR>
+nnoremap <silent> <Leader>[ :bp <CR>
 
 "move to end of line above when press left
 set whichwrap+=<,>,h,l,[,]
@@ -101,10 +94,18 @@ augroup TerminalStuff
 augroup END
 "autocmd TermOpen * set nonumber relativenumber
 
+"++++++++++++++++++++
+" Wildmenu navigation
+"++++++++++++++++++++
+"cnoremap <C-l> <Down>
+"cnoremap <expr> <C-L>  "\<Down>" 
+"cnoremap <expr> <Down>  pumvisible() ? "\<Right>" : "\<Down>"
+"cnoremap <expr> <Left>  pumvisible() ? "\<Up>"    : "\<Left>"
+"cnoremap <expr> <Right> pumvisible() ? "\<Down>"  : "\<Right>"
+
 "This cause crazy shit to happen
 "and check it uses zsh
 "set shell=zsh\ -i
-
 "++++++++++++++++++
 " HARD MODE (soft)
 "++++++++++++++++++
@@ -121,7 +122,8 @@ inoremap jk <esc>
 "++++++++
 " BUFFERS
 "++++++++
-nnoremap <silent> ` :ToggleBufExplorer<CR> 
+"nnoremap <silent> ` :ToggleBufExplorer<CR> 
+nnoremap <silent> _ :ToggleBufExplorer<CR> 
 
 "Move between windows with ctrl arrow
 nmap <silent> <C-k> :wincmd k <CR>
@@ -132,6 +134,9 @@ nmap <silent> <C-l> :wincmd l<CR>
 " circular windows navigation
 nnoremap <Tab>   <c-W>w
 nnoremap <S-Tab> <c-W>W
+
+nnoremap <silent> <Leader>} :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>{ :exe "resize " . (winheight(0) * 2/3)<CR>
 
 imap <silent>  <C-Up> <Esc>    : wincmd k <CR>
 imap <silent>  <C-Down> <Esc>  : wincmd j<CR>
@@ -164,11 +169,6 @@ nmap <C-_> <Leader>ci
 imap <C-_> <Esc> :call NERDComment("n","toggle") <CR>i
 
 
-"""""""""""""""""""""""""""""""""""""
-" GOOGLE CALENDAR
-"""""""""""""""""""""""""""""""""""""
-let g:calendar_google_calendar = 1
-let g:calendar_first_day = 'monday'
 
 """""""""""""""""""""""""""""""""""""
 " NERD tree and FFF 
@@ -226,7 +226,7 @@ let R_show_arg_help = 0
 let R_open_example = 0
 "let R_in_buffer = 0
 nmap <space> <Plug>RDSendLine
-vmap <space> <Plug>RDSendLine
+vmap <space> <Plug>RDSendSelection
 "nmap , <Plug>RMakePDFK
 "vmap , <Plug>RDSendLine
 "nmap <C-CR> <Plug>RDSendLine
@@ -351,5 +351,10 @@ function! ToggleNetrw()
         silent Lexplore
     endif
 endfunction
-
-
+"++++++++++++++
+" Google search
+"++++++++++++++
+function! GoogleSearch()
+     let searchterm = getreg("g")
+     silent! exec "silent! !firefox \"http://google.com/search?q=" . searchterm . "\" &"
+endfunction

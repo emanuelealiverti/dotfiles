@@ -20,11 +20,13 @@ sleep 1;
 
 cd /tmp/
 nohup mopidy &
-echo "Mopidy Spotify with spotify playlist support takes a while"
+echo "Mopidy Spotify with spotify playlist support takes a while. In the meanwhile"
 # This sleep waits until mopidy is ready for connetion. Maybe can be reduced... 
-sleep 10
+for tl in 1 2; do
+	fortune -a & sleep 5
+done
 mpd
-xbindkeys
+#xbindkeys
 
 ncmpcpp -b ~/.ncmpcpp/keybind
 rm -rf ~/.cache/mopidy/spotify/*

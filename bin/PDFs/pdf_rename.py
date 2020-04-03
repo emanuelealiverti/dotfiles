@@ -57,7 +57,7 @@ def title_h(paper):
         badW = [w for w in words if w.lower() in final_name.lower()]
         if len(badW) == 0:
             break
-    return final_name
+    return final_name.replace(",","")
 
 def backup(files):
     os.system('mkdir -p OLD_NAMES')

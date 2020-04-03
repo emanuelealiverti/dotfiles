@@ -20,5 +20,8 @@ options(prompt        = "> ",
 	max.print     = 1e3,
 	width         = 80,
 	menu.graphics = FALSE,
+	#Ncpus         = 4,
+	#browser = "/home/meme/bin/reload_surf"
 	Ncpus         = 4
 	)
+Sys.setenv(TENSORFLOW_PYTHON="/usr/bin/python3")

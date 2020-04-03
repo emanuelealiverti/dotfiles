@@ -1,6 +1,6 @@
 #!/bin/sh
 
-win=$(xdotool search --pid $(cat /tmp/surf_pid))
+win=$(xdotool search --pid $(cat /tmp/surf_pid) | tail -1)
 
 if [ -z "$win"]
 then
