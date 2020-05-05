@@ -10,21 +10,22 @@
 QUERY_TOOL="recoll -b -t"
 #PROMPT_THEME='-nf #dcdcdc -nb #2f2 2f -sb #a6c292 -sf black'
 LINE_MAX=10
-
+#ROFI_HIST=/tmp/.rofi_hist
+ROFI_HIST=${HOME}/.rofi_hist
 # Use argument or query interactively.
 if [ -z "$@" ]; then
-	touch /tmp/rofi.hist
+	touch $ROFI_HIST
 	#QUERY=`rofi -dmenu -p "Find:" -lines 10 -columns 1 -width 10 </dev/null`
-	ll=$(cat /tmp/rofi.hist | wc -l)
+	ll=$(cat $ROFI_HIST | wc -l)
 	ll=$(( $ll < $LINE_MAX ? ll : $LINE_MAX ))
-	QUERY=`tac /tmp/rofi.hist | head -n $ll | rofi -dmenu -p "Find:" -lines $ll -columns 1 -width 20`
+	QUERY=`tac $ROFI_HIST | head -n $ll | rofi -dmenu -p "Find:" -lines $ll -columns 1 -width 20`
 else
 	QUERY="$@"
 fi
 
 if [ ! -z "$QUERY" ]; then
-	echo $QUERY >> /tmp/rofi.hist
-	gawk -i inplace '!seen[$0]++' /tmp/rofi.hist
+	echo $QUERY >> $ROFI_HIST
+	gawk -i inplace '!seen[$0]++' $ROFI_HIST
 DOC=$($QUERY_TOOL "$QUERY" | grep 'file://' \
 	| sed -e 's|^ *file://||' | sed -e "s|$HOME/||" \
 	| perl -e 'use URI::Escape; print uri_unescape(<STDIN>);' \

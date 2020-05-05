@@ -1,0 +1,11 @@
+rofi.font: hack 13
+rofi.modi: drun 
+rofi.columns: 1
+rofi.width: 30 
+rofi.lines: 5 
+rofi.hide-scrollbar:    true
+!rofi.show-icons:        true
+rofi.color-normal: #00282828,  #ebdbb2,  #00282828,  #003c3836,  #98971a
+rofi.color-urgent: #00282828,  #ebdbb2,  #00282828,  #003c3836,  #98971a
+rofi.color-active: #00282828,  #ebdbb2,  #00282828,  #003c3836,  #98971a
+rofi.color-window: #ee282828, #ee282828, #ee928374

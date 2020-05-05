@@ -28,6 +28,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'dyng/ctrlsf.vim'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'junegunn/fzf'
 
 
 " All of your Plugins must be added before the following line
@@ -124,6 +125,9 @@ inoremap jk <esc>
 "++++++++
 "nnoremap <silent> ` :ToggleBufExplorer<CR> 
 nnoremap <silent> _ :ToggleBufExplorer<CR> 
+" diable within terminals (R)
+autocmd WinEnter * if &buftype == 'terminal' | call TermB() | endif
+"autocmd CmdWinEnter * nnoremap <buffer> <silent> _ <CR> 
 
 "Move between windows with ctrl arrow
 nmap <silent> <C-k> :wincmd k <CR>
@@ -251,7 +255,7 @@ let cmdline_map_send_block     = '<LocalLeader>b'
 let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
 let cmdline_app['prolog']     = 'telegram-cli -NW -l 0'
-let cmdline_app['python'] = 'ipython'
+let cmdline_app['python'] = 'python -m IPython'
 let cmdline_app['sh'] = 'zsh'
 let cmdline_app['julia'] = 'julia'
 au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
@@ -279,6 +283,13 @@ map <Leader>= :call Surround(1)<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " USEFUL FUNCTIONS, not referred to specific packages
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+" disable buff key in terminals
+function TermB()
+	nnoremap <buffer> <silent> <Leader>] <CR>
+	nnoremap <buffer> <silent> <Leader>[ <CR> 
+	nnoremap <buffer> <silent> _ <CR> 
+endfunction
+
 """"""""""""
 " Spell conf
 """"""""""""

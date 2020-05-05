@@ -28,6 +28,7 @@ fi
 
 # Setup fzf
 # ---------
+#https://github.com/junegunn/fzf
 if [[ ! "$PATH" == */home/meme/.fzf/bin* ]]; then
   export PATH="${PATH:+${PATH}:}/home/meme/.fzf/bin"
 fi

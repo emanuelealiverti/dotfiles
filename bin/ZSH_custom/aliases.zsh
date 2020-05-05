@@ -6,7 +6,7 @@ export cw=/home/meme/MEGA/Research/PAPERS/MIX_LL
 export tr=/home/meme/MEGA/Research/TOREAD
 export max=/home/meme/MEGA/Research/MEME_MAX
 export thesis=/home/meme/MEGA/Unipd/PhD/THESIS/DISCUSSION/
-export skew=/home/meme/MEGA/Research/PAPERS/SUN_MORTALITY/
+export prin=/home/meme/MEGA/Research/PAPERS/SUN_MORTALITY/
 export bart=/home/meme/Dropbox/BernardiDuranteAliverti_SUN/AddRegressTrees/
 export bio=/home/meme/MEGA/Research/PAPERS/BtSNE
 export sm=/home/meme/MEGA/Teaching/SocialMedia
@@ -48,7 +48,8 @@ alias tg="tmux new-session -A -s Telegram vim /tmp/a.pdb +'exe VimCmdLineStartAp
 alias lmkrm='latexmk -c' 
 alias l='k -h --group-directories-first --no-vcs'
 #alias l='k' 
-alias f='. ranger' 
+#alias f='. ranger' 
+#alias f='~/GIT/vifmimg/vifmrun .'
 alias greb='/home/meme/GIT/bat-extras/src/batgrep.sh'
 alias pash='PASH_DIR=/home/meme/MEGA/000_Documents_personal/00_DOC/psw/ /home/meme/GIT/pash/pash'
 #+++++++
