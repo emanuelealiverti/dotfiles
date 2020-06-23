@@ -49,7 +49,7 @@ alias lmkrm='latexmk -c'
 alias l='k -h --group-directories-first --no-vcs'
 #alias l='k' 
 #alias f='. ranger' 
-#alias f='~/GIT/vifmimg/vifmrun .'
+alias f='~/GIT/vifmimg/vifmrun .'
 alias greb='/home/meme/GIT/bat-extras/src/batgrep.sh'
 alias pash='PASH_DIR=/home/meme/MEGA/000_Documents_personal/00_DOC/psw/ /home/meme/GIT/pash/pash'
 #+++++++
@@ -74,9 +74,4 @@ alias pdf_tools="Rscript --vanilla /home/meme/bin/pdf_pageR.R"
 #Based on custom prog, mostly symlinks
 #++++
 alias pwtop='_ powertop'
-alias lls='ranger'
 alias ccat='bat'
-alias vlcACE='/snap/bin/acestreamplayer'
-alias del='gvfs-trash'
-alias ptop='glances'
-alias qute='~/GIT/qutebrowser/.venv/bin/python3 -m qutebrowser'

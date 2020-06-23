@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=/home/meme/bin/mega.sh
-Hidden=false
-X-MATE-Autostart-enabled=true
-Name[en_US]=MEGA-cmd
-Name=MEGA
-Comment[en_US]=
-Comment=

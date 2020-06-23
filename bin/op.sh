@@ -1,9 +1,12 @@
 #!/bin/bash
+opc="mimeopen"
+#opc="xdg-open"
 if [ $# -eq 0 ]; then
-  xdg-open . &> /dev/null
+  $opc . &> /dev/null
 else
   for file in "$@"; do
-    xdg-open "$file" &> /dev/null
+    $opc "$file" &> /dev/null
+    sleep 0.1
   done
 fi
 #https://askubuntu.com/a/651181

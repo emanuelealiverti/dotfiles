@@ -1,0 +1,153 @@
+[colors]
+orange =  #fe8019
+acqua  =  #8ec07c
+blue   =  #83a598
+red    =  #fb4934
+green  =  #b8bb26
+purple =  #d3869b
+
+[bar/hdmi]
+monitor = HDMI1
+width               =  100%
+height              =  18
+offset-x            =  1
+offset-y            =  1
+background          =  #303030
+foreground          =  #fabd2f
+border-bottom-color =  #fabd2f
+padding-left        =  1
+padding-right       =  2
+module-margin-left  =  1
+module-margin-right =  1 
+line-size = 3 
+font-0 = hack:antialias=true:size=8;1
+font-1 = FontAwesome:antialias=true:size=8;1
+
+/*modules-right  =  spotify mpd battery_cust date*/
+modules-right  =  spotify mpd battery_cust date
+modules-center =  cpu_heat memory cpu cpu_freq
+modules-left   =  wifi-network wired-network fan_speed
+fixed-center   =  true
+
+[bar/meme]
+width               =  100%
+height              =  21
+offset-x            =  1
+offset-y            =  1
+background          =  #303030
+foreground          =  #fabd2f
+border-bottom-color =  #fabd2f
+padding-left        =  1
+padding-right       =  2
+module-margin-left  =  1
+module-margin-right =  1 
+
+/*border-size = 1*/
+line-size = 3 
+font-0 = hack:antialias=true:size=10;1
+font-1 = FontAwesome:antialias=true:size=10;1
+
+/*modules-right  =  spotify mpd battery_cust date*/
+modules-right  =  spotify battery_cust date
+modules-center =  cpu_heat memory cpu cpu_freq
+modules-left   =  wifi-network wired-network fan_speed
+fixed-center   =  true
+
+[module/wifi-network]
+type = internal/network
+interface = wlp2s0
+format-connected =  <label-connected>
+label-connected =  %essid% :%upspeed% :%downspeed%
+format-connected-underline = ${colors.orange}
+
+[module/wired-network]
+type = internal/network
+interface = enx00e04c36138a 
+format-connected =  <label-connected>
+label-connected =  :%upspeed% :%downspeed%
+format-connected-underline = ${colors.orange}
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label =  %percentage% %
+format-underline = ${colors.purple}
+
+[module/cpu_freq]
+type = custom/script
+exec = $HOME/.polybar/system-cpu-frequency.sh
+interval = 10
+label =  %output% 
+format-underline = ${colors.purple}
+
+
+[module/memory]
+type = internal/memory
+interval = 2:
+/*label =  %percentage_used% % / %gb_used%*/
+label =  %gb_used%
+format = <label>
+format-underline = ${colors.purple}
+
+[module/cpu_heat]
+type = custom/script
+interval = 5:
+exec =  sensors | grep CPU | cut -c18-25
+label =  %output%
+format-underline = ${colors.purple}
+
+[module/fan_speed]
+type = custom/script
+interval = 5:
+exec = $HOME/.polybar/fan.py
+label =  %output%
+format-underline = ${colors.acqua}
+
+[module/battery_cust]
+type = custom/script
+interval = 5:
+exec = python3 $HOME/.polybar/bat.py
+label =  %output%
+format-underline = ${colors.blue}
+
+[module/workspace_number]
+type = custom/script
+interval = 1:
+exec = wmctrl -d | grep '*' | cut -d ' ' -f15 
+label = [%output% / 4]
+
+[module/date]
+type = internal/date
+date =   %a %d-%m  %H:%M
+interval = 1 
+label = %date%
+format-underline = ${colors.red}
+
+[module/time-home]
+type = custom/script
+exec = TZ=Europe/Rome date +"[Padova: %H:%M]"
+interval = 1
+
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+label-song-maxlen = 50
+format-online = [ <label-song>]
+format-online-underline = ${colors.green}
+
+
+[module/spotify]
+type = custom/script
+interval = 1
+; format = [ <label>]
+format = [<label>]
+exec = python3 $HOME/.polybar/spotify_app.py
+format-underline = ${colors.green}
+
+[module/popup-calendar]
+type = custom/script
+exec = /home/meme/MEGA/000_Documents_personal/polybar/popup-calendar.sh
+interval = 5
+click-left = /home/meme/MEGA/000_Documents_personal/polybar/popup-calendar.sh --popup

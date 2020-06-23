@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=/home/meme/bin/openbox_switch.sh
-Hidden=false
-X-MATE-Autostart-enabled=true
-Name[en_US]=obox_switch
-Name=obox_switch
-Comment[en_US]=
-Comment=

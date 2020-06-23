@@ -1,0 +1,11 @@
+# appearance
+hsetroot -extend ~/Pictures/woman.png &
+polybar -c ~/.polybar/config meme &
+
+# lock
+xautolock -time 10 -locker slock &
+
+# cloud
+/home/meme/bin/mega.sh &
+dropbox start -i &
+

@@ -41,15 +41,16 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # to install into ~/.local/bin
 #export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 #export PATH="/home/meme/anaconda3/bin:$PATH"
+export PATH=/home/meme/bin/:$PATH
 export PATH=/home/meme/bin/PDFs/:$PATH
-export PATH='/usr/local/texlive/2019/bin/x86_64-linux':$PATH
+export PATH='/home/meme/.local/bin/':$PATH
+export PATH='/home/meme/.TinyTeX/bin/x86_64-linux/':$PATH
 
 export TERM=screen-256color
 export ZSH_CUSTOM=/home/meme/bin/ZSH_custom/
 export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
 #custom variable for smart paths
 
-fpath+=(/home/memebin/ZSH_custom/completions/)
 source "/home/meme/bin/ZSH_custom/aliases.zsh"
 source "/home/meme/bin/ZSH_custom/functions.zsh"
 
@@ -67,6 +68,16 @@ zstyle ':completion:*:processes' command 'NOCOLORS=1 ps -U $(whoami)|sed "/ps/d"
 zstyle ':completion:*:processes' insert-ids menu yes select
 zstyle ':completion:*:processes-names' command 'NOCOLORS=1 ps xho command|sed "s/://g"'
 zstyle ':completion:*:processes' sort false
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Exclude filetypes from prog. complete
+# does not work with scripts, so just copy them into /usr/bin or something
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+zstyle ':completion:*:*:vim:*' file-patterns '^*.(aux|pdf|fls|blg|synctex):source-files' '*:all-files'
+
+zstyle ':completion:*:*:op:*' file-patterns '^*.(aux|log|tex):source-files' '*:all-files'
+
 
 
 #++++++++++

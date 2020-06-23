@@ -10,26 +10,23 @@ call plug#begin('~/.local/share/nvim/plugged')
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
 Plug 'jalvesaq/Nvim-R'
-Plug 'jalvesaq/R-Vim-runtime'
+"Plug 'jalvesaq/R-Vim-runtime'
 Plug 'lervag/vimtex'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'morhetz/gruvbox'
-Plug 'JuliaEditorSupport/julia-vim'
 Plug 'chrisbra/csv.vim'
 Plug 'ssp3nc3r/stan-syntax-vim'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-obsession'
 Plug 'jalvesaq/vimcmdline'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
-Plug 'dyng/ctrlsf.vim'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'junegunn/fzf'
-
+Plug 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -178,10 +175,13 @@ imap <C-_> <Esc> :call NERDComment("n","toggle") <CR>i
 " NERD tree and FFF 
 """""""""""""""""""""""""""""""""""""
 noremap <silent> <C-n> :call ToggleNetrw()<CR>
+"noremap <silent> <C-m> :FZF  <CR>
 let g:netrw_banner = 0
 let g:netrw_winsize = 15
 let g:netrw_browse_split = 1
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 """"""""""""""""""
 " Markdown preview
@@ -202,6 +202,7 @@ let g:tex_flavor = 'latex'
 "let g:tex_fast = "bMpr"
 " default entries for toc
 let g:vimtex_toc_config = {'layer_status': { 'content': 1, 'label': 0, 'todo': 1,'include': 0 },'show_help' : 0}
+let g:vimtex_complete_ignore_case=1 
 "let g:vimtex_complete_bib = { 'simple': 0 }
 " Enable spell checking when opening .tex files
 autocmd Filetype tex call TexStartup() 
@@ -223,19 +224,15 @@ let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
 """""""""""""""""""""""""""""""""""""
 " NVIM R 
 """""""""""""""""""""""""""""""""""""
-
-let R_complete = 2
-let R_show_args = 0
+set completeopt-=preview
+"let R_complete = 2
+"let R_show_args = 0
+"let completeopt=['']
 let R_show_arg_help = 0
 let R_open_example = 0
-"let R_in_buffer = 0
+let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
 nmap <space> <Plug>RDSendLine
 vmap <space> <Plug>RDSendSelection
-"nmap , <Plug>RMakePDFK
-"vmap , <Plug>RDSendLine
-"nmap <C-CR> <Plug>RDSendLine
-"vmap <C-CR> <Plug>RDSendLine
-"inoremap <C-CR> <Esc>:call SendLineToR("down")<CR>i
 
 let R_assign=0
 nmap <leader>a <leader>kb
@@ -255,10 +252,11 @@ let cmdline_map_send_block     = '<LocalLeader>b'
 let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
 let cmdline_app['prolog']     = 'telegram-cli -NW -l 0'
-let cmdline_app['python'] = 'python -m IPython'
+let cmdline_app['python'] = 'python3.8'
 let cmdline_app['sh'] = 'zsh'
 let cmdline_app['julia'] = 'julia'
 au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
+
 "
 "++++++++++++++++
 " LIGHTLINE SETUP

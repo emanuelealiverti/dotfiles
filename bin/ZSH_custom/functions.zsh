@@ -12,21 +12,14 @@ cdl() {cd "$@" && ls -lhA}
 cdd() {
 	cd $(dirs -lp | fzf)
 }
-cdd_old() {
-	ID=$1
-	cd /home/meme$(d | sed -n ''$(($ID+1>0?$ID+1:0))'p'| cut -d~ -f2-)
-}
-alias 0='cd $(cdd 0)'
-alias 1='cd $(cdd 1)'
-alias 2='cd $(cdd 2)'
-alias 3='cd $(cdd 3)'
-alias 4='cd $(cdd 4)'
-alias 5='cd $(cdd 5)'
 
 take() { mkdir -p $1; cd $1;}
 
 thirdline() { awk '{if (NR%3==0){print "\033[31m" $0 "\033[0m"} else{print}}'; }
 
+del () {
+    mv "$@" $HOME/.local/share/Trash/
+}
 #+++++++++++++++++++++++++++++++++++++++++++++
 # Very useful functions to make local packages
 # Took me ages to get complieattr` 
@@ -94,11 +87,11 @@ vim_scp () {
 #++++++++++++++++++++++++++++++++++
 # VIFM with image support and setwd
 #++++++++++++++++++++++++++++++++++
-f()
-{
-    local dst="$(command ~/GIT/vifmimg/vifmrun --choose-dir - "$@")"
-    cd "$dst"
-}
+#f()
+#{
+    #local dst="$(command ~/GIT/vifmimg/vifmrun --choose-dir - "$@")"
+    #cd "$dst"
+#}
 
 #+++++++
 # Update

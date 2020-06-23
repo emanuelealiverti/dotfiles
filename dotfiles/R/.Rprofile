@@ -7,14 +7,20 @@ local(
       }
 )
 # And where the packages are stored
+
 .First = function(){
 	.libPaths("/home/meme/R/site-library")
+	## ANYTHING PLACED HERE CAN BE EXTREMELY BAD FOR COMPILATION
 }
 
-#Complete pack names
+# Complete pack names
 utils::rc.settings(ipck=TRUE)
+cat(sprintf("R %s.%s",R.version$major,R.version$minor),"\n")
+
+# Use cairo as a default devide + specify a nice family of fonts which ideally supports
+# greek letters (e.g. Hack)
 setHook(packageEvent("grDevices", "onLoad"),
-function(...) grDevices::X11.options(type='cairo'))
+function(...) grDevices::X11.options(type='cairo',symbolfamily="Hack",family="Hack"))
 
 #general options
 options(prompt        = "> ",
@@ -24,7 +30,31 @@ options(prompt        = "> ",
 	width         = 80,
 	menu.graphics = FALSE,
 	#Ncpus         = 4,
-	browser = "chromium-browser",
+	browser = "google-chrome",
 	#browser = "/home/meme/bin/reload_surf"
 	Ncpus         = 4
 	)
+
+#+++++++++++++++++++++
+# for future reference
+#+++++++++++++++++++++
+# COMPILE FLAGS FOR R
+# --with-cairo implicitly checks for libcairo2 or similar.
+# --with-libraries uses sytem default (update-alternatives)
+
+# ./configure --with-lapack --with-blas --with-cairo
+
+#  Config options should be
+#  Interfaces supported:        X11, tcltk
+#  External libraries:          pcre2, readline, BLAS(OpenBLAS), LAPACK(in blas), curl
+#  Additional capabilities:     PNG, JPEG, TIFF, NLS, cairo, ICU
+#  Options enabled:             R profiling
+#
+#  Capabilities skipped:
+
+# tcltk / tiff missing can be fixed installing tk-dev tf-dev libtiff-dev etc
+
+
+# R-studio            
+# ./configure --with-lapack --with-blas --with-cairo --enable-R-shlib                                            
+

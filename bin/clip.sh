@@ -7,4 +7,3 @@ truncate -s -1 "$file"
 
 xclip -selection c "$file"
 
-xdotool key ctrl+v

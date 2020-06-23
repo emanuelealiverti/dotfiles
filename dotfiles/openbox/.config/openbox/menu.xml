@@ -21,6 +21,30 @@
   <item label="Exit">
     <action name="Exit" />
   </item>
+
+<item label="Reboot">
+    <action name="Execute">
+        <prompt>
+            Are you sure you want to reboot?
+        </prompt>
+        <execute>
+            sudo shutdown -r now
+        </execute>
+    </action>
+</item>
+
+<item label="Shutdown">
+    <action name="Execute">
+        <prompt>
+            Are you sure you want to shutdown?
+        </prompt>
+        <execute>
+            sudo shutdown -h now
+        </execute>
+    </action>
+</item>
+
+
 </menu>
 
 </openbox_menu>

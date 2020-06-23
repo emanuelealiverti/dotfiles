@@ -44,10 +44,21 @@ control+shift + q
 
 #"mpc next"
 #XF86AudioNext
-"mpc next"
-shift+XF86AudioPlay
-"mpc next"
-control+XF86AudioPlay
+#"mpc next"
+#shift+XF86AudioPlay
+#"mpc next"
+#control+XF86AudioPlay
+
+#"/home/meme/bin/volume_set.sh -up"
+   #XF86AudioRaiseVolume
+
+# Decrease volume
+#"/home/meme/bin/volume_set.sh -down"
+   #XF86AudioLowerVolume
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+   XF86AudioMute
+
 
 #"mpc prev"
 #XF86AudioPrev

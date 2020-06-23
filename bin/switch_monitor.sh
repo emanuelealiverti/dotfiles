@@ -1,6 +1,6 @@
 #!/bin/bash
-intern=eDP1
-extern=HDMI1
+intern=eDP-1
+extern=HDMI-1
 
 main() {
 	case "$1" in
