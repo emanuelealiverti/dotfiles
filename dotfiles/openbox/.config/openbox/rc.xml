@@ -53,7 +53,7 @@
 				D: omnipresent (on all desktops).
 			-->
     <keepBorder>yes</keepBorder>
-    <animateIconify>yes</animateIconify>
+    <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
       <name>sans</name>
       <size>8</size>
@@ -301,10 +301,16 @@
         <command>scrot -s</command>
       </action>
     </keybind>
-    <!-- Keybindings for window moving -->
+
+    <!-- Keybindings for window moving or resizing -->
+<keybind key="A-Home">
+      <action name="Iconify"/>
+  </keybind>
+
     <keybind key="W-A-Return">
       <action name="ToggleMaximizeVert"/>
     </keybind>
+
     <keybind key="W-Down">
       <action name="MoveResizeTo">
         <x>-0</x>
@@ -425,24 +431,41 @@
     <!-- MUSIC control with shift/C + play for mdp-->
     <!--<keybind key="S-XF86AudioPlay">-->
     <!--qua non va-->
-    <keybind key="A-Prior">
-      <action name="Execute">
-        <command>xdotool key XF86AudioNext</command>
-      </action>
-    </keybind>
-    <!--<action name="Execute">-->
-    <!--<command>mpc next</command>-->
-    <!--</action>-->
-    <keybind key="A-XF86AudioPlay">
-      <action name="Execute">
-        <command>mpc toggle</command>
-      </action>
-    </keybind>
-    <keybind key="C-XF86AudioPlay">
-      <action name="Execute">
-        <command>mpc prev</command>
-      </action>
-    </keybind>
+    <!--<keybind key="A-Prior">-->
+      <!--<action name="Execute">-->
+        <!--<command>xdotool key XF86AudioNext</command>-->
+      <!--</action>-->
+      <!--</keybind>-->
+      <!--specifc for spotify-->
+
+ <!--<keybind key="XF86AudioPause">-->
+ <keybind key="XF86AudioPlay">
+	 <action name="Execute">
+		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause</execute>
+	 </action>
+ </keybind>
+
+ <keybind key="S-XF86AudioLowerVolume">
+	 <action name="Execute">
+		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous</execute>
+	 </action>
+ </keybind>
+ <keybind key="S-XF86AudioRaiseVolume">
+	 <action name="Execute">
+		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
+	 </action>
+ </keybind>
+ <!--MPC-specifc-->
+ <!--<keybind key="A-XF86AudioPlay">-->
+      <!--<action name="Execute">-->
+        <!--<command>mpc toggle</command>-->
+      <!--</action>-->
+    <!--</keybind>-->
+    <!--<keybind key="C-XF86AudioPlay">-->
+      <!--<action name="Execute">-->
+        <!--<command>mpc prev</command>-->
+      <!--</action>-->
+    <!--</keybind>-->
 
     <!-- VOLUME control -->
     <keybind key="XF86AudioLowerVolume">
@@ -475,17 +498,17 @@
       </action>
     </keybind>
 
-    <!-- track control brightness with A+vol-->
-    <keybind key="W-XF86AudioLowerVolume">
-      <action name="Execute">
-        <command>xdotool key XF86AudioPrev</command>
-      </action>
-    </keybind>
-    <keybind key="W-XF86AudioRaiseVolume">
-      <action name="Execute">
-        <command>xdotool key XF86AudioNext</command>
-      </action>
-    </keybind>
+    <!--<keybind key="W-XF86AudioLowerVolume">-->
+      <!--<action name="Execute">-->
+        <!--<command>xdotool key XF86AudioPrev</command>-->
+      <!--</action>-->
+    <!--</keybind>-->
+    <!--<keybind key="W-XF86AudioRaiseVolume">-->
+      <!--<action name="Execute">-->
+        <!--<command>xdotool key XF86AudioNext</command>-->
+      <!--</action>-->
+    <!--</keybind>-->
+	    
     <!-- APPLICATIONS -->
     <keybind key="W-Return">
       <action name="Execute">
@@ -505,7 +528,7 @@
 	    <!--lock screen-->
     <keybind key="C-A-l">
       <action name="Execute">
-        <command>slock</command>
+        <command>slock -m "Locked"</command>
       </action>
     </keybind>
     <keybind key="C-A-t">

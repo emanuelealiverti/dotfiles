@@ -1,9 +1,14 @@
 # appearance
 hsetroot -extend ~/Pictures/woman.png &
 polybar -c ~/.polybar/config meme &
+# hide cursor
+unclutter -idle 1.0 -root &
+
 
 # lock
-xautolock -time 10 -locker slock &
+xautolock -time 10 -locker slock -m "Locked" &
+
+
 
 # cloud
 /home/meme/bin/mega.sh &

@@ -20,6 +20,18 @@ thirdline() { awk '{if (NR%3==0){print "\033[31m" $0 "\033[0m"} else{print}}'; }
 del () {
     mv "$@" $HOME/.local/share/Trash/
 }
+#  expand rg for filenames (like locate)
+rf() {
+  if [ -z "$2" ]
+  then
+      rg --files | rg "$1"
+  else
+      rg --files "$2" | rg "$1"
+  fi
+}
+#
+#
+#
 #+++++++++++++++++++++++++++++++++++++++++++++
 # Very useful functions to make local packages
 # Took me ages to get complieattr` 

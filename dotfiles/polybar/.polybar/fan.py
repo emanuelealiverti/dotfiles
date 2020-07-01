@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-tresh_temp = 70
+tresh_temp = 60
 tresh_fan = 1000
 tresh_fan_p = 2600
 import psutil
@@ -9,7 +9,10 @@ fans = psutil.sensors_fans()
 temp = psutil.sensors_temperatures()
 
 speed = [entry.current for name, entries in fans.items() for entry in entries]
-tt = [f.current for f in temp['coretemp']]
+# cambia un po' a seconda del kernel, controlla
+n_cpu_real = int(psutil.cpu_count()/2)
+tt = [f.current for f in temp['coretemp'] if "Core" in f.label][:n_cpu_real]
+# ll = [f.label for f in temp['coretemp'] if "Core" in f.label]
 
 #Print according to temperature
 prstr = ''

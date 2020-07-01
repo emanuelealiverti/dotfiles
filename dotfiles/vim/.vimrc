@@ -9,7 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
-Plug 'jalvesaq/Nvim-R'
+Plug 'jalvesaq/Nvim-R', {'branch': 'faster_omnicompl'}
 "Plug 'jalvesaq/R-Vim-runtime'
 Plug 'lervag/vimtex'
 Plug 'scrooloose/nerdcommenter'
@@ -136,8 +136,8 @@ nmap <silent> <C-l> :wincmd l<CR>
 nnoremap <Tab>   <c-W>w
 nnoremap <S-Tab> <c-W>W
 
-nnoremap <silent> <Leader>} :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>{ :exe "resize " . (winheight(0) * 2/3)<CR>
+"nnoremap <silent> <Leader>} :exe "resize " . (winheight(0) * 3/2)<CR>
+"nnoremap <silent> <Leader>{ :exe "resize " . (winheight(0) * 2/3)<CR>
 
 imap <silent>  <C-Up> <Esc>    : wincmd k <CR>
 imap <silent>  <C-Down> <Esc>  : wincmd j<CR>
@@ -230,7 +230,7 @@ set completeopt-=preview
 "let completeopt=['']
 let R_show_arg_help = 0
 let R_open_example = 0
-let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
+"let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
 nmap <space> <Plug>RDSendLine
 vmap <space> <Plug>RDSendSelection
 

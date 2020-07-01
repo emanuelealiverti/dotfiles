@@ -23,7 +23,7 @@ case "$1" in
 
 	-up) pactl set-sink-volume 0 +5%; dunstify " $(get_vol)" -r 99;;
 
-	-mute) pactl list sinks | grep -q Mute:.no && mute || unmute ;;
+	-mute) pactl list sinks | grep -q "Mute: yes" && unmute || mute ;;
 esac
 
 #/home/meme/.local/bin/dunstify "prova"
