@@ -2,3 +2,4 @@ mpd/.config
 mpd/ncmcpp/*.log
 bin/bot_meme.rda
 *.o
+dotfiles/R/.R/gargle/*

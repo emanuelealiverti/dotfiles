@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Changes also if GPU is connected or not
 intern=eDP-1
 extern=HDMI-1
 

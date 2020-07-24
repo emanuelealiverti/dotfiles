@@ -17,7 +17,7 @@
 #HALF=$(( $SCREEN_WIDTH / 2 )) 
 #/home/meme/bin/./st &
 
-st &
+st $@ &
 #echo $!
 sleep .2
 #xid=$(wmctrl -lp | awk -vpid=$! '$3==pid {print $1; exit}')	

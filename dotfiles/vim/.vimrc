@@ -96,7 +96,7 @@ augroup END
 " Wildmenu navigation
 "++++++++++++++++++++
 "cnoremap <C-l> <Down>
-"cnoremap <expr> <C-L>  "\<Down>" 
+"cnoremap <expr> <C-l>  "\<Down>" 
 "cnoremap <expr> <Down>  pumvisible() ? "\<Right>" : "\<Down>"
 "cnoremap <expr> <Left>  pumvisible() ? "\<Up>"    : "\<Left>"
 "cnoremap <expr> <Right> pumvisible() ? "\<Down>"  : "\<Right>"
@@ -112,7 +112,7 @@ nnoremap <PageDown>  :echoe "Use C-E"<CR>
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
-nnoremap <Down>  :echoe "Use j"<CR>
+"nnoremap <Down>  :echoe "Use j"<CR>
 nnoremap j gj
 nnoremap k gk
 inoremap jk <esc>
@@ -169,8 +169,11 @@ vmap <C-_> <Leader>ci
 nmap <C-_> <Leader>ci
 imap <C-_> <Esc> :call NERDComment("n","toggle") <CR>i
 
-
-
+"+++++++++++++++++
+" Surround plugins
+"+++++++++++++++++
+nmap ss ysiw
+nmap sl yss
 """""""""""""""""""""""""""""""""""""
 " NERD tree and FFF 
 """""""""""""""""""""""""""""""""""""
@@ -292,7 +295,7 @@ endfunction
 " Spell conf
 """"""""""""
 function SetSpellOptions()
-	setlocal spell spelllang=en,it
+	setlocal spell spelllang=en_us,it
 	"setlocal spell spelllang=en
 	"setlocal spell spelllang=it
 	"ctrl-L change word in insert
@@ -317,7 +320,7 @@ endfunction
 " Surround lines with custom characters 
 """"""""""""""""""""""""""""""""""""""""
 function Surround(...)
-"Use NERDcomment to find out filetype char
+	"Use NERDcomment to find out filetype char
 	let arg1 = get(a:, 0, 0)
 	normal! 0i
 	call NERDComment("n","toggle")
@@ -346,24 +349,24 @@ endfunction
 let g:NetrwIsOpen=0
 
 function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i 
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Lexplore
-    endif
+	if g:NetrwIsOpen
+		let i = bufnr("$")
+		while (i >= 1)
+			if (getbufvar(i, "&filetype") == "netrw")
+				silent exe "bwipeout " . i 
+			endif
+			let i-=1
+		endwhile
+		let g:NetrwIsOpen=0
+	else
+		let g:NetrwIsOpen=1
+		silent Lexplore
+	endif
 endfunction
 "++++++++++++++
 " Google search
 "++++++++++++++
 function! GoogleSearch()
-     let searchterm = getreg("g")
-     silent! exec "silent! !firefox \"http://google.com/search?q=" . searchterm . "\" &"
+	let searchterm = getreg("g")
+	silent! exec "silent! !firefox \"http://google.com/search?q=" . searchterm . "\" &"
 endfunction

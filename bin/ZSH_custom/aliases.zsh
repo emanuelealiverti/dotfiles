@@ -35,23 +35,30 @@ alias rd=rmdir
 alias d='dirs -v | head -10'
 alias _='sudo'
 alias lsd='ls -h --group-directories-first'
+
 alias rm='rm -i'
 alias cp='cp -i'
+
 alias trash-empty='sudo rm -rf ~/.local/share/Trash/*'
 alias wifiRes='sudo service network-manager restart'
+
 alias gitPush='git push origin master'
 alias gitR='git ls-files --deleted -z | xargs -0 git rm'
+
 alias pbcopy='xclip -selection c'
 alias pbpaste='xclip -out -selection c'
 alias pwdc='pwd | xclip -selection c' 
+
 alias tg="tmux new-session -A -s Telegram vim /tmp/a.pdb +'exe VimCmdLineStartApp() | res 10'"
 alias lmkrm='latexmk -c' 
 alias l='k -h --group-directories-first --no-vcs'
+
+alias fd=fdfind
 #alias l='k' 
 #alias f='. ranger' 
+alias t='todo.sh'
 alias f='~/GIT/vifmimg/vifmrun .'
 alias greb='/home/meme/GIT/bat-extras/src/batgrep.sh'
-alias pash='PASH_DIR=/home/meme/MEGA/000_Documents_personal/00_DOC/psw/ /home/meme/GIT/pash/pash'
 #+++++++
 # TMUX
 # ++++++

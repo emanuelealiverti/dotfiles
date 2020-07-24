@@ -126,7 +126,7 @@ label = [%output% / 4]
 [module/date]
 type = internal/date
 date =   %a %d-%m  %H:%M
-interval = 1 
+interval = 60 
 label = %date%
 format-underline = ${colors.red}
 

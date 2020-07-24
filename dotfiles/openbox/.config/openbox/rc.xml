@@ -428,6 +428,17 @@
         <direction>down</direction>
       </action>
     </keybind>
+<keybind key="W-S-1">
+  <action name="MoveResizeTo">
+    <monitor>1</monitor>
+  </action>
+</keybind>
+<keybind key="W-S-2">
+  <action name="MoveResizeTo">
+    <monitor>2</monitor>
+  </action>
+</keybind>
+
     <!-- MUSIC control with shift/C + play for mdp-->
     <!--<keybind key="S-XF86AudioPlay">-->
     <!--qua non va-->
@@ -467,6 +478,19 @@
       <!--</action>-->
     <!--</keybind>-->
 
+    <!-- BRIGHTNESS control -->
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute">
+	      <command>/home/meme/bin/brightness_set.sh -up</command>
+      </action>
+    </keybind>
+
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute">
+	      <command>/home/meme/bin/brightness_set.sh -down</command>
+      </action>
+    </keybind>
+
     <!-- VOLUME control -->
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
@@ -487,16 +511,16 @@
     </keybind>
 
     <!-- BRIGHTNESS control brightness with shift+vol-->
-    <keybind key="S-XF86AudioLowerVolume">
-      <action name="Execute">
-        <command>xdotool key XF86MonBrightnessDown</command>
-      </action>
-    </keybind>
-    <keybind key="S-XF86AudioRaiseVolume">
-      <action name="Execute">
-        <command>xdotool key XF86MonBrightnessUp </command>
-      </action>
-    </keybind>
+    <!--<keybind key="S-XF86AudioLowerVolume">-->
+      <!--<action name="Execute">-->
+        <!--<command>xdotool key XF86MonBrightnessDown</command>-->
+      <!--</action>-->
+    <!--</keybind>-->
+    <!--<keybind key="S-XF86AudioRaiseVolume">-->
+      <!--<action name="Execute">-->
+        <!--<command>xdotool key XF86MonBrightnessUp </command>-->
+      <!--</action>-->
+    <!--</keybind>-->
 
     <!--<keybind key="W-XF86AudioLowerVolume">-->
       <!--<action name="Execute">-->
@@ -509,6 +533,19 @@
       <!--</action>-->
     <!--</keybind>-->
 	    
+
+    <!--  show menu-->
+    <keybind key="C-A-Delete">
+    <action name="Execute">
+        <prompt>
+            Are you sure you want to shutdown?
+        </prompt>
+        <execute>
+            sudo shutdown -h now
+        </execute>
+      </action>
+    </keybind>
+
     <!-- APPLICATIONS -->
     <keybind key="W-Return">
       <action name="Execute">
@@ -538,7 +575,7 @@
     </keybind>
     <keybind key="W-space">
       <action name="Execute">
-        <command>rofi -show drun</command>
+        <command>rofi -show drun  -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'</command>
       </action>
     </keybind>
     <keybind key="C-space">

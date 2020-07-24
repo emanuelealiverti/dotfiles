@@ -21,12 +21,12 @@ del () {
     mv "$@" $HOME/.local/share/Trash/
 }
 #  expand rg for filenames (like locate)
-rf() {
+rgg() {
   if [ -z "$2" ]
   then
-      rg --files | rg "$1"
+      rg -S --files | rg -S "$1"
   else
-      rg --files "$2" | rg "$1"
+      rg -S --files "$2" | rg  -S "$1"
   fi
 }
 #
@@ -85,6 +85,15 @@ bianca_webcam() {
 
 notify_at() { echo 'notify-send "'$1'"' | at $2}
 
+notify_after() {
+	t=${1:-1500}
+	sleep $t && notify-send "FINITO";
+	timeout -s 9 1 speaker-test -t sine -f 1000 -l 1
+
+}
+
+
+
 #++++++++++++++
 # Vim over scp
 #++++++++++++++
@@ -117,12 +126,12 @@ my_upd() {
         esac
 }
 
-#+++++++++++++++++++++++++++++
-# Remove metadata etc from pdf
-#+++++++++++++++++++++++++++++
 
-clean_pdf() {
-	python2 $(which mat) $@
+# download single folder grom GH repo
+git_dwnd(){
+    folder=${@/tree\/master/trunk}
+    folder=${folder/blob\/master/trunk}
+    svn export $folder
 }
 
 #+++++++++++++++++++++++++

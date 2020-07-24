@@ -57,7 +57,7 @@ set wildstyle=popup
 " Display suggestions in normal, visual and view modes for keys, marks and
 " registers (at most 5 files).  In other view, when available.
 
-set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+"set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
 " Ignore case in search patterns unless it contains at least one uppercase
 " letter
@@ -166,11 +166,6 @@ fileviewer *.tar.bz2,*.tbz2 tar -tjf %c
 fileviewer *.tar.txz,*.txz xz --list %c
 fileviewer *.tar tar -tf %c
 
-" Rar2FsMount and rar archives
-filetype *.rar
-       \ {Mount with rar2fs}
-       \ FUSE_MOUNT|rar2fs %SOURCE_FILE %DESTINATION_DIR,
-fileviewer *.rar unrar v %c
 
 " Office files
 filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
@@ -218,7 +213,7 @@ set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.pp
 
 " ------------------------------------------------------------------------------
 
-set vifminfo=dhistory,chistory,state,shistory,phistory,fhistory,dirstack,registers,bookmarks,bmarks
+"set vifminfo=dhistory,chistory,state,shistory,phistory,fhistory,dirstack,registers,bookmarks,bmarks
 
 " Sample mappings
 
