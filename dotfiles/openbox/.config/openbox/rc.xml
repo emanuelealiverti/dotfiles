@@ -450,11 +450,26 @@
       <!--specifc for spotify-->
 
  <!--<keybind key="XF86AudioPause">-->
+	 <!---SPOPTIFY-SPECIFIC COMMAND-->
  <keybind key="XF86AudioPlay">
 	 <action name="Execute">
 		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause</execute>
 	 </action>
  </keybind>
+
+ <keybind key="XF86AudioPrev">
+	 <action name="Execute">
+		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous</execute>
+	 </action>
+ </keybind>
+
+ <keybind key="XF86AudioNext">
+	 <action name="Execute">
+		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
+	 </action>
+ </keybind>
+
+<!--Fix for keyboard without next key-->
 
  <keybind key="S-XF86AudioLowerVolume">
 	 <action name="Execute">
@@ -466,6 +481,8 @@
 		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
 	 </action>
  </keybind>
+
+
  <!--MPC-specifc-->
  <!--<keybind key="A-XF86AudioPlay">-->
       <!--<action name="Execute">-->
@@ -565,7 +582,7 @@
 	    <!--lock screen-->
     <keybind key="C-A-l">
       <action name="Execute">
-        <command>slock -m "Locked"</command>
+	           <command>sh -c 'slock -m 'Locked' &amp; (sleep .5 &amp;&amp; xset dpms force off)'</command>
       </action>
     </keybind>
     <keybind key="C-A-t">

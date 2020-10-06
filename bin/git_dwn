@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+# download single folder grom GH repo
+git_dwnd(){
+    folder=${@/tree\/master/trunk}
+    folder=${folder/blob\/master/trunk}
+    svn export $folder
+}
+
+git_dwnd "$@"

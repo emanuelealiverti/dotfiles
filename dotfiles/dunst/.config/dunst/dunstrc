@@ -17,6 +17,7 @@
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
     geometry = "0x10-30+20"
+    follow = keyboard
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = no

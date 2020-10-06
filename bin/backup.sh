@@ -102,3 +102,7 @@ mega-sync && exit
 ## DISPLAY is necessary since megasync requires a GUI. Everything works regardless BUT the last line (restart mega)
 #done
 
+
+
+#Might be more useful to use anacron: see https://askubuntu.com/questions/235089/how-can-i-run-anacron-in-user-mode
+

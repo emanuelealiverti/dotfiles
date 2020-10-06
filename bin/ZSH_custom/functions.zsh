@@ -29,49 +29,6 @@ rgg() {
       rg -S --files "$2" | rg  -S "$1"
   fi
 }
-#
-#
-#
-#+++++++++++++++++++++++++++++++++++++++++++++
-# Very useful functions to make local packages
-# Took me ages to get complieattr` 
-#+++++++++++++++++++++++++++++++++++++++++++++
-print_bord() {
-	printf %"$COLUMNS"s |tr " " "-"
-	echo $@
-	printf %"$COLUMNS"s |tr " " "-"
-}
-
-R_localbuild() {
-
-	if [ ! -d ./lib ]; then
-		print_bord "CREATING LIB DIRECTORY"
-		mkdir lib
-	else
-		print_bord "LIB DIRECTORY ALREADY EXISTS - cleaning"
-		rm -rf ./lib/$1
-	fi
-	rm -i log.txt
-	touch ./log.txt
-
-	oldd=$(pwd)
-	cd $1
-	print_bord "Compiling attributes"
-	R -q -e "Rcpp::compileAttributes(verbose=T)" | tee ../log.txt
-	#cd ..
-	cd $oldd
-	print_bord "BUILDING"
-
-	R CMD build --no-build-vignettes --no-manual $1 | tee log.txt
-	# get string from CMD build
-	ss=$(tail -1 log.txt | awk -F\‘ '{print $2}')
-
-	print_bord "BUILD SUCCESSFUL. REMOVING OLD PACKAGE AND INSTALLING"
-	R CMD REMOVE -l lib "$1"
-	R CMD INSTALL --no-docs --no-html -l lib ${ss%?} | tee log.txt
-	#cd $oldd
-
-}
 
 #++++++++++++++++++
 # Clean tex compile
@@ -85,10 +42,11 @@ bianca_webcam() {
 
 notify_at() { echo 'notify-send "'$1'"' | at $2}
 
-notify_after() {
+focus_now() {
 	t=${1:-1500}
+	print_bord "Pause in $((t/60%60)) minutes"
 	sleep $t && notify-send "FINITO";
-	timeout -s 9 1 speaker-test -t sine -f 1000 -l 1
+	paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga --volume=20000
 
 }
 
@@ -126,43 +84,10 @@ my_upd() {
         esac
 }
 
-
-# download single folder grom GH repo
-git_dwnd(){
-    folder=${@/tree\/master/trunk}
-    folder=${folder/blob\/master/trunk}
-    svn export $folder
-}
-
 #+++++++++++++++++++++++++
 # Compress recoreded video
 #+++++++++++++++++++++++++
 compress_video(){
 	# source: https://video.stackexchange.com/a/14584
 	ffmpeg -i $1  -c:a opus -b:a 40k -pix_fmt yuv420p -c:v libx264 -preset slower -x264-params keyint=1000:nr=200 -crf 25 $2.mkv
-}
-
-#+++++
-# WIFI
-#+++++
-wl(){
-	local ssid
-	local conn
-
-	nmcli device wifi rescan > /dev/null
-	ssid=$(nmcli device wifi list | tail -n +2 | grep -v '^  *\B--\B' | fzf -m | sed 's/^ *\*//' | awk '{print $1}')
-
-	if [ "x$ssid" != "x" ]; then
-		# check if the SSID has already a connection setup
-		conn=$(nmcli con | grep "$ssid" | awk '{print $1}' | uniq)
-		if [ "x$conn" = "x$ssid" ]; then
-			echo "Please wait while switching to known network $ssid…"
-			# if yes, bring up that connection
-			nmcli con up id "$conn"
-		else
-			echo "Please wait while connecting to new network $ssid…"
-			# if not connect to it and ask for the password
-			nmcli device wifi connect "$ssid"
-		fi
-	fi
 }

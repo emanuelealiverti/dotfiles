@@ -6,34 +6,13 @@ red    =  #fb4934
 green  =  #b8bb26
 purple =  #d3869b
 
-[bar/hdmi]
-monitor = HDMI1
-width               =  100%
-height              =  18
-offset-x            =  1
-offset-y            =  1
-background          =  #303030
-foreground          =  #fabd2f
-border-bottom-color =  #fabd2f
-padding-left        =  1
-padding-right       =  2
-module-margin-left  =  1
-module-margin-right =  1 
-line-size = 3 
-font-0 = hack:antialias=true:size=8;1
-font-1 = FontAwesome:antialias=true:size=8;1
-
-/*modules-right  =  spotify mpd battery_cust date*/
-modules-right  =  spotify mpd battery_cust date
-modules-center =  cpu_heat memory cpu_cust
-modules-left   =  wifi-network wired-network fan_speed
-fixed-center   =  true
-
 [bar/meme]
+;get system variable
+monitor = ${env:MONITOR:} 
 width               =  100%
 height              =  21
-offset-x            =  1
-offset-y            =  1
+offset-x            =  0
+offset-y            =  0
 background          =  #303030
 foreground          =  #fabd2f
 border-bottom-color =  #fabd2f
@@ -57,7 +36,7 @@ fixed-center   =  true
 type = internal/network
 interface = wlp2s0
 format-connected =  <label-connected>
-label-connected =  %essid% :%upspeed% :%downspeed%
+label-connected =  %essid% [%signal%] :%upspeed% :%downspeed%
 format-connected-underline = ${colors.orange}
 
 [module/wired-network]
@@ -75,14 +54,14 @@ format-underline = ${colors.purple}
 
 [module/cpu_cust]
 type = custom/script
-exec = $HOME/.polybar/cpu_combo.py
+exec = $HOME/.config/polybar/cpu_combo.py
 interval = 2
 label =  %output% 
 format-underline = ${colors.purple}
 
 [module/cpu_freq]
 type = custom/script
-exec = $HOME/.polybar/system-cpu-frequency.sh
+exec = $HOME/.config/polybar/system-cpu-frequency.sh
 interval = 10
 label =  %output% 
 format-underline = ${colors.purple}
@@ -106,14 +85,14 @@ format-underline = ${colors.purple}
 [module/fan_speed]
 type = custom/script
 interval = 5:
-exec = $HOME/.polybar/fan.py
+exec = $HOME/.config/polybar/fan.py
 label =  %output%
 format-underline = ${colors.acqua}
 
 [module/battery_cust]
 type = custom/script
 interval = 5:
-exec = python3 $HOME/.polybar/bat.py
+exec = python3 $HOME/.config/polybar/bat.py
 label =  %output%
 format-underline = ${colors.blue}
 
@@ -126,7 +105,7 @@ label = [%output% / 4]
 [module/date]
 type = internal/date
 date =   %a %d-%m  %H:%M
-interval = 60 
+interval = 30 
 label = %date%
 format-underline = ${colors.red}
 
@@ -150,11 +129,5 @@ type = custom/script
 interval = 1
 ; format = [ <label>]
 format = [<label>]
-exec = python3 $HOME/.polybar/spotify_app.py
+exec = python3 $HOME/.config/polybar/spotify_app.py
 format-underline = ${colors.green}
-
-[module/popup-calendar]
-type = custom/script
-exec = /home/meme/MEGA/000_Documents_personal/polybar/popup-calendar.sh
-interval = 5
-click-left = /home/meme/MEGA/000_Documents_personal/polybar/popup-calendar.sh --popup

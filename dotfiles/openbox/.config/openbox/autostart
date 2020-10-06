@@ -1,6 +1,10 @@
 # appearance
-hsetroot -extend ~/Pictures/woman.png &
-polybar -c ~/.polybar/config meme &
+/home/meme/bin/launch_polybar.sh
+
+# Check the GH version is does not work as expected
+# https://github.com/himdel/hsetroot/tree/options
+hsetroot -extend $BG_IMAGE &
+
 # hide cursor
 unclutter -idle 1.0 -root &
 
@@ -14,3 +18,5 @@ xautolock -time 10 -locker slock -m "Locked" &
 /home/meme/bin/mega.sh &
 dropbox start -i &
 
+# anacron for backups
+/usr/sbin/anacron -s -t $HOME/.anacron/etc/anacrontab -S $HOME/.anacron/spool

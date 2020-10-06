@@ -57,4 +57,8 @@ options(prompt        = "> ",
 
 # R-studio            
 # ./configure --with-lapack --with-blas --with-cairo --enable-R-shlib                                            
+# specifcy R version at rstudio startup
+#export RSTUDIO_WHICH_R=/home/meme/GIT/R/R-shlib/bin/R
+
+
 

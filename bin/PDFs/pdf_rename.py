@@ -3,7 +3,7 @@
 Rename pdf
 """
 #Define all badwords
-words="Printed|preprint|arXiv|content|journal|Rejoinder|Science|Annals|Communication|manuscript|department|editor|vol|doi|download|publisher|author|paper"
+words="Printed|preprint|arXiv|content|journal|Rejoinder|Science|Annals|Communication|manuscript|department|editor|vol|doi|download|publisher|author|paper|dvi|Springer"
 words = words.split("|")
 numb = [str(i) for i in range(10)]
 symb=[s for s in "([()?/]+)|"]
@@ -17,8 +17,9 @@ import argparse
 import os
 import sys
 from prettytable import PrettyTable
+import re
 def rspace(s):
-    return s.replace(' ','_')
+    return re.sub("([()?/]+)|",'',s).replace(' ','_')
 
 def smartconv(paper):
     text=sp.check_output("pdftotext -l 1 " + paper + ' -',shell=True)
@@ -70,9 +71,8 @@ def main(args=None):
     A.ff = [f for f in A.ff if '.pdf' in f]
 
     # Remove spaces if present
-    if A.spaces:
-        [os.rename(f,rspace(f)) for f in A.ff if ' ' in f]
-        A.ff = [rspace(f) for f in A.ff]
+    [os.rename(f,rspace(f)) for f in A.ff if ' ' in f]
+    A.ff = [rspace(f) for f in A.ff]
 
     if A.test:
         backup(A.ff)

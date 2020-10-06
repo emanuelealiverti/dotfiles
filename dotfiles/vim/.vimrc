@@ -9,7 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
-Plug 'jalvesaq/Nvim-R', {'branch': 'faster_omnicompl'}
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 "Plug 'jalvesaq/R-Vim-runtime'
 Plug 'lervag/vimtex'
 Plug 'scrooloose/nerdcommenter'
@@ -25,7 +25,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'AndrewRadev/linediff.vim'
-Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
@@ -103,6 +102,7 @@ augroup END
 
 "This cause crazy shit to happen
 "and check it uses zsh
+"very slow
 "set shell=zsh\ -i
 "++++++++++++++++++
 " HARD MODE (soft)
@@ -199,7 +199,9 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 let g:vimtex_view_method = 'zathura'
 " $PATH must contain the path for nvr! e.g. /anconda3/bin
 let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_quickfix_latexlog = {'default' : 0}
+"let g:vimtex_quickfix_latexlog = {'default' : 0}
+let g:vimtex_quickfix_autoclose_after_keystrokes=3
+let g:vimtex_quickfix_open_on_warning=0
 " try to always set filetype latex
 let g:tex_flavor = 'latex'
 "let g:tex_fast = "bMpr"
@@ -211,6 +213,15 @@ let g:vimtex_complete_ignore_case=1
 autocmd Filetype tex call TexStartup() 
 let g:vimtex_matchparen_enabled=0
 "let g:vimtex_indent_enabled = 0
+augroup vimtex_event_1
+    au!
+	" Cleans when everything closes
+    au User VimtexEventQuit     call vimtex#compiler#clean(0)
+	" guarantees that the windw is moved to the current workspace
+    au User VimtexEventView     call system('xdotool set_desktop_for_window  ' . b:vimtex.viewer.xwin_id . ' $(xdotool get_desktop)')
+augroup END
+
+
 
 """""""""""""""""""""""""""""""""""""
 " OMNICOMPLETE
