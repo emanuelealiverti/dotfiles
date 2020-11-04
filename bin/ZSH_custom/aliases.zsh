@@ -8,6 +8,7 @@ export prin=/home/meme/MEGA/Research/PAPERS/SUN_MORTALITY/
 export bart=/home/meme/Dropbox/BernardiDuranteAliverti_SUN/AddRegressTrees/
 export sm=/home/meme/MEGA/Teaching/UNIPD/SocialMedia
 export th=/home/meme/MEGA/Teaching/UNIVE/SMRA/notes-2019/meme/
+export cw=/home/meme/MEGA/Teaching/UNIVE/SMRA/EXAMS/
 
 
 ##+++++++++++++++++++++++++
@@ -37,6 +38,7 @@ alias lsd='ls -h --group-directories-first'
 alias rm='rm -i'
 alias cp='cp -i'
 
+alias del='gio trash'
 alias trash-empty='sudo rm -rf ~/.local/share/Trash/*'
 alias wifiRes='sudo service network-manager restart'
 
@@ -52,7 +54,7 @@ alias lmkrm='latexmk -c'
 alias l='k -h --group-directories-first --no-vcs'
 alias la='k -ah --group-directories-first --no-vcs'
 
-alias fd=fdfind
+#alias fd=fdfind
 #alias l='k' 
 #alias f='. ranger' 
 alias t='todo.sh'

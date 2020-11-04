@@ -17,6 +17,8 @@ if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
 fi
 source ${ZIM_HOME}/init.zsh
 
+export LS_COLORS="$(vivid generate molokai)"
+
 
 # Bind up and down keys
 zmodload -F zsh/terminfo +p:terminfo
