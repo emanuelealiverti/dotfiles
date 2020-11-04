@@ -9,23 +9,22 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
-Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
-"Plug 'jalvesaq/R-Vim-runtime'
+Plug 'jalvesaq/Nvim-R'
 Plug 'lervag/vimtex'
+"Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
+Plug 'godlygeek/tabular'
 Plug 'morhetz/gruvbox'
 Plug 'chrisbra/csv.vim'
 Plug 'ssp3nc3r/stan-syntax-vim'
-Plug 'godlygeek/tabular'
 Plug 'jalvesaq/vimcmdline'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'AndrewRadev/linediff.vim'
-Plug 'junegunn/fzf.vim'
+Plug 'gregsexton/MatchTag'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -211,7 +210,7 @@ let g:vimtex_complete_ignore_case=1
 "let g:vimtex_complete_bib = { 'simple': 0 }
 " Enable spell checking when opening .tex files
 autocmd Filetype tex call TexStartup() 
-let g:vimtex_matchparen_enabled=0
+"let g:vimtex_matchparen_enabled=0
 "let g:vimtex_indent_enabled = 0
 augroup vimtex_event_1
     au!
@@ -230,6 +229,8 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
 let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
+"
+"
 "let g:SuperTabLongestEnhanced = 1
 "let g:SuperTabCrMapping = 0
 "autocmd FileType !tex if &omnifunc != '' | call SuperTabChain(&omnifunc, "<c-p>") | endif
@@ -238,10 +239,20 @@ let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
 """""""""""""""""""""""""""""""""""""
 " NVIM R 
 """""""""""""""""""""""""""""""""""""
-set completeopt-=preview
+" Trying with radiant
+"let R_app = "/home/meme/bin/rr"
+"let R_cmd = "R"
+"let R_hl_term = 0
+"let R_args = []  " if you had set any
+"let R_bracketed_paste = 1
+
+
+"
+"
 "let R_complete = 2
 "let R_show_args = 0
 "let completeopt=['']
+let R_hl_term = 1
 let R_show_arg_help = 0
 let R_open_example = 0
 "let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
@@ -249,7 +260,6 @@ nmap <space> <Plug>RDSendLine
 vmap <space> <Plug>RDSendSelection
 
 let R_assign=0
-nmap <leader>a <leader>kb
 autocmd FileType r,rnw,rd,rmd inoremap >> %>%
 "autocmd FileType rmd call RmdStart()
 

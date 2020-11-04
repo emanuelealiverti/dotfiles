@@ -10,13 +10,21 @@ main() {
 			xrandr --output "$intern" --off --output "$extern" --auto
 			poly_script
 			;;
-		-i|internal)  xrandr --output "$extern" --off --output "$intern" --auto ;;
+		-i|internal)  xrandr --output "$extern" --off --output "$intern" --auto
+			poly_script -int
+			;;
 		-a|above)
-			xrandr --output "$intern" --primary --auto --output "$extern" --above "$intern" --auto 
+			xrandr --output "$intern" --primary --auto \
+				--output "$extern" --auto \
+				--above "$intern" 
+
 			poly_script -ex
 			;;
 		-b|both) 
-			xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto 
+			xrandr --output "$intern" --primary --auto \
+				--output "$extern" --auto \
+				--right-of "$intern"
+
 			poly_script -int
 			;;
 		*) echo "Specify options. External (-e), Internal (-i), both (-b), both above (-a)" ;;
@@ -24,7 +32,7 @@ main() {
 }
 
 poly_script() {
-	source /home/meme/bin/launch_polybar.sh "$@"
+	source $HOME/bin/launch_polybar.sh "$@"
 }
 
 

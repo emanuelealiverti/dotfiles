@@ -17,18 +17,6 @@ take() { mkdir -p $1; cd $1;}
 
 thirdline() { awk '{if (NR%3==0){print "\033[31m" $0 "\033[0m"} else{print}}'; }
 
-del () {
-    mv "$@" $HOME/.local/share/Trash/
-}
-#  expand rg for filenames (like locate)
-rgg() {
-  if [ -z "$2" ]
-  then
-      rg -S --files | rg -S "$1"
-  else
-      rg -S --files "$2" | rg  -S "$1"
-  fi
-}
 
 #++++++++++++++++++
 # Clean tex compile
@@ -41,14 +29,6 @@ bianca_webcam() {
 
 
 notify_at() { echo 'notify-send "'$1'"' | at $2}
-
-focus_now() {
-	t=${1:-1500}
-	print_bord "Pause in $((t/60%60)) minutes"
-	sleep $t && notify-send "FINITO";
-	paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga --volume=20000
-
-}
 
 
 

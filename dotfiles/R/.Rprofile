@@ -15,6 +15,7 @@ local(
 
 # Complete pack names
 utils::rc.settings(ipck=TRUE)
+#library(colorout,lib.loc = "/home/meme/R/site-library")
 #cat(sprintf("R %s.%s",R.version$major,R.version$minor),"\n")
 
 # Use cairo as a default devide + specify a nice family of fonts which ideally supports

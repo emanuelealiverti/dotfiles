@@ -25,10 +25,10 @@
   <placement>
     <policy>Smart</policy>
     <!-- 'Smart' or 'UnderMouse' -->
-    <center>yes</center>
+    <center>no</center>
     <!-- whether to place windows in the center of the free area found or
 			the top left corner -->
-    <monitor>Active</monitor>
+    <monitor>Mouse</monitor>
     <!-- with Smart placement on a multi-monitor system, try to place new windows
 				on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
 			the active window is, 'Primary' - only on the primary monitor -->
@@ -551,7 +551,27 @@
     <!--</keybind>-->
 	    
 
-    <!--  show menu-->
+    <!--  reset only external screen. -->
+    <keybind key="C-A-e">
+    <action name="Execute">
+	    <command>/home/meme/bin/switch_monitor.sh -e</command>
+      </action>
+    </keybind>
+
+    <!--  reset only internal screen. Useful when the ext is unplugged and the interal not reactivated-->
+    <keybind key="C-A-s">
+    <action name="Execute">
+	    <command>/home/meme/bin/switch_monitor.sh -i</command>
+      </action>
+    </keybind>
+
+    <!--  both screen.-->
+    <keybind key="C-A-b">
+    <action name="Execute">
+	    <command>/home/meme/bin/switch_monitor.sh -b</command>
+      </action>
+    </keybind>
+
     <keybind key="C-A-Delete">
     <action name="Execute">
         <prompt>
@@ -582,7 +602,7 @@
 	    <!--lock screen-->
     <keybind key="C-A-l">
       <action name="Execute">
-	           <command>sh -c 'slock -m 'Locked' &amp; (sleep .5 &amp;&amp; xset dpms force off)'</command>
+	           <command>sh -c 'slock -m 'L' &amp; (sleep .5 &amp;&amp; xset dpms force off)'</command>
       </action>
     </keybind>
     <keybind key="C-A-t">
@@ -597,7 +617,8 @@
     </keybind>
     <keybind key="C-space">
       <action name="Execute">
-        <command>/home/meme/bin/search-recoll-dmenu.sh</command>
+	<!--<command>/home/meme/bin/search-recoll-dmenu.sh</command>-->
+	<command>/home/meme/bin/fzfmenu.sh</command>
       </action>
     </keybind>
   </keyboard>
