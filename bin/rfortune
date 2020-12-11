@@ -1,0 +1,10 @@
+#! /home/meme/R/site-library/littler/bin/r 
+pr = 1/3
+
+.libPaths("/home/meme/R/site-library/")
+
+if(runif(1) > pr){
+	print(fortunes::fortune())
+} else {
+	system("fortune")
+	}

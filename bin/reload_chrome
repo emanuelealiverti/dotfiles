@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Get the document title because Firefox use it in the window name
+WINNAME=`grep '<title>.*</title>' "$1" | sed -e 's/.*<title>\(.*\)<\/title>.*/\1/'`
+
+# If the title is empty, use the file name
+if [ "x$WINNAME" = "x" ]
+then
+WINNAME=$1
+fi
+
+# Check if the page is already open
+xdotool search --name "$WINNAME" windowactivate --sync
+
+if [ "$?" = "0" ]
+then
+# The page is open; emulate the F5 key press to refresh it:
+xdotool search --name "$WINNAME" key --clearmodifiers F5
+else
+# Start the browser
+google-chrome-beta "$1" &
+fi

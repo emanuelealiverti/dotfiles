@@ -1,0 +1,3 @@
+#!/bin/sh
+sshfs aliverti@unive:/home/aliverti/.cache/Nvim-R ~/.remoteR/NvimR_cache
+sshfs aliverti@unive:/home/aliverti/R/site-library ~/.remoteR/R_library

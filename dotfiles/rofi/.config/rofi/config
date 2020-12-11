@@ -5,6 +5,7 @@ rofi.width: 30
 rofi.lines: 5 
 rofi.hide-scrollbar:    true
 !rofi.show-icons:        true
+rofi.theme: ~/.cache/wal/colors-rofi-dark2.rasi
 rofi.color-normal: #00282828,  #ebdbb2,  #00282828,  #003c3836,  #98971a
 rofi.color-urgent: #00282828,  #ebdbb2,  #00282828,  #003c3836,  #98971a
 rofi.color-active: #00282828,  #ebdbb2,  #00282828,  #003c3836,  #98971a
@@ -19,3 +20,4 @@ rofi.kb-remove-to-eol:               Control+Shift+e
 rofi.kb-mode-next:                   Shift+Right,Control+Tab,Control+l
 rofi.kb-mode-previous:               Shift+Left,Control+Shift+Tab,Control+h
 rofi.kb-remove-char-back:            BackSpace
+

@@ -6,3 +6,12 @@ SHLIB_CXX14LDFLAGS = -Wl,-S -shared
 SHLIB_FCLDFLAGS = -Wl,-S -shared
 SHLIB_LDFLAGS = -Wl,-S -shared
 #FFLAGS = -std=legacy
+#
+
+# Dirk 2 https://stackoverflow.com/questions/45512586/quickly-build-package-repeatedly-in-r
+VER=
+CCACHE=ccache
+CC=$(CCACHE) gcc$(VER)
+CXX=$(CCACHE) g++$(VER)
+CXX11=$(CCACHE) g++$(VER)
+CXX14=$(CCACHE) g++$(VER)

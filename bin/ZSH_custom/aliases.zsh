@@ -3,13 +3,11 @@
 ##++++++++++++++
 
 export tr=/home/meme/MEGA/Research/TOREAD
-export max=/home/meme/MEGA/Research/MEME_MAX
 export prin=/home/meme/MEGA/Research/PAPERS/SUN_MORTALITY/
-export bart=/home/meme/Dropbox/BernardiDuranteAliverti_SUN/AddRegressTrees/
-export sm=/home/meme/MEGA/Teaching/UNIPD/SocialMedia
-export th=/home/meme/MEGA/Teaching/UNIVE/SMRA/notes-2019/meme/
+export th=/home/meme/MEGA/Teaching/UNIVE/SMRA/
 export cw=/home/meme/MEGA/Teaching/UNIVE/SMRA/EXAMS/
-
+export max=/home/meme/Dropbox/DynamicTensorCovid/
+export pp='/home/meme/VE_GDrive/Analisi sistema offerta infanzia /'
 
 ##+++++++++++++++++++++++++
 # Navigate to custom paths
@@ -19,6 +17,7 @@ alias cdw='cd $cw'
 alias cdt='cd $tr' 
 alias cdth='cd $th'
 alias cdp='cd /home/meme/MEGA/Research/PAPERS/' 
+alias cdww='cd $pp'
 #alias cdth='cd $thesis; tmux new-session -A -s thesis vim Aliverti_thesis.tex' 
 
 

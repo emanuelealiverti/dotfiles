@@ -12,6 +12,6 @@ main() {
 
 case "$1" in
 	-int)  main DP ;;
-	-ex)  main HDMI ;;
+	-ex|-ext)  main HDMI ;;
 	*) main ;;
 esac

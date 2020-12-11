@@ -1,10 +1,18 @@
 [colors]
-orange =  #fe8019
-acqua  =  #8ec07c
-blue   =  #83a598
-red    =  #fb4934
-green  =  #b8bb26
-purple =  #d3869b
+;orange =  #fe8019
+;acqua  =  #8ec07c
+;blue   =  #83a598
+;red    =  #fb4934
+;green  =  #b8bb26
+;purple =  #d3869b
+orange = ${xrdb:color1:#222} 
+acqua  = ${xrdb:color2:#222} 
+red    = ${xrdb:color4:#222} 
+green  = ${xrdb:color5:#222} 
+purple = ${xrdb:color6:#222} 
+background = ${xrdb:color0}
+foreground = ${xrdb:color3:#222} 
+
 
 [bar/meme]
 ;get system variable
@@ -13,8 +21,9 @@ width               =  100%
 height              =  21
 offset-x            =  0
 offset-y            =  0
-background          =  #303030
-foreground          =  #fabd2f
+background = ${colors.background}
+;background          =  #303030
+foreground = ${colors.foreground}
 border-bottom-color =  #fabd2f
 padding-left        =  1
 padding-right       =  2
@@ -94,7 +103,7 @@ type = custom/script
 interval = 5:
 exec = python3 $HOME/.config/polybar/bat.py
 label =  %output%
-format-underline = ${colors.blue}
+format-underline = ${colors.acqua}
 
 [module/workspace_number]
 type = custom/script

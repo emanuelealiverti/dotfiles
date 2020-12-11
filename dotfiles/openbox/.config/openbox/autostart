@@ -1,26 +1,26 @@
-# OPENBOX AUTOSTART
-# remember to add a & at the end of EACH command
-# appearance
+############
+# Appearance
+############
+/home/meme/.local/bin/wal -R -n & sleep 0.5
 /home/meme/bin/launch_polybar.sh &
+/home/meme/bin/set_wallpaper_pywal &
+
 
 # Check the GH version is does not work as expected
 # https://github.com/himdel/hsetroot/tree/options
-hsetroot -extend $BG_IMAGE &
+#hsetroot -extend $BG_IMAGE &
 
 # hide cursor
 unclutter -idle 1.0 -root &
 
-
-
-# cloud
+###############
+# Cloud storage
+###############
 /home/meme/bin/mega.sh &
 dropbox start -i &
 
-# anacron for backups or scheduled jobs
+# anacron for scheduled jobs (backup)
 /usr/sbin/anacron -s -t $HOME/.anacron/etc/anacrontab -S $HOME/.anacron/spool &
 
-
-
 # lock
-xautolock -time 10 -locker "slock -m 'L' & (sleep .5 && xset dpms force off)" &
-
+xautolock -time 10 -locker "slock -m '$(/home/meme/bin/rfortune)' & (sleep .5 && xset dpms force off)"

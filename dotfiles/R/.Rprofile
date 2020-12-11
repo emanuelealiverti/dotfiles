@@ -29,11 +29,11 @@ options(prompt        = "> ",
 	max.print     = 1e3,
 	device="x11",
 	width         = 80,
+	Ncpus         = 4,
 	menu.graphics = FALSE,
 	#Ncpus         = 4,
-	browser = "google-chrome",
-	#browser = "/home/meme/bin/reload_surf"
-	Ncpus         = 4
+	#browser = "google-chrome",
+	browser = "/home/meme/bin/reload_chrome"
 	)
 
 #+++++++++++++++++++++

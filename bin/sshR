@@ -1,0 +1,8 @@
+#!/bin/sh
+ssh -t aliverti@unive "PATH=/home/aliverti/bin:\$PATH \
+	    NVIMR_COMPLDIR=~/.cache/Nvim-R \
+	    NVIMR_TMPDIR=~/.cache/Nvim-R/tmp \
+	    NVIMR_ID=$NVIMR_ID \
+	    NVIMR_SECRET=$NVIMR_SECRET \
+	    R_DEFAULT_PACKAGES=$R_DEFAULT_PACKAGES \
+	    NVIM_IP_ADDRESS=$NVIM_IP_ADDRESS R $@"

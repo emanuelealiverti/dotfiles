@@ -10,8 +10,11 @@ main() {
 		-run) 
 			$RC_PATH $GD_FOLD driveVE:  -c --filters-file /home/meme/.rclonesyncwd/Filters -vv  --rclone-args --drive-skip-gdocs >> /tmp/gdrive_runlogVE 2>&1
 			;;
+		-runVerb) 
+			$RC_PATH $GD_FOLD driveVE:  -c --filters-file /home/meme/.rclonesyncwd/Filters -vv  --rclone-args --drive-skip-gdocs
+			;;
 		-reset)
-			$RC_PATH $GD_FOLD driveVE: --first-sync -c --rclone-args --drive-skip-gdocs
+			$RC_PATH $GD_FOLD driveVE: --first-sync -c --filters-file /home/meme/.rclonesyncwd/Filters --rclone-args --drive-skip-gdocs
 			;;
 
 		*) echo "Specify options" ;;

@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+# useful to be used inside xdg-open etc.
+# Just add a symlink to the .desktop file 
+
+$(st -e nvim "$@") &> /dev/null &
+

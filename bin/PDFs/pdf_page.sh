@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$1" == "merge" || "$1" == "-m" ]]; then 
-gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=MERGED.pdf "${@:2}"
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$(date +%F_%H:%M:%S).pdf "${@:2}"
 
 elif [[ "$1" == "split" || "$1" == "-s" ]]; then
 gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \

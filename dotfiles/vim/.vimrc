@@ -8,10 +8,11 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
+Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'jalvesaq/Nvim-R'
 Plug 'lervag/vimtex'
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+Plug '~/.local/share/nvim/plugged/Nvim-R'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
@@ -24,6 +25,7 @@ Plug 'tpope/vim-repeat'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'gregsexton/MatchTag'
+
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " All of your Plugins must be added before the following line
@@ -34,15 +36,12 @@ call plug#end()
 " STYLE 
 """"""""""""""""""""""""""""""""""""
 " colors
-set termguicolors
+"set termguicolors
 "set t_Co=256
 
-colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark="soft"
-"let g:gruvbox_contrast_dark='hard'
-"set background=light
-"let g:gruvbox_contrast_light='light'
+colorscheme wal
+"colorscheme gruvbox
+"set background=dark
 let g:gruvbox_italic=1
 
 set t_ZH=3m
@@ -114,7 +113,7 @@ nnoremap <Up>    :echoe "Use k"<CR>
 "nnoremap <Down>  :echoe "Use j"<CR>
 nnoremap j gj
 nnoremap k gk
-inoremap jk <esc>
+"inoremap jk <esc>
 
 "++++++++
 " BUFFERS
@@ -220,6 +219,20 @@ augroup vimtex_event_1
     au User VimtexEventView     call system('xdotool set_desktop_for_window  ' . b:vimtex.viewer.xwin_id . ' $(xdotool get_desktop)')
 augroup END
 
+" Close viewers when vimtex buffers are closed
+function! CloseViewers()
+	" Close viewers on quit
+	if executable('xdotool') && exists('b:vimtex')
+				\ && exists('b:vimtex.viewer') && b:vimtex.viewer.xwin_id > 0
+		call system('xdotool windowclose '. b:vimtex.viewer.xwin_id)
+	endif
+endfunction
+
+augroup vimtex_event_2
+	au!
+	au User VimtexEventQuit call CloseViewers()
+augroup END
+
 
 
 """""""""""""""""""""""""""""""""""""
@@ -239,20 +252,9 @@ let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
 """""""""""""""""""""""""""""""""""""
 " NVIM R 
 """""""""""""""""""""""""""""""""""""
-" Trying with radiant
-"let R_app = "/home/meme/bin/rr"
-"let R_cmd = "R"
-"let R_hl_term = 0
-"let R_args = []  " if you had set any
-"let R_bracketed_paste = 1
-
-
-"
-"
-"let R_complete = 2
-"let R_show_args = 0
-"let completeopt=['']
-let R_hl_term = 1
+"let R_hl_term = 1
+let R_complete = 2
+let R_show_args = 0
 let R_show_arg_help = 0
 let R_open_example = 0
 "let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
@@ -262,6 +264,21 @@ vmap <space> <Plug>RDSendSelection
 let R_assign=0
 autocmd FileType r,rnw,rd,rmd inoremap >> %>%
 "autocmd FileType rmd call RmdStart()
+"
+" Setup Vim to use the remote R only if the output of df includes
+" the string 'remoteR', that is, the remote file system is mounted:
+if system('df') =~ 'remoteR'
+	let $NVIM_IP_ADDRESS = substitute(system("hostname -I"), " .*", "", "")
+	let R_app = '/home/meme/bin/sshR'
+	let R_cmd = '/home/meme/bin/sshR'
+	let R_compldir = '/home/meme/.remoteR/NvimR_cache'
+	let R_tmpdir = '/home/meme/.remoteR/NvimR_cache/tmp'
+	let R_remote_tmpdir = '/home/remotelogin/.cache/NvimR_cache/tmp'
+        let R_nvimcom_home = '/home/meme/.remoteR/R_library/nvimcom'
+endif
+
+
+
 
 ""++++++++++++++++++++++++++++++++++++++++++++++++++
 " CMD line - similar to NVIM but for julia (less) 
@@ -286,7 +303,7 @@ au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
 " LIGHTLINE SETUP
 "++++++++++++++++
 let g:lightline = {
-			\ 'colorscheme': 'gruvbox',
+			\ 'colorscheme': 'wal',
 			\ 'active': {
 			\   'right': [ [ 'lineinfo', 'filetype' ] ]
 			\ },

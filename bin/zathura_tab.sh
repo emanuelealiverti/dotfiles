@@ -11,7 +11,7 @@ then
 else
 	# sometimes -c has some flaws
 	read xid < <(tabbed -dn "$wmclass" -p -1 2> /dev/null)
-	#read xid < <(tabbed -cdn "$wmclass" -p -1 2 > /dev/null)
+	#read xid < <(tabbed -cdn "$wmclass" -p -1 2)
 	#wmctrl -i -r "$xid" -b add,maximized_vert,maximized_horz
 	wmctrl -i -r "$xid" -b add,maximized_vert
 	echo "$xid" > "$xidfile"

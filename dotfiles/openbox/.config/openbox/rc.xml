@@ -40,7 +40,7 @@
 			'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Nightmare-01</name>
+    <name>almost_empty</name>
     <titleLayout>NLC</titleLayout>
     <!--
 				available characters are NDSLIMC, each can occur at most once.
@@ -52,6 +52,7 @@
 				S: shade (roll up/down)
 				D: omnipresent (on all desktops).
 			-->
+    <!--Importante per rimuovere bordino: https://bbs.archlinux.org/viewtopic.php?id=54350-->
     <keepBorder>yes</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
@@ -301,26 +302,16 @@
         <command>scrot -s</command>
       </action>
     </keybind>
-
     <!-- Keybindings for window moving or resizing -->
-<keybind key="A-Home">
-      <action name="Iconify"/>
-  </keybind>
 
-    <keybind key="W-A-Return">
-      <action name="ToggleMaximizeVert"/>
-    </keybind>
-
-    <keybind key="W-Down">
+    <!-- Vim style for half screen -->
+    <keybind key="W-h">
       <action name="MoveResizeTo">
-        <x>-0</x>
+        <x>0</x>
         <y>0</y>
-        <height>50%</height>
-        <width>100%</width>
+        <height>100%</height>
+        <width>50%</width>
       </action>
-    </keybind>
-    <keybind key="W-Up">
-      <action name="ToggleMaximize"/>
     </keybind>
     <keybind key="W-l">
       <action name="MoveResizeTo">
@@ -330,6 +321,47 @@
         <width>50%</width>
       </action>
     </keybind>
+    <keybind key="W-j">
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>-0</y>
+        <height>50%</height>
+        <width>100%</width>
+      </action>
+    </keybind>
+    <keybind key="W-k">
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>0</y>
+        <height>50%</height>
+        <width>100%</width>
+      </action>
+    </keybind>
+
+
+
+
+
+    <keybind key="A-Home">
+      <action name="Iconify"/>
+    </keybind>
+    <keybind key="W-A-Return">
+      <action name="ToggleMaximizeVert"/>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>0</y>
+        <height>50%</height>
+        <width>100%</width>
+      </action>
+    </keybind>
+
+    <keybind key="W-Up">
+      <action name="ToggleMaximize"/>
+    </keybind>
+
+
     <keybind key="W-Right">
       <action name="MoveResizeTo">
         <x>-0</x>
@@ -338,14 +370,7 @@
         <width>50%</width>
       </action>
     </keybind>
-    <keybind key="W-h">
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <height>100%</height>
-        <width>50%</width>
-      </action>
-    </keybind>
+
     <keybind key="W-Left">
       <action name="MoveResizeTo">
         <x>0</x>
@@ -428,152 +453,132 @@
         <direction>down</direction>
       </action>
     </keybind>
-<keybind key="W-S-1">
-  <action name="MoveResizeTo">
-    <monitor>1</monitor>
-  </action>
-</keybind>
-<keybind key="W-S-2">
-  <action name="MoveResizeTo">
-    <monitor>2</monitor>
-  </action>
-</keybind>
-
+    <keybind key="W-S-1">
+      <action name="MoveResizeTo">
+        <monitor>1</monitor>
+      </action>
+    </keybind>
+    <keybind key="W-S-2">
+      <action name="MoveResizeTo">
+        <monitor>2</monitor>
+      </action>
+    </keybind>
     <!-- MUSIC control with shift/C + play for mdp-->
     <!--<keybind key="S-XF86AudioPlay">-->
     <!--qua non va-->
     <!--<keybind key="A-Prior">-->
-      <!--<action name="Execute">-->
-        <!--<command>xdotool key XF86AudioNext</command>-->
-      <!--</action>-->
-      <!--</keybind>-->
-      <!--specifc for spotify-->
-
- <!--<keybind key="XF86AudioPause">-->
-	 <!---SPOPTIFY-SPECIFIC COMMAND-->
- <keybind key="XF86AudioPlay">
-	 <action name="Execute">
-		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause</execute>
-	 </action>
- </keybind>
-
- <keybind key="XF86AudioPrev">
-	 <action name="Execute">
-		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous</execute>
-	 </action>
- </keybind>
-
- <keybind key="XF86AudioNext">
-	 <action name="Execute">
-		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
-	 </action>
- </keybind>
-
-<!--Fix for keyboard without next key-->
-
- <keybind key="S-XF86AudioLowerVolume">
-	 <action name="Execute">
-		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous</execute>
-	 </action>
- </keybind>
- <keybind key="S-XF86AudioRaiseVolume">
-	 <action name="Execute">
-		 <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
-	 </action>
- </keybind>
-
-
- <!--MPC-specifc-->
- <!--<keybind key="A-XF86AudioPlay">-->
-      <!--<action name="Execute">-->
-        <!--<command>mpc toggle</command>-->
-      <!--</action>-->
+    <!--<action name="Execute">-->
+    <!--<command>xdotool key XF86AudioNext</command>-->
+    <!--</action>-->
+    <!--</keybind>-->
+    <!--specifc for spotify-->
+    <!--<keybind key="XF86AudioPause">-->
+    <!---SPOPTIFY-SPECIFIC COMMAND-->
+    <keybind key="XF86AudioPlay">
+      <action name="Execute">
+        <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause</execute>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioPrev">
+      <action name="Execute">
+        <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous</execute>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioNext">
+      <action name="Execute">
+        <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
+      </action>
+    </keybind>
+    <!--Fix for keyboard without next key-->
+    <keybind key="S-XF86AudioLowerVolume">
+      <action name="Execute">
+        <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous</execute>
+      </action>
+    </keybind>
+    <keybind key="S-XF86AudioRaiseVolume">
+      <action name="Execute">
+        <execute>dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next</execute>
+      </action>
+    </keybind>
+    <!--MPC-specifc-->
+    <!--<keybind key="A-XF86AudioPlay">-->
+    <!--<action name="Execute">-->
+    <!--<command>mpc toggle</command>-->
+    <!--</action>-->
     <!--</keybind>-->
     <!--<keybind key="C-XF86AudioPlay">-->
-      <!--<action name="Execute">-->
-        <!--<command>mpc prev</command>-->
-      <!--</action>-->
+    <!--<action name="Execute">-->
+    <!--<command>mpc prev</command>-->
+    <!--</action>-->
     <!--</keybind>-->
-
     <!-- BRIGHTNESS control -->
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-	      <command>/home/meme/bin/brightness_set.sh -up</command>
+        <command>/home/meme/bin/brightness_set.sh -up</command>
       </action>
     </keybind>
-
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-	      <command>/home/meme/bin/brightness_set.sh -down</command>
+        <command>/home/meme/bin/brightness_set.sh -down</command>
       </action>
     </keybind>
-
     <!-- VOLUME control -->
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-	      <command>/home/meme/bin/volume_set.sh -down</command>
+        <command>/home/meme/bin/volume_set.sh -down</command>
       </action>
     </keybind>
-
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-	      <command>/home/meme/bin/volume_set.sh -up</command>
+        <command>/home/meme/bin/volume_set.sh -up</command>
       </action>
     </keybind>
-
     <keybind key="XF86AudioMute">
       <action name="Execute">
-	      <command>/home/meme/bin/volume_set.sh -mute</command>
+        <command>/home/meme/bin/volume_set.sh -mute</command>
       </action>
     </keybind>
-
     <!-- BRIGHTNESS control brightness with shift+vol-->
     <!--<keybind key="S-XF86AudioLowerVolume">-->
-      <!--<action name="Execute">-->
-        <!--<command>xdotool key XF86MonBrightnessDown</command>-->
-      <!--</action>-->
+    <!--<action name="Execute">-->
+    <!--<command>xdotool key XF86MonBrightnessDown</command>-->
+    <!--</action>-->
     <!--</keybind>-->
     <!--<keybind key="S-XF86AudioRaiseVolume">-->
-      <!--<action name="Execute">-->
-        <!--<command>xdotool key XF86MonBrightnessUp </command>-->
-      <!--</action>-->
+    <!--<action name="Execute">-->
+    <!--<command>xdotool key XF86MonBrightnessUp </command>-->
+    <!--</action>-->
     <!--</keybind>-->
-
     <!--<keybind key="W-XF86AudioLowerVolume">-->
-      <!--<action name="Execute">-->
-        <!--<command>xdotool key XF86AudioPrev</command>-->
-      <!--</action>-->
+    <!--<action name="Execute">-->
+    <!--<command>xdotool key XF86AudioPrev</command>-->
+    <!--</action>-->
     <!--</keybind>-->
     <!--<keybind key="W-XF86AudioRaiseVolume">-->
-      <!--<action name="Execute">-->
-        <!--<command>xdotool key XF86AudioNext</command>-->
-      <!--</action>-->
+    <!--<action name="Execute">-->
+    <!--<command>xdotool key XF86AudioNext</command>-->
+    <!--</action>-->
     <!--</keybind>-->
-	    
-
     <!--  reset only external screen. -->
     <keybind key="C-A-e">
-    <action name="Execute">
-	    <command>/home/meme/bin/switch_monitor.sh -e</command>
+      <action name="Execute">
+        <command>/home/meme/bin/switch_monitor.sh -e</command>
       </action>
     </keybind>
-
     <!--  reset only internal screen. Useful when the ext is unplugged and the interal not reactivated-->
     <keybind key="C-A-s">
-    <action name="Execute">
-	    <command>/home/meme/bin/switch_monitor.sh -i</command>
+      <action name="Execute">
+        <command>/home/meme/bin/switch_monitor.sh -i</command>
       </action>
     </keybind>
-
     <!--  both screen.-->
     <keybind key="C-A-b">
-    <action name="Execute">
-	    <command>/home/meme/bin/switch_monitor.sh -b</command>
+      <action name="Execute">
+        <command>/home/meme/bin/switch_monitor.sh -b</command>
       </action>
     </keybind>
-
     <keybind key="C-A-Delete">
-    <action name="Execute">
+      <action name="Execute">
         <prompt>
             Are you sure you want to shutdown?
         </prompt>
@@ -582,11 +587,10 @@
         </execute>
       </action>
     </keybind>
-
     <!-- APPLICATIONS -->
     <keybind key="W-Return">
       <action name="Execute">
-	<command>/home/meme/bin/st_ic.sh</command>
+        <command>/home/meme/bin/st_ic.sh</command>
       </action>
     </keybind>
     <keybind key="W-v">
@@ -599,10 +603,10 @@
         <command>google-chrome</command>
       </action>
     </keybind>
-	    <!--lock screen-->
+    <!--lock screen-->
     <keybind key="C-A-l">
       <action name="Execute">
-	           <command>sh -c 'slock -m 'L' &amp; (sleep .5 &amp;&amp; xset dpms force off)'</command>
+        <command>sh -c 'slock -m "$(/home/meme/bin/rfortune)" &amp; (sleep .5 &amp;&amp; xset dpms force off)'</command>
       </action>
     </keybind>
     <keybind key="C-A-t">
@@ -617,8 +621,8 @@
     </keybind>
     <keybind key="C-space">
       <action name="Execute">
-	<!--<command>/home/meme/bin/search-recoll-dmenu.sh</command>-->
-	<command>/home/meme/bin/fzfmenu.sh</command>
+        <!--<command>/home/meme/bin/search-recoll-dmenu.sh</command>-->
+        <command>/home/meme/bin/fzfmenu.sh</command>
       </action>
     </keybind>
   </keyboard>
@@ -947,15 +951,6 @@
     <application class="*">
       <decor>no</decor>
     </application>
-    <application name="zathura">
-      <position>
-        <x>0</x>
-        <y>0</y>
-      </position>
-      <size>
-        <width>50%</width>
-      </size>
-      <maximized>Vertical</maximized>
-    </application>
+
   </applications>
 </openbox_config>
