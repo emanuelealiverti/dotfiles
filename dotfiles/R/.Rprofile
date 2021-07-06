@@ -4,6 +4,7 @@ local(
 	      r <- getOption("repos")
 	      r["CRAN"] <- "https://cloud.r-project.org/"
 	      options(repos=r)
+
       }
 )
 # And where the packages are stored
@@ -15,6 +16,7 @@ local(
 
 # Complete pack names
 utils::rc.settings(ipck=TRUE)
+
 #library(colorout,lib.loc = "/home/meme/R/site-library")
 #cat(sprintf("R %s.%s",R.version$major,R.version$minor),"\n")
 
@@ -24,7 +26,9 @@ setHook(packageEvent("grDevices", "onLoad"),
 function(...) grDevices::X11.options(type='cairo',symbolfamily="Hack",family="Hack"))
 
 #general options
-options(prompt        = "> ",
+options(
+	#nvimcom.verbose = 1,
+	#prompt        = "> ",
 	continue      = "... ",
 	max.print     = 1e3,
 	device="x11",
@@ -33,8 +37,10 @@ options(prompt        = "> ",
 	menu.graphics = FALSE,
 	#Ncpus         = 4,
 	#browser = "google-chrome",
-	browser = "/home/meme/bin/reload_chrome"
+	browser = "/home/meme/bin/reload_chrome",
+	pdfviewer="/usr/bin/zathura"
 	)
+#if (interactive()) library("prompt",lib.loc = "/home/meme/R/site-library/"); prompt::set_prompt(prompt::prompt_fancy)
 
 #+++++++++++++++++++++
 # for future reference

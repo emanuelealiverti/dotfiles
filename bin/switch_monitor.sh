@@ -22,6 +22,24 @@ main() {
 
 			poly_script -ex
 			;;
+
+		-bR|bothR) 
+			xrandr 	--output "$extern" --auto \
+			--output "$intern" --auto \
+				--right-of "$extern"
+			poly_script -ex
+			# Move all windows back
+			source /home/meme/bin/move-all-next-monitor
+	#python /home/meme/bin/move_all.py
+			;;
+
+		-d|duplicate)
+			 xrandr --output "$intern" --same-as "$extern"
+			#poly_script -ex
+			;;
+
+
+
 		-b|both) 
 			xrandr 	--output "$extern" --auto \
 			--output "$intern" --auto \
@@ -31,6 +49,8 @@ main() {
 			source /home/meme/bin/move-all-next-monitor
 	#python /home/meme/bin/move_all.py
 			;;
+
+
 		*) echo "Specify options. External (-e), Internal (-i), both (-b), both above (-a)" ;;
 	esac
 }

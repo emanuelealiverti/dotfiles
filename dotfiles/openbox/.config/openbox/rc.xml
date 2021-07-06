@@ -342,9 +342,9 @@
 
 
 
-    <keybind key="A-Home">
-      <action name="Iconify"/>
-    </keybind>
+    <!--<keybind key="A-Home">-->
+      <!--<action name="Iconify"/>-->
+    <!--</keybind>-->
     <keybind key="W-A-Return">
       <action name="ToggleMaximizeVert"/>
     </keybind>
@@ -565,6 +565,13 @@
         <command>/home/meme/bin/switch_monitor.sh -e</command>
       </action>
     </keybind>
+
+    <keybind key="C-A-p">
+      <action name="Execute">
+        <command>/home/meme/bin/switch_monitor.sh -d</command>
+      </action>
+    </keybind>
+
     <!--  reset only internal screen. Useful when the ext is unplugged and the interal not reactivated-->
     <keybind key="C-A-s">
       <action name="Execute">

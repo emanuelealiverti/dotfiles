@@ -23,4 +23,8 @@ dropbox start -i &
 /usr/sbin/anacron -s -t $HOME/.anacron/etc/anacrontab -S $HOME/.anacron/spool &
 
 # lock
-xautolock -time 10 -locker "slock -m '$(/home/meme/bin/rfortune)' & (sleep .5 && xset dpms force off)"
+xautolock -time 10 -locker "slock -m '$(/home/meme/bin/rfortune 0)' & (sleep .5 && xset dpms force off)"
+
+
+# power saving
+sudo tlp start

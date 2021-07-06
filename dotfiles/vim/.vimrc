@@ -11,8 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'dylanaraps/wal.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'lervag/vimtex'
-"Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
-Plug '~/.local/share/nvim/plugged/Nvim-R'
+Plug 'jalvesaq/Nvim-R'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
@@ -25,6 +24,11 @@ Plug 'tpope/vim-repeat'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'gregsexton/MatchTag'
+
+" JULIA
+Plug 'jpalardy/vim-slime', { 'for': ['python', 'julia'] }
+"Plug 'hanschen/vim-ipython-cell', { 'for': ['python', 'julia'] }
+Plug 'JuliaEditorSupport/julia-vim'
 
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 
@@ -265,38 +269,27 @@ let R_assign=0
 autocmd FileType r,rnw,rd,rmd inoremap >> %>%
 "autocmd FileType rmd call RmdStart()
 "
-" Setup Vim to use the remote R only if the output of df includes
-" the string 'remoteR', that is, the remote file system is mounted:
-if system('df') =~ 'remoteR'
-	let $NVIM_IP_ADDRESS = substitute(system("hostname -I"), " .*", "", "")
-	let R_app = '/home/meme/bin/sshR'
-	let R_cmd = '/home/meme/bin/sshR'
-	let R_compldir = '/home/meme/.remoteR/NvimR_cache'
-	let R_tmpdir = '/home/meme/.remoteR/NvimR_cache/tmp'
-	let R_remote_tmpdir = '/home/remotelogin/.cache/NvimR_cache/tmp'
-        let R_nvimcom_home = '/home/meme/.remoteR/R_library/nvimcom'
-endif
 
 
 
-
-""++++++++++++++++++++++++++++++++++++++++++++++++++
-" CMD line - similar to NVIM but for julia (less) 
-""++++++++++++++++++++++++++++++++++++++++++++++++++
+" CMD 
 
 let cmdline_map_start          = '<LocalLeader>rf'
 let cmdline_map_send           = '<Space>'
 let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
-let cmdline_map_source_fun     = '<LocalLeader>f'
-let cmdline_map_send_paragraph = ','
-let cmdline_map_send_block     = '<LocalLeader>b'
-let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
-let cmdline_app['prolog']     = 'telegram-cli -NW -l 0'
-let cmdline_app['python'] = 'python3.8'
 let cmdline_app['sh'] = 'zsh'
-let cmdline_app['julia'] = 'julia'
-au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
+"
+"
+" SLIME 
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
+let g:slime_dont_ask_default = 1
+autocmd FileType julia nmap , <Plug>SlimeLineSend
+"let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.2"}
+
+
+
 
 "
 "++++++++++++++++
@@ -400,11 +393,4 @@ function! ToggleNetrw()
 		let g:NetrwIsOpen=1
 		silent Lexplore
 	endif
-endfunction
-"++++++++++++++
-" Google search
-"++++++++++++++
-function! GoogleSearch()
-	let searchterm = getreg("g")
-	silent! exec "silent! !firefox \"http://google.com/search?q=" . searchterm . "\" &"
 endfunction

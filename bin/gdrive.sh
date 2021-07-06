@@ -17,7 +17,7 @@ main() {
 			$RC_PATH $GD_FOLD driveVE: --first-sync -c --filters-file /home/meme/.rclonesyncwd/Filters --rclone-args --drive-skip-gdocs
 			;;
 
-		*) echo "Specify options" ;;
+		*) echo "Specify options: -run, -runVerb,-reset" ;;
 	esac
 }
 

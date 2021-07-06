@@ -4,4 +4,4 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # period  delay  job-identifier  command
-7        10     backup  /home/meme/bin/backup.sh
+#7        10     backup  /home/meme/bin/backup.sh

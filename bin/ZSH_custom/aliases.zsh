@@ -3,11 +3,13 @@
 ##++++++++++++++
 
 export tr=/home/meme/MEGA/Research/TOREAD
-export prin=/home/meme/MEGA/Research/PAPERS/SUN_MORTALITY/
-export th=/home/meme/MEGA/Teaching/UNIVE/SMRA/
-export cw=/home/meme/MEGA/Teaching/UNIVE/SMRA/EXAMS/
-export max=/home/meme/Dropbox/DynamicTensorCovid/
-export pp='/home/meme/VE_GDrive/Analisi sistema offerta infanzia /'
+#export prin=/home/meme/MEGA/Research/PAPERS/SUN_MORTALITY/
+export prin=/home/meme/MEGA/Research/PAPERS/LocalMortality/
+export th=/home/meme/MEGA/Teaching/UNIPD/SocialMedia/2021
+#export cw=/home/meme/MEGA/Teaching/UNIVE/SMRA/EXAMS/
+export cw=/home/meme/MEGA/Research/PAPERS/MIX_LL/PAPER_app/
+export max=/home/meme/MEGA/Research/MEME_MAX/
+#export pp='/home/meme/VE_GDrive/Analisi sistema offerta infanzia /'
 
 ##+++++++++++++++++++++++++
 # Navigate to custom paths

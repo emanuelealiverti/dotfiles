@@ -39,14 +39,16 @@ font-1 = FontAwesome:antialias=true:size=10;1
 modules-right  =  spotify battery_cust date
 modules-center =  cpu_heat memory cpu_cust
 modules-left   =  wifi-network wired-network fan_speed polypomo
+;modules-left   =  wifi-network wired-network fan_speed
 fixed-center   =  true
 
 [module/wifi-network]
 type = internal/network
 interface = wlp2s0
 format-connected =  <label-connected>
-label-connected =  %essid% [%signal%] :%upspeed% :%downspeed%
+label-connected =  %essid:0:10% [%signal%] :%upspeed% :%downspeed%
 format-connected-underline = ${colors.orange}
+;essid-maxlen = 5
 
 [module/wired-network]
 type = internal/network
