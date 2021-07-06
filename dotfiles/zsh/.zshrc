@@ -1,75 +1,27 @@
-# ########################################
-# ███████╗███████╗██╗  ██╗██████╗  ██████╗
-# ╚══███╔╝██╔════╝██║  ██║██╔══██╗██╔════╝
-#   ███╔╝ ███████╗███████║██████╔╝██║     
-#  ███╔╝  ╚════██║██╔══██║██╔══██╗██║     
-# ███████╗███████║██║  ██║██║  ██║╚██████╗
-# ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
-# ########################################
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-setopt HIST_IGNORE_ALL_DUPS
-bindkey -v
-# Recent updates of zim require also .zlogin and .zshenv
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main)
-if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it's outdated, before sourcing it
-  source ${ZIM_HOME}/zimfw.zsh init -q
-fi
-source ${ZIM_HOME}/init.zsh
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/meme/.oh-my-zsh"
 
-export LS_COLORS="$(vivid generate molokai)"
+export ZSH_CUSTOM=$HOME/bin/ZSH_custom/
+ZSH_THEME="meme"
 
+plugins=(osx vi-mode)
 
-# Bind up and down keys
-zmodload -F zsh/terminfo +p:terminfo
-if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
-  bindkey ${terminfo[kcuu1]} history-substring-search-up
-  bindkey ${terminfo[kcud1]} history-substring-search-down
-fi
+source $ZSH/oh-my-zsh.sh
 
+export PATH=/Users/meme/bin/:$PATH
+export PATH=$HOME/bin/PDFs/:$PATH
+export PATH='/Users/meme//Library/TinyTeX/bin/universal-darwin/':$PATH
+export PATH='/opt/homebrew/bin':'/Users/meme/Library/Python/3.9/bin':$PATH
 
-# Setup fzf
-# ---------
-#https://github.com/junegunn/fzf
-if [[ ! "$PATH" == */home/meme/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/home/meme/.fzf/bin"
-fi
-source "/home/meme/.fzf/shell/key-bindings.zsh"
-export FZF_DEFAULT_COMMAND='fd --type file'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-#
-#Gradually removing anaconda
-# `python3.x -m pip install numpy --user `
-# to install into ~/.local/bin
-#export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
-#export PATH="/home/meme/anaconda3/bin:$PATH"
-export PATH=/home/meme/bin/:$PATH
-export PATH=/home/meme/bin/PDFs/:$PATH
-export PATH='/home/meme/.local/bin/':$PATH
-export PATH='/home/meme/.TinyTeX/bin/x86_64-linux/':$PATH
-
-export TERM=screen-256color
-export ZSH_CUSTOM=/home/meme/bin/ZSH_custom/
 export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
-#custom variable for smart paths
 
-source "/home/meme/bin/ZSH_custom/aliases.zsh"
-source "/home/meme/bin/ZSH_custom/functions.zsh"
-
-
-setopt CHASE_LINKS
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+source "$HOME/bin/ZSH_custom/aliases.zsh"
+source "$HOME/bin/ZSH_custom/functions.zsh"
 
 
-#################################
-## Completion for kill processes
-################################
-
-zstyle ':completion:*:processes' command 'NOCOLORS=1 ps -U $(whoami)|sed "/ps/d"'
-zstyle ':completion:*:processes' insert-ids menu yes select
-zstyle ':completion:*:processes-names' command 'NOCOLORS=1 ps xho command|sed "s/://g"'
-zstyle ':completion:*:processes' sort false
 
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -78,34 +30,22 @@ zstyle ':completion:*:processes' sort false
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 zstyle ':completion:*:*:vim:*' file-patterns '^*.(aux|pdf|fls|blg|synctex):source-files' '*:all-files'
 
-zstyle ':completion:*:*:op:*' file-patterns '^*.(aux|log|tex):source-files' '*:all-files'
+zstyle ':completion:*:*:open:*' file-patterns '^*.(aux|log|tex):source-files' '*:all-files'
 
 
 
 #++++++++++
 ## VI mode options 
 #++++++++++
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
+MODE_INDICATOR="%F{yellow}+%f"
 
-# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
-bindkey -v
+
 export KEYTIMEOUT=1
 
-#################################
-## Custom lib 
-################################
-
-source /home/meme/bin/ZSH_custom/plugins/k.sh
-
-#####################
-## History with match
-#####################
-
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-bindkey '^P' history-substring-search-up
-bindkey '^N' history-substring-search-down
 
 
+
+source ~/GIT/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

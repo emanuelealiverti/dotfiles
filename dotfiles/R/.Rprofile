@@ -9,30 +9,18 @@ local(
 # And where the packages are stored
 
 .First = function(){
-	.libPaths("/home/meme/R/site-library")
-	## ANYTHING PLACED HERE CAN BE EXTREMELY BAD FOR COMPILATION
 }
 
 # Complete pack names
 utils::rc.settings(ipck=TRUE)
-#library(colorout,lib.loc = "/home/meme/R/site-library")
-#cat(sprintf("R %s.%s",R.version$major,R.version$minor),"\n")
-
-# Use cairo as a default devide + specify a nice family of fonts which ideally supports
-# greek letters (e.g. Hack)
-setHook(packageEvent("grDevices", "onLoad"),
-function(...) grDevices::X11.options(type='cairo',symbolfamily="Hack",family="Hack"))
 
 #general options
 options(prompt        = "> ",
 	continue      = "... ",
 	max.print     = 1e3,
-	device="x11",
 	width         = 80,
 	menu.graphics = FALSE,
-	#Ncpus         = 4,
 	browser = "google-chrome",
-	#browser = "/home/meme/bin/reload_surf"
 	Ncpus         = 4
 	)
 
