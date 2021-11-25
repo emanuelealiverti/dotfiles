@@ -6,10 +6,10 @@ export ZSH="/Users/meme/.oh-my-zsh"
 
 export ZSH_CUSTOM=$HOME/bin/ZSH_custom/
 ZSH_THEME="meme"
-
-plugins=(osx vi-mode)
-
+plugins=(macos vi-mode zsh-history-substring-search)
 source $ZSH/oh-my-zsh.sh
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
 
 export PATH=/Users/meme/bin/:$PATH
 export PATH=$HOME/bin/PDFs/:$PATH
@@ -20,6 +20,8 @@ export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
 
 source "$HOME/bin/ZSH_custom/aliases.zsh"
 source "$HOME/bin/ZSH_custom/functions.zsh"
+
+export OPENBLAS_NUM_THREADS=4
 
 
 
@@ -41,11 +43,7 @@ VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_SET_CURSOR=true
 MODE_INDICATOR="%F{yellow}+%f"
 
-
 export KEYTIMEOUT=1
-
-
-
-
 source ~/GIT/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

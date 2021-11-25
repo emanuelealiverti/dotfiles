@@ -6,13 +6,15 @@ local(
 	      options(repos=r)
       }
 )
-# And where the packages are stored
-
+# And where the packages are stored (this setup is for a Mac M1 which is arm based. Therefore R uses different paths for folders etc, and it is better to leave it as it is)
+#https://mac.r-project.org/#M1
 .First = function(){
 }
 
 # Complete pack names
 utils::rc.settings(ipck=TRUE)
+suppressMessages(prettycode::prettycode())
+prettycode::prettycode()
 
 #general options
 options(prompt        = "> ",
@@ -20,34 +22,38 @@ options(prompt        = "> ",
 	max.print     = 1e3,
 	width         = 80,
 	menu.graphics = FALSE,
-	browser = "google-chrome",
+	#browser = "google-chrome",
 	Ncpus         = 4
 	)
 
 #+++++++++++++++++++++
 # for future reference
 #+++++++++++++++++++++
-# COMPILE FLAGS FOR R
-# --with-cairo implicitly checks for libcairo2 or similar.
-# --with-libraries uses sytem default (update-alternatives)
+# Linking BLAS or other libraries is quite straightforward
+# Install clang and fortran as in https://mac.r-project.org/#M1
 
-# ./configure --with-lapack --with-blas --with-cairo
+# xcode-select --install
 
-#  Config options should be
-#  Interfaces supported:        X11, tcltk
-#  External libraries:          pcre2, readline, BLAS(OpenBLAS), LAPACK(in blas), curl
-#  Additional capabilities:     PNG, JPEG, TIFF, NLS, cairo, ICU
-#  Options enabled:             R profiling
-#
-#  Capabilities skipped:
+# brew install openblas
 
-# tcltk / tiff missing can be fixed installing tk-dev tf-dev libtiff-dev etc
+# than is is just a matter of linking (make a bakup first)
 
+# Bakup of R internal (CRUCIAL)
+# cp /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib /Library/Frameworks/R.framework/Resources/lib/libRblasOLD_dylib
+#ln -sf ${HOME}/opt/OpenBLAS/lib/libopenblas.dylib /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib
+# the path might also be /opt/homebrew/opt/openblas/lib/libblas.dylib 
+# or /opt/homebrew/Cellar/openblas/0.3.17/lib/libopenblasp-r0.3.17.dylib (depending on your version)
 
-# R-studio            
-# ./configure --with-lapack --with-blas --with-cairo --enable-R-shlib                                            
-# specifcy R version at rstudio startup
-#export RSTUDIO_WHICH_R=/home/meme/GIT/R/R-shlib/bin/R
+# works faster with 4 threads.
+# export OPENBLAS_NUM_THREADS=4
 
 
+#OR, even better (15% faster)
+#https://mac.r-project.org/libs-4/libRblas-vecLib-signed.tar.gz
+
+
+
+# open mp: https://mac.r-project.org/openmp/
+# broke with 4.1.2. Works smoothly w 4.1.0
+# older versions: https://cran.r-project.org/bin/macosx/big-sur-arm64/base/
 

@@ -1,0 +1,3 @@
+#!/bin/bash
+clean_tex(){ latexmk -pdf $1; latexmk -c }
+clean_tex

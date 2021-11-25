@@ -114,7 +114,7 @@ nnoremap <Up>    :echoe "Use k"<CR>
 "nnoremap <Down>  :echoe "Use j"<CR>
 nnoremap j gj
 nnoremap k gk
-inoremap jk <esc>
+"inoremap jk <esc>
 
 "++++++++
 " BUFFERS
@@ -195,14 +195,14 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 " VIMTEX 
 """""""""""""""""""""""""""""""""""""
 
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'skim'
 " $PATH must contain the path for nvr! e.g. /anconda3/bin
 let g:vimtex_compiler_progname = 'nvr'
 "let g:vimtex_quickfix_latexlog = {'default' : 0}
 let g:vimtex_quickfix_autoclose_after_keystrokes=3
 let g:vimtex_quickfix_open_on_warning=0
 " try to always set filetype latex
-let g:tex_flavor = 'latex'
+"let g:tex_flavor = 'latex'
 "let g:tex_fast = "bMpr"
 " default entries for toc
 let g:vimtex_toc_config = {'layer_status': { 'content': 1, 'label': 0, 'todo': 1,'include': 0 },'show_help' : 0}
@@ -216,8 +216,6 @@ augroup vimtex_event_1
     au!
 	" Cleans when everything closes
     au User VimtexEventQuit     call vimtex#compiler#clean(0)
-	" guarantees that the windw is moved to the current workspace
-    au User VimtexEventView     call system('xdotool set_desktop_for_window  ' . b:vimtex.viewer.xwin_id . ' $(xdotool get_desktop)')
 augroup END
 
 
@@ -229,25 +227,6 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
 let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
-"
-"
-"let g:SuperTabLongestEnhanced = 1
-"let g:SuperTabCrMapping = 0
-"autocmd FileType !tex if &omnifunc != '' | call SuperTabChain(&omnifunc, "<c-p>") | endif
-
-
-"""""""""""""""""""""""""""""""""""""
-" NVIM R 
-"""""""""""""""""""""""""""""""""""""
-" Trying with radiant
-"let R_app = "/home/meme/bin/rr"
-"let R_cmd = "R"
-"let R_hl_term = 0
-"let R_args = []  " if you had set any
-"let R_bracketed_paste = 1
-
-
-"
 "
 "let R_complete = 2
 "let R_show_args = 0
@@ -276,7 +255,7 @@ let cmdline_map_send_block     = '<LocalLeader>b'
 let cmdline_map_quit           = '<LocalLeader>q'
 let cmdline_app           = {}
 let cmdline_app['prolog']     = 'telegram-cli -NW -l 0'
-let cmdline_app['python'] = 'python3.8'
+let cmdline_app['python'] = 'python3.9'
 let cmdline_app['sh'] = 'zsh'
 let cmdline_app['julia'] = 'julia'
 au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
