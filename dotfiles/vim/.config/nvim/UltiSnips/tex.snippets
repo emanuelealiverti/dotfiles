@@ -1,0 +1,44 @@
+snippet ff "The LaTeX \frac{}{} command"
+\frac{$1}{$2}$0
+endsnippet
+
+snippet frame "Framefont"
+	\\begin{framefont}{\footnotesize}{${1}}
+	${0}
+	\\end{framefont}
+endsnippet
+
+
+snippet fig "Font con figura"
+	\\begin{framefont}{\footnotesize}{${1}}
+	\\centering
+	\\includegraphics[width=\textwidth]{./${0}}
+	\\includegraphics[width=\textwidth]{./${0}}
+	\\end{framefont}
+endsnippet
+
+snippet col2 "two-column environment"
+	\\begin{columns}
+		\\begin{column}{0.5\\textwidth}
+			${1}
+		\\end{column}
+		\\begin{column}{0.5\\textwidth}
+			${0}
+		\\end{column}
+	\\end{columns}
+endsnippet
+
+snippet eq "equazione con equs"
+\\begin{equs}[e:block]
+	\\label{eq:${1}}
+	${2} &= ${0} \\\
+\\end{equs}
+endsnippet
+
+
+
+snippet it "item con pause"
+\\pause
+\\item ${0}
+endsnippet
+

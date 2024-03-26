@@ -1,6 +1,5 @@
 # Which mirror I do want to use
-local(
-      {
+local( {
 	      r <- getOption("repos")
 	      r["CRAN"] <- "https://cloud.r-project.org/"
 	      options(repos=r)
@@ -9,12 +8,13 @@ local(
 # And where the packages are stored (this setup is for a Mac M1 which is arm based. Therefore R uses different paths for folders etc, and it is better to leave it as it is)
 #https://mac.r-project.org/#M1
 .First = function(){
+	.libPaths("/Library/Frameworks/R.framework/Packages")
 }
 
 # Complete pack names
 utils::rc.settings(ipck=TRUE)
-suppressMessages(prettycode::prettycode())
-prettycode::prettycode()
+#suppressMessages(prettycode::prettycode())
+#prettycode::prettycode()
 
 #general options
 options(prompt        = "> ",
@@ -24,6 +24,7 @@ options(prompt        = "> ",
 	menu.graphics = FALSE,
 	#browser = "google-chrome",
 	Ncpus         = 4
+#	device='x11' # quartz si e' messo a darmi problemi di recente
 	)
 
 #+++++++++++++++++++++
@@ -41,10 +42,14 @@ options(prompt        = "> ",
 # Bakup of R internal (CRUCIAL)
 # cp /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib /Library/Frameworks/R.framework/Resources/lib/libRblasOLD_dylib
 #ln -sf ${HOME}/opt/OpenBLAS/lib/libopenblas.dylib /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib
+#  Link also with libRlapack
+
 # the path might also be /opt/homebrew/opt/openblas/lib/libblas.dylib 
 # or /opt/homebrew/Cellar/openblas/0.3.17/lib/libopenblasp-r0.3.17.dylib (depending on your version)
 
-# works faster with 4 threads.
+
+
+# works faster with 4 threads. (empirically)
 # export OPENBLAS_NUM_THREADS=4
 
 

@@ -9,8 +9,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
-Plug 'jalvesaq/Nvim-R'
+"Plug 'jalvesaq/Nvim-R'
+Plug 'R-nvim/R.nvim'
 Plug 'lervag/vimtex'
+Plug 'junegunn/vim-easy-align'
+Plug 'sillybun/vim-repl'
 "Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
@@ -24,6 +27,13 @@ Plug 'tpope/vim-repeat'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'gregsexton/MatchTag'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'SirVer/ultisnips'
+
+
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " All of your Plugins must be added before the following line
@@ -35,14 +45,13 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""
 " colors
 set termguicolors
-"set t_Co=256
+set t_Co=256
 
-colorscheme gruvbox
-set background=dark
 let g:gruvbox_contrast_dark="soft"
-"let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_light='soft'
+set background=dark
+colorscheme gruvbox
 "set background=light
-"let g:gruvbox_contrast_light='light'
 let g:gruvbox_italic=1
 
 set t_ZH=3m
@@ -114,7 +123,10 @@ nnoremap <Up>    :echoe "Use k"<CR>
 "nnoremap <Down>  :echoe "Use j"<CR>
 nnoremap j gj
 nnoremap k gk
-"inoremap jk <esc>
+
+nnoremap Y "+y
+nnoremap yY ^"+y$
+inoremap jk <esc>
 
 "++++++++
 " BUFFERS
@@ -122,7 +134,7 @@ nnoremap k gk
 "nnoremap <silent> ` :ToggleBufExplorer<CR> 
 nnoremap <silent> _ :ToggleBufExplorer<CR> 
 " diable within terminals (R)
-autocmd WinEnter * if &buftype == 'terminal' | call TermB() | endif
+"autocmd WinEnter * if &buftype == 'terminal' | call TermB() | endif
 "autocmd CmdWinEnter * nnoremap <buffer> <silent> _ <CR> 
 
 "Move between windows with ctrl arrow
@@ -176,14 +188,18 @@ nmap sl yss
 """""""""""""""""""""""""""""""""""""
 " NERD tree and FFF 
 """""""""""""""""""""""""""""""""""""
-noremap <silent> <C-n> :call ToggleNetrw()<CR>
+noremap <silent> <C-b> :call ToggleNetrw()<CR>
 "noremap <silent> <C-m> :FZF  <CR>
 let g:netrw_banner = 0
 let g:netrw_winsize = 15
 let g:netrw_browse_split = 1
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+nnoremap <Leader>g :silent lgrep<Space>
+nnoremap <silent> [f :lprevious<CR>
+nnoremap <silent> ]f :lnext<CR>
+
+"command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 """"""""""""""""""
 " Markdown preview
@@ -192,12 +208,27 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 "let g:mkdp_browser = 'surf'
 
 """""""""""""""""""""""""""""""""""""
-" VIMTEX 
+" Snips
 """""""""""""""""""""""""""""""""""""
 
+let g:UltiSnipsExpandTrigger       = '<tab>'    " use Tab to expand snippets
+let g:UltiSnipsJumpForwardTrigger  = '<Tab>'    " use Tab to move forward through tabstops
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'  " use Shift-Tab to move backward through tabstops
+" https://ejmastnak.com/tutorials/vim-latex/ultisnips/#installation
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']  " using Neovim
+"""""""""""""""""""""""""""""""""""""
+" VIMTEX 
+"""""""""""""""""""""""""""""""""""""
+"syntax enable
+
 let g:vimtex_view_method = 'skim'
+" Altro pdf reader, molto bello ma sgrana su schermi grandi
+"let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
+"let g:vimtex_view_method = 'sioyek'
+
+let g:vimtex_callback_progpath ='/usr/local/bin/nvim'
 " $PATH must contain the path for nvr! e.g. /anconda3/bin
-let g:vimtex_compiler_progname = 'nvr'
+"let g:vimtex_compiler_progname = 'nvr'
 "let g:vimtex_quickfix_latexlog = {'default' : 0}
 let g:vimtex_quickfix_autoclose_after_keystrokes=3
 let g:vimtex_quickfix_open_on_warning=0
@@ -206,17 +237,22 @@ let g:vimtex_quickfix_open_on_warning=0
 "let g:tex_fast = "bMpr"
 " default entries for toc
 let g:vimtex_toc_config = {'layer_status': { 'content': 1, 'label': 0, 'todo': 1,'include': 0 },'show_help' : 0}
-let g:vimtex_complete_ignore_case=1 
-"let g:vimtex_complete_bib = { 'simple': 0 }
+"let g:vimtex_complete_ignore_case=1 
+"
 " Enable spell checking when opening .tex files
 autocmd Filetype tex call TexStartup() 
+    autocmd FileType tex inoremap a' à
+    autocmd FileType tex inoremap e' è
+    autocmd FileType tex inoremap i' ì
+    autocmd FileType tex inoremap o' ò
+    autocmd FileType tex inoremap u' ù
 "let g:vimtex_matchparen_enabled=0
-"let g:vimtex_indent_enabled = 0
-augroup vimtex_event_1
-    au!
-	" Cleans when everything closes
-    au User VimtexEventQuit     call vimtex#compiler#clean(0)
-augroup END
+""let g:vimtex_indent_enabled = 0
+"augroup vimtex_event_1
+    "au!
+	 "Cleans when everything closes
+    "au User VimtexEventQuit     call vimtex#compiler#clean(0)
+"augroup END
 
 
 
@@ -224,9 +260,9 @@ augroup END
 " OMNICOMPLETE
 """""""""""""""""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
-let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
+"let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
+"let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+"let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
 "
 "let R_complete = 2
 "let R_show_args = 0
@@ -363,6 +399,7 @@ function! ToggleNetrw()
 		silent Lexplore
 	endif
 endfunction
+"
 "++++++++++++++
 " Google search
 "++++++++++++++
