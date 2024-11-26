@@ -1,4 +1,1 @@
-# Required for openMP support (https://mac.r-project.org/openmp/).
-# uncommnet if you think your package needs it
-CPPFLAGS += -Xclang -fopenmp
-LDFLAGS += -lomp
+CXX17FLAGS += -O3 -mtune=native -arch arm64 -ftemplate-depth-256

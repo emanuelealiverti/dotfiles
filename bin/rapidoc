@@ -1,15 +1,14 @@
 #!/bin/bash
-# If no arguments are provided, created the file in /tmp
+# If no arguments are provided, create the file on the desktop
 DATE=`date +%Y%m%d`
 if [[ -z $1 ]]; then
-	fol='/tmp/'$DATE
-	rm -rf $fol
+	fol=$HOME/Desktop/$DATE
 	mkdir $fol
 	cd $fol
 fi
 
 cp $HOME/MEGA/Research/TEMPLATES/Texdoc/* . 
-sed -i '1i%WARNING: THIS FILE IS IN '$(pwd) doc.tex
+# sed -i '1i%WARNING: THIS FILE IS IN '$(pwd) doc.tex
 nvim doc.tex
 
 #Knirt verion

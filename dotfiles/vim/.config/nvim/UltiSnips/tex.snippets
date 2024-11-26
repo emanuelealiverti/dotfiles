@@ -3,42 +3,53 @@ snippet ff "The LaTeX \frac{}{} command"
 endsnippet
 
 snippet frame "Framefont"
-	\\begin{framefont}{\footnotesize}{${1}}
-	${0}
-	\\end{framefont}
+\\begin{framefont}{\footnotesize}{${1}}
+${0}
+\\end{framefont}
 endsnippet
 
 
-snippet fig "Font con figura"
-	\\begin{framefont}{\footnotesize}{${1}}
-	\\centering
-	\\includegraphics[width=\textwidth]{./${0}}
-	\\includegraphics[width=\textwidth]{./${0}}
-	\\end{framefont}
+snippet fig "figura"
+\\begin{figure}
+\\centering
+\\includegraphics[width=\textwidth]{./${0}}
+\\end{figure}
+endsnippet
+
+snippet frfig "Font con figura"
+\\begin{framefont}{\footnotesize}{${1}}
+\\centering
+\\includegraphics[width=\textwidth]{./${0}}
+\\end{framefont}
 endsnippet
 
 snippet col2 "two-column environment"
-	\\begin{columns}
-		\\begin{column}{0.5\\textwidth}
-			${1}
-		\\end{column}
-		\\begin{column}{0.5\\textwidth}
-			${0}
-		\\end{column}
-	\\end{columns}
+\\begin{columns}
+\\begin{column}{0.5\\textwidth}
+${1}
+\\end{column}
+\\begin{column}{0.5\\textwidth}
+${0}
+\\end{column}
+\\end{columns}
 endsnippet
 
 snippet eq "equazione con equs"
 \\begin{equs}[e:block]
-	\\label{eq:${1}}
-	${2} &= ${0} \\\
+\\label{eq:${1}}
+${2} &= ${0}
 \\end{equs}
 endsnippet
-
-
 
 snippet it "item con pause"
 \\pause
 \\item ${0}
+endsnippet
+
+snippet bit "item con pause"
+\\begin{itemize}
+\\item ${0}
+\\pause
+\\end{itemize}
 endsnippet
 

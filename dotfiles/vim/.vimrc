@@ -8,32 +8,33 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle, required
+
 Plug 'itchyny/lightline.vim'
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'R-nvim/R.nvim' " funziona male su mac da diverse versioni
+Plug 'jalvesaq/Nvim-R', {'tag': 'v0.9.19' }  
 "Plug 'jalvesaq/Nvim-R'
-Plug 'R-nvim/R.nvim'
+Plug 'jalvesaq/vimcmdline' " per python, julia etc
 Plug 'lervag/vimtex'
 Plug 'junegunn/vim-easy-align'
-Plug 'sillybun/vim-repl'
-"Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+"Plug 'sillybun/vim-repl'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'morhetz/gruvbox'
 Plug 'chrisbra/csv.vim'
-Plug 'ssp3nc3r/stan-syntax-vim'
-Plug 'jalvesaq/vimcmdline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jlanzarotta/bufexplorer'
 Plug 'gregsexton/MatchTag'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
 Plug 'SirVer/ultisnips'
 
-
+Plug 'ssp3nc3r/stan-syntax-vim'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
+"Plug 'quarto-dev/quarto-vim'
 "Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " All of your Plugins must be added before the following line
@@ -221,12 +222,11 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']  " using Neo
 """""""""""""""""""""""""""""""""""""
 "syntax enable
 
-let g:vimtex_view_method = 'skim'
+"let g:vimtex_view_method = 'skim'
 " Altro pdf reader, molto bello ma sgrana su schermi grandi
-"let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
-"let g:vimtex_view_method = 'sioyek'
-
-let g:vimtex_callback_progpath ='/usr/local/bin/nvim'
+let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
+let g:vimtex_view_method = 'sioyek'
+let g:vimtex_callback_progpath ='/opt/homebrew/bin/nvim'
 " $PATH must contain the path for nvr! e.g. /anconda3/bin
 "let g:vimtex_compiler_progname = 'nvr'
 "let g:vimtex_quickfix_latexlog = {'default' : 0}
@@ -260,14 +260,21 @@ autocmd Filetype tex call TexStartup()
 " OMNICOMPLETE
 """""""""""""""""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
-"let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
-"let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
+let g:SuperTabCompletionContexts = ['s:ContextText','s:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
 "
+"
+"
+
+
+"""""""""""""""""""""""""""""""""""""
+" NVIM R
+"""""""""""""""""""""""""""""""""""""
 "let R_complete = 2
 "let R_show_args = 0
 "let completeopt=['']
-let R_hl_term = 1
+"let R_hl_term = 1
 let R_show_arg_help = 0
 let R_open_example = 0
 "let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
@@ -278,7 +285,7 @@ let R_assign=0
 autocmd FileType r,rnw,rd,rmd inoremap >> %>%
 "autocmd FileType rmd call RmdStart()
 
-""++++++++++++++++++++++++++++++++++++++++++++++++++
+"++++++++++++++++++++++++++++++++++++++++++++++++++
 " CMD line - similar to NVIM but for julia (less) 
 ""++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -359,23 +366,23 @@ function Surround(...)
 	"Use NERDcomment to find out filetype char
 	let arg1 = get(a:, 0, 0)
 	normal! 0i
-	call NERDComment("n","toggle")
+	call nerdcommenter#Comment("n","toggle")
 	normal! ^vy
 	normal! a 
-	let linel=strwidth(getline('.'))-1 
+	let linel=strwidth(getline('.'))
 	normal! o
 	normal! Dp
 	if arg1
 		execute "normal!$" . linel . "p" 
 	else
-		execute "normal!$" . linel . "a" . "+"
+		execute "normal!$" . linel . "a" . "#"
 	endif
 	normal! YkP
 	normal! =3j
 	" Add this to close the box "
-	"normal! ^yl$pja 
-	"normal! p
-	"normal! j$p
+	normal! ^yl$pja 
+	normal! p
+	normal! j$p
 	"
 endfunction
 
@@ -399,7 +406,6 @@ function! ToggleNetrw()
 		silent Lexplore
 	endif
 endfunction
-"
 "++++++++++++++
 " Google search
 "++++++++++++++
@@ -407,3 +413,10 @@ function! GoogleSearch()
 	let searchterm = getreg("g")
 	silent! exec "silent! !firefox \"http://google.com/search?q=" . searchterm . "\" &"
 endfunction
+
+" YAML
+augroup yaml_fix
+    autocmd!
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
+augroup END
+

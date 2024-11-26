@@ -7,16 +7,16 @@ zstyle ':vcs_info:*' formats '%F{2}%s%F{7}:%F{2}(%F{1}%b%F{2})%f '
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 zstyle ':vcs_info:*' enable git
 
-add-zsh-hook precmd prompt_vcs
- prompt_vcs () {
-    vcs_info
-
-    if [ "${vcs_info_msg_0_}" = "" ]; then
-        dir_status="%F{2}→%f"
-    else
-        dir_status="%F{2}▶%f"
-    fi
-}
+#add-zsh-hook precmd prompt_vcs
+# prompt_vcs () {
+#    vcs_info
+#
+#    if [ "${vcs_info_msg_0_}" = "" ]; then
+#        dir_status="%F{2}→%f"
+#    else
+#        dir_status="%F{2}▶%f"
+#    fi
+#}
 
 function {
     if [[ -n "$SSH_CLIENT" ]]; then
@@ -26,8 +26,8 @@ function {
     fi
 }
 
-local ret_status="%(?:%{$fg_bold[green]%}Ξ:%{$fg_bold[red]%}%S↑%s%?)"
-
-PROMPT='${ret_status}%{$fg[blue]%}${PROMPT_HOST}%{$fg_bold[green]%}%p %{$fg_bold[yellow]%}[%2~] ${dir_status}%{$reset_color%} '
+local ret_status="%(?.%{$fg_bold[green]%}Φ.%{$fg_bold[red]%}☠)"
+#PROMPT='${ret_status}%{$fg[blue]%}${PROMPT_HOST}%{$fg_bold[green]%}%p %{$fg_bold[yellow]%}[%2~] ${dir_status}%{$reset_color%} '
+PROMPT='${ret_status}%{$fg[blue]%}${PROMPT_HOST}%{$fg_bold[green]%}%p %{$fg_bold[yellow]%}[%2~] ▶%{$reset_color%} '
 
 #  vim: set ft=zsh ts=4 sw=4 et:
