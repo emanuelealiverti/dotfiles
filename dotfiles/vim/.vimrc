@@ -1,23 +1,17 @@
-"  ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
-"  ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
-"  ██║   ██║██║██╔████╔██║██████╔╝██║     
-"  ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║     
-"██╗╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
-"╚═╝ ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
-
+"       _                    
+"      (_)                   
+"__   ___ _ __ ___  _ __ ___ 
+"\ \ / / | '_ ` _ \| '__/ __|
+" \ V /| | | | | | | | | (__ 
+"  \_/ |_|_| |_| |_|_|  \___|
+"                            
 call plug#begin('~/.local/share/nvim/plugged')
-
 " let Vundle manage Vundle, required
-
 Plug 'itchyny/lightline.vim'
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"Plug 'R-nvim/R.nvim' " funziona male su mac da diverse versioni
-Plug 'jalvesaq/Nvim-R', {'tag': 'v0.9.19' }  
-"Plug 'jalvesaq/Nvim-R'
-Plug 'jalvesaq/vimcmdline' " per python, julia etc
+Plug 'jalvesaq/Nvim-R'
+"Plug 'jalvesaq/vimcmdline' " per python, julia etc. A volte rompe Nvim-R
 Plug 'lervag/vimtex'
 Plug 'junegunn/vim-easy-align'
-"Plug 'sillybun/vim-repl'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
@@ -40,7 +34,9 @@ Plug 'ssp3nc3r/stan-syntax-vim'
 " All of your Plugins must be added before the following line
 call plug#end()
 
-" ========================
+"lua require("cmp")
+
+
 """""""""""""""""""""""""""""""""""""
 " STYLE 
 """"""""""""""""""""""""""""""""""""
@@ -73,7 +69,8 @@ set shortmess=a
 "set cmdheight=2
 "when buffer changes, ask to save
 set hidden 
-"
+let g:python3_host_prog = 'python3'
+
 "++++++++++
 " C0MMANDS
 "++++++++++
@@ -275,8 +272,8 @@ let g:SuperTabContextTextOmniPrecedence = ['&completefunc', '&omnifunc']
 "let R_show_args = 0
 "let completeopt=['']
 "let R_hl_term = 1
-let R_show_arg_help = 0
-let R_open_example = 0
+"let R_show_arg_help = 0
+"let R_open_example = 0
 "let R_args = ['--no-save', '--quiet','--no-environ','--no-site-file']
 nmap <space> <Plug>RDSendLine
 vmap <space> <Plug>RDSendSelection
@@ -320,8 +317,8 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""
 " Call custom functions 
 """""""""""""""""""""""""""""""""""""
-map <Leader>+ :call Surround()<CR>
-map <Leader>= :call Surround(1)<CR>
+" map <Leader>+ :call Surround()<CR>
+" map <Leader>= :call Surround(1)<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -358,6 +355,10 @@ function TexStartup()
 	"silent! call ToggleWrap()
 	silent! call SetSpellOptions()
 endfunction
+
+" Surround selected lines with a commented box
+nmap <leader>= !!boxes -d ansi-rounded<CR>3:call nerdcommenter#Comment('n', 'toggle')<CR>
+vmap <leader>= !boxes -d ansi-rounded<CR>gvjj:call nerdcommenter#Comment('n', 'toggle')<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 " Surround lines with custom characters 

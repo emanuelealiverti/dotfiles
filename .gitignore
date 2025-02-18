@@ -4,3 +4,7 @@ bin/bot_meme.rda
 *.o
 dotfiles/R/.R/gargle/*
 .DS_Store
+# siojek db
+*.db
+# zsh plugins repo
+*zsh-history-substring-search

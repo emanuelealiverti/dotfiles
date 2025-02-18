@@ -26,7 +26,10 @@ options(prompt        = "> ",
 	Ncpus         = 4
 #	device='x11' # quartz si e' messo a darmi problemi di recente
 	)
-
+# Disable completion from the language server
+options(languageserver.server_capabilities =
+        list(completionProvider = FALSE,
+             completionItemResolve = FALSE))
 #+++++++++++++++++++++
 # for future reference
 #+++++++++++++++++++++
