@@ -21,6 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'gregsexton/MatchTag'
+Plug 'vifm/vifm.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -124,7 +125,7 @@ nnoremap k gk
 
 nnoremap Y "+y
 nnoremap yY ^"+y$
-inoremap jk <esc>
+"inoremap jk <esc>
 
 "++++++++
 " BUFFERS
@@ -218,11 +219,10 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']  " using Neo
 " VIMTEX 
 """""""""""""""""""""""""""""""""""""
 "syntax enable
-
-"let g:vimtex_view_method = 'skim'
+let g:vimtex_view_method = 'skim'
 " Altro pdf reader, molto bello ma sgrana su schermi grandi
-let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
-let g:vimtex_view_method = 'sioyek'
+"let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
+"let g:vimtex_view_method = 'sioyek'
 let g:vimtex_callback_progpath ='/opt/homebrew/bin/nvim'
 " $PATH must contain the path for nvr! e.g. /anconda3/bin
 "let g:vimtex_compiler_progname = 'nvr'
@@ -318,7 +318,7 @@ let g:lightline = {
 " Call custom functions 
 """""""""""""""""""""""""""""""""""""
 " map <Leader>+ :call Surround()<CR>
-" map <Leader>= :call Surround(1)<CR>
+map <Leader>= :call Surround()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -357,8 +357,8 @@ function TexStartup()
 endfunction
 
 " Surround selected lines with a commented box
-nmap <leader>= !!boxes -d ansi-rounded<CR>3:call nerdcommenter#Comment('n', 'toggle')<CR>
-vmap <leader>= !boxes -d ansi-rounded<CR>gvjj:call nerdcommenter#Comment('n', 'toggle')<CR>
+"nmap <leader>= !!boxes -d ansi-rounded<CR>3:call nerdcommenter#Comment('n', 'toggle')<CR>
+"vmap <leader>= !boxes -d ansi-rounded<CR>gvjj:call nerdcommenter#Comment('n', 'toggle')<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 " Surround lines with custom characters 
