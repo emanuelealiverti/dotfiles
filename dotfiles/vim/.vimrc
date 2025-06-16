@@ -304,16 +304,17 @@ au FileType prolog execute 'setlocal complete+=k/home/meme/.vim/dic/tg'
 "++++++++++++++++
 " LIGHTLINE SETUP
 "++++++++++++++++
-let g:lightline = {
-			\ 'colorscheme': 'gruvbox',
-			\ 'active': {
-			\   'right': [ [ 'lineinfo', 'filetype' ] ]
-			\ },
-			\ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-			\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
-			\ 'enable': { 'tabline': 0 },
-			\ }
-
+let g:lightline = {'colorscheme': 'gruvbox', 'active': {'right': [ [ 'lineinfo', 'filetype' ] ]}}
+"let g:lightline = {
+"			\ 'colorscheme': 'gruvbox',
+"			\ 'active': {
+"			\   'right': [ [ 'lineinfo', 'filetype' ] ]
+"			\ },
+"			\ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+"			\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+"			\ 'enable': { 'tabline': 0 },
+"			\ }
+"
 """""""""""""""""""""""""""""""""""""
 " Call custom functions 
 """""""""""""""""""""""""""""""""""""

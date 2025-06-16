@@ -36,6 +36,8 @@ export PATH='$HOME//Library/TinyTeX/bin/universal-darwin/':$PATH
 export PATH='/opt/homebrew/bin':'$HOME/Library/Python/3.9/bin':$PATH
 #export PATH='/Applications/Julia-1.8.app/Contents/Resources/julia/bin/':$PATH
 export PATH=$PATH:$HOME/.spicetify
+# quarto path
+export PATH=$PATH:/Applications/RStudio.app/Contents/Resources/app/quarto/bin/
 export EDITOR='/opt/homebrew/bin/nvim'
 alias python=/opt/homebrew/bin/python3.9
 
