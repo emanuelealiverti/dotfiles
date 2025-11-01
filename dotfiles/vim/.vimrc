@@ -9,6 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " let Vundle manage Vundle, required
 Plug 'itchyny/lightline.vim'
 Plug 'jalvesaq/Nvim-R'
+"Plug 'R-nvim/R.nvim' "versione nuova che crea problemi
 "Plug 'jalvesaq/vimcmdline' " per python, julia etc. A volte rompe Nvim-R
 Plug 'lervag/vimtex'
 Plug 'junegunn/vim-easy-align'
@@ -221,8 +222,8 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']  " using Neo
 "syntax enable
 let g:vimtex_view_method = 'skim'
 " Altro pdf reader, molto bello ma sgrana su schermi grandi
-"let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
 "let g:vimtex_view_method = 'sioyek'
+"let g:vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek' 
 let g:vimtex_callback_progpath ='/opt/homebrew/bin/nvim'
 " $PATH must contain the path for nvr! e.g. /anconda3/bin
 "let g:vimtex_compiler_progname = 'nvr'

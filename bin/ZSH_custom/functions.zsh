@@ -7,7 +7,7 @@
 #+++++++++++
 # NAVIGATION
 #++++++++++
-cdl() {cd "$@" && ls -lhA}
+cdl() {cd "$(dirname "$1")"}
 
 cdd() {
 	cd "$(dirs -lp | fzf)"
@@ -16,7 +16,6 @@ cdd() {
 take() { mkdir -p $1; cd $1;}
 
 thirdline() { awk '{if (NR%3==0){print "\033[31m" $0 "\033[0m"} else{print}}'; }
-
 
 #++++++++++++++++++
 # Clean tex compile

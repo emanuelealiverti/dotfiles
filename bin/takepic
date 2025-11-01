@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Find the device number for "Video Control"
+device=$(ffmpeg -f avfoundation -list_devices true -i '' 2>&1 \
+  | grep -m1 "Video Control" \
+  | sed -E 's/.*\[(.*)\].*/\1/')
+
+# Timestamp for filename
+timestamp=$(date +"%Y%m%d-%H%M%S")
+filename="/tmp/pic-$timestamp.jpeg"
+
+# Run ffmpeg using the found device index
+ffmpeg -f avfoundation -r 30 -i "$device" -frames:v 1 "$filename"

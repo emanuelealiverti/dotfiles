@@ -8,7 +8,7 @@ local( {
 # And where the packages are stored (this setup is for a Mac M1 which is arm based. Therefore R uses different paths for folders etc, and it is better to leave it as it is)
 #https://mac.r-project.org/#M1
 .First = function(){
-	.libPaths("/Library/Frameworks/R.framework/Packages")
+	.libPaths("/usr/local/r_packages/")
 }
 
 # Complete pack names

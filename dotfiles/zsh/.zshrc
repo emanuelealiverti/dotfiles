@@ -40,7 +40,7 @@ export PATH=$PATH:$HOME/.spicetify
 export PATH=$PATH:/Applications/RStudio.app/Contents/Resources/app/quarto/bin/
 export EDITOR='/opt/homebrew/bin/nvim'
 alias python=/opt/homebrew/bin/python3.9
-
+export EP=/Users/meme/MEGA/Research/PAPERS/EP-OP
 
 ###################
 # Compile options #
@@ -82,3 +82,5 @@ export FZF_DEFAULT_OPTS="--ansi --style=full"
 
 # activate rbenv automatically (ruby)
 eval "$(rbenv init - zsh)"
+
+export PATH=$PATH:/Users/meme/.spicetify

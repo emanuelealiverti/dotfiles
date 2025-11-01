@@ -1,7 +1,1 @@
-/Users/meme/Desktop/writing/pavone.pdf
-/Users/meme/Library/CloudStorage/GoogleDrive-emanuele.aliverti@unipd.it/My Drive/DIDATTICA/UNIPD/MetodiDatiFunzionali/FDA2025/00-INTRO/0_Intro.pdf
-/Users/meme/MEGA/Research/PAPERS/00idee/EP-OP/REF/auguEP.pdf
-/Users/meme/MEGA/Research/PAPERS/00idee/EP-OP/REF/kim16.pdf
-/Users/meme/MEGA/Books/Christopher_M._Bishop_Pattern_Recognition_and_Machine_Learning.pdf
-/Users/meme/Downloads/doc.pdf
-/private/tmp/SECS05/003_Proceedings/Aliverti_Campostrini_SIS21.pdf
+/Users/meme/MEGA/Research/PAPERS/EP-OP/PAPER/EPCP.pdf

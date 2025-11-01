@@ -15,6 +15,8 @@ If you don't have any symlinks there `find -type l -delete` helps
 
 ```
 cd ~/.TinyTeX/texmf-dist/tex/latex/beamer
+#or /Users/meme/Library/TinyTeX/texmf-dist/tex/latex/beamer
+
 ln -s /fancytheme/ .
 texhash
 ```

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Check if source and destination are provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <source> <destination>"
+    exit 1
+fi
+
+SOURCE=$1
+DESTINATION=$2
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+BACKUP_DIR="/tmp/rsync_backup_${TIMESTAMP}"
+
+# Perform dry run
+echo "Performing dry run to show what would be changed..."
+rsync -avun --delete "$SOURCE" "$DESTINATION"
+
+# Ask for confirmation
+read -p "Do you want to proceed with the sync? [y/N] " -n 1 -r
+echo    # move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Sync cancelled."
+    exit 0
+fi
+
+# Create backup directory
+echo "Creating backup in $BACKUP_DIR..."
+mkdir -p "$BACKUP_DIR"
+
+# Perform actual sync with backup
+echo "Starting sync..."
+rsync -avb --backup-dir="$BACKUP_DIR" --delete "$SOURCE" "$DESTINATION"
+
+echo "Sync completed. Backup created in $BACKUP_DIR"
